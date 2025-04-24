@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "425011746697",
+    "project_id": "adibasa-d5f75",
+    "storage_bucket": "adibasa-d5f75.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425011746697:android:ed8d4eef465918466db358",
+        "android_client_info": {
+          "package_name": "com.example.adibasa_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBv_rzyeVRZEPHpVo-hHQDwu9xbeNZXVh8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425011746697:android:3fd7093a11cdfa1e6db358",
+        "android_client_info": {
+          "package_name": "com.nayzzilar.adibasa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBv_rzyeVRZEPHpVo-hHQDwu9xbeNZXVh8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
