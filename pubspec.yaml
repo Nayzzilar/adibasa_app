@@ -18,6 +18,7 @@ dependencies:
   firebase_auth: ^5.5.2
   cloud_firestore: ^5.6.6
   google_fonts: ^6.2.1
+  provider: ^6.1.4
   get: ^4.3.8
 
 dev_dependencies:
@@ -33,4 +34,5 @@ flutter:
     - assets/images/
     - data/kamus_jawa_indonesia.json
     - assets/
- 
+    - assets/dummy/greetings_lessons.json
+    - assets/image/

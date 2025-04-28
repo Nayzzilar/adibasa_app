@@ -1,0 +1,658 @@
+[
+  {
+    "id": "lesson1",
+    "title": "Level 1 - Greetings",
+    "unitId": "unit1",
+    "order": 1,
+    "challenges": [
+      {
+        "id": "challenge1",
+        "lessonId": "lesson1",
+        "type": "NEW_WORD",
+        "question": "What does \"Sugeng enjing\" mean?",
+        "options": [
+          {
+            "text": "Good morning",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge2",
+        "lessonId": "lesson1",
+        "type": "NEW_WORD",
+        "question": "What does \"Sugeng siang\" mean?",
+        "options": [
+          {
+            "text": "Good afternoon",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge3",
+        "lessonId": "lesson1",
+        "type": "NEW_WORD",
+        "question": "What does \"Sugeng sonten\" mean?",
+        "options": [
+          {
+            "text": "Good evening",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge4",
+        "lessonId": "lesson1",
+        "type": "NEW_WORD",
+        "question": "What does \"Sugeng dalu\" mean?",
+        "options": [
+          {
+            "text": "Good night",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge5",
+        "lessonId": "lesson1",
+        "type": "NEW_WORD",
+        "question": "What does \"Halo\" mean?",
+        "options": [
+          {
+            "text": "Hello",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lesson2",
+    "title": "Level 2 - Greetings",
+    "unitId": "unit1",
+    "order": 2,
+    "challenges": [
+      {
+        "id": "challenge6",
+        "lessonId": "lesson2",
+        "type": "NEW_WORD",
+        "question": "What does \"Piye kabarmu?\" mean?",
+        "options": [
+          {
+            "text": "How are you?",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge7",
+        "lessonId": "lesson2",
+        "type": "SENTENCE_HIGHLIGHT",
+        "question": "What does the highlighted word mean?",
+        "sentence": "Halo, Kulo becik!",
+        "highlightWord": "Kulo becik",
+        "options": [
+          {
+            "text": "I'm fine",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge8",
+        "lessonId": "lesson2",
+        "type": "NEW_WORD",
+        "question": "What does \"Matur nuwun\" mean?",
+        "options": [
+          {
+            "text": "Thank you",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge9",
+        "lessonId": "lesson2",
+        "type": "SENTENCE_HIGHLIGHT",
+        "question": "What does the highlighted word mean?",
+        "sentence": "Halo, Sampun!",
+        "highlightWord": "Sampun",
+        "options": [
+          {
+            "text": "You're welcome",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge10",
+        "lessonId": "lesson2",
+        "type": "NEW_WORD",
+        "question": "What does \"Sugeng rawuh\" mean?",
+        "options": [
+          {
+            "text": "Welcome",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lesson3",
+    "title": "Level 3 - Greetings",
+    "unitId": "unit1",
+    "order": 3,
+    "challenges": [
+      {
+        "id": "challenge11",
+        "lessonId": "lesson3",
+        "type": "NEW_WORD",
+        "question": "What does \"Mugi rahayu\" mean?",
+        "options": [
+          {
+            "text": "May you be well",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge12",
+        "lessonId": "lesson3",
+        "type": "SENTENCE_HIGHLIGHT",
+        "question": "What does the highlighted word mean?",
+        "sentence": "Halo, Kanca!",
+        "highlightWord": "Kanca",
+        "options": [
+          {
+            "text": "Friend",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge13",
+        "lessonId": "lesson3",
+        "type": "NEW_WORD",
+        "question": "What does \"Sampun tindak\" mean?",
+        "options": [
+          {
+            "text": "Have a safe journey",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge14",
+        "lessonId": "lesson3",
+        "type": "SENTENCE_HIGHLIGHT",
+        "question": "What does the highlighted word mean?",
+        "sentence": "Halo, Sampun rawuh!",
+        "highlightWord": "Sampun rawuh",
+        "options": [
+          {
+            "text": "Glad you're here",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge15",
+        "lessonId": "lesson3",
+        "type": "NEW_WORD",
+        "question": "What does \"Monggo\" mean?",
+        "options": [
+          {
+            "text": "Please (go ahead)",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lesson4",
+    "title": "Level 4 - Greetings",
+    "unitId": "unit1",
+    "order": 4,
+    "challenges": [
+      {
+        "id": "challenge16",
+        "lessonId": "lesson4",
+        "type": "NEW_WORD",
+        "question": "What does \"Sugeng enjing\" mean?",
+        "options": [
+          {
+            "text": "Good morning",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge17",
+        "lessonId": "lesson4",
+        "type": "SENTENCE_HIGHLIGHT",
+        "question": "What does the highlighted word mean?",
+        "sentence": "Halo, Sugeng siang!",
+        "highlightWord": "Sugeng siang",
+        "options": [
+          {
+            "text": "Good afternoon",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge18",
+        "lessonId": "lesson4",
+        "type": "NEW_WORD",
+        "question": "What does \"Sugeng sonten\" mean?",
+        "options": [
+          {
+            "text": "Good evening",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge19",
+        "lessonId": "lesson4",
+        "type": "SENTENCE_HIGHLIGHT",
+        "question": "What does the highlighted word mean?",
+        "sentence": "Halo, Sugeng dalu!",
+        "highlightWord": "Sugeng dalu",
+        "options": [
+          {
+            "text": "Good night",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge20",
+        "lessonId": "lesson4",
+        "type": "NEW_WORD",
+        "question": "What does \"Halo\" mean?",
+        "options": [
+          {
+            "text": "Hello",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lesson5",
+    "title": "Level 5 - Greetings",
+    "unitId": "unit1",
+    "order": 5,
+    "challenges": [
+      {
+        "id": "challenge21",
+        "lessonId": "lesson5",
+        "type": "NEW_WORD",
+        "question": "What does \"Piye kabarmu?\" mean?",
+        "options": [
+          {
+            "text": "How are you?",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge22",
+        "lessonId": "lesson5",
+        "type": "SENTENCE_HIGHLIGHT",
+        "question": "What does the highlighted word mean?",
+        "sentence": "Halo, Kulo becik!",
+        "highlightWord": "Kulo becik",
+        "options": [
+          {
+            "text": "I'm fine",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge23",
+        "lessonId": "lesson5",
+        "type": "NEW_WORD",
+        "question": "What does \"Matur nuwun\" mean?",
+        "options": [
+          {
+            "text": "Thank you",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge24",
+        "lessonId": "lesson5",
+        "type": "SENTENCE_HIGHLIGHT",
+        "question": "What does the highlighted word mean?",
+        "sentence": "Halo, Sampun!",
+        "highlightWord": "Sampun",
+        "options": [
+          {
+            "text": "You're welcome",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "id": "challenge25",
+        "lessonId": "lesson5",
+        "type": "NEW_WORD",
+        "question": "What does \"Sugeng rawuh\" mean?",
+        "options": [
+          {
+            "text": "Welcome",
+            "correct": true
+          },
+          {
+            "text": "Goodbye",
+            "correct": false
+          },
+          {
+            "text": "Food",
+            "correct": false
+          },
+          {
+            "text": "Rain",
+            "correct": false
+          }
+        ]
+      }
+    ]
+  }
+]
