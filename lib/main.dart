@@ -1,17 +1,27 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'theme/util.dart';
 import 'theme/theme.dart';
-import 'package:adibasa_app/gamification/multiple_choice_page.dart';
+import 'package:adibasa_app/screens/multiple_choice_page.dart';
 import 'debug_home_page.dart';
-import 'gamification/level_complete_page.dart';
+import 'screens/level_complete_page.dart';
 import 'package:provider/provider.dart';
-import 'gamification/star_provider.dart';
-import 'gamification/streak_provider.dart';
+import 'providers/star_provider.dart';
+import 'providers/streak_provider.dart';
+import 'package:adibasa_app/services/question_service.dart';
+import 'screens/level_selection_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseApp app = await Firebase.initializeApp();
+
+  //proses menghidupkan cache dari firestore offline
+  FirebaseFirestore.instance.settings = const Settings(
+    persistenceEnabled: true,
+    cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED, // Opsional: unlimited cache
+  );
+
   print("Firebase initialized: ${app.name}");
   runApp(const MyApp());
 }
@@ -32,7 +42,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: theme.light(),
-        home: const DebugHomePage(),
+        home: const LevelSelectionPage(),
         routes: {
           '/gamification': (context) => MultipleChoicePage(),
           '/level-complete': (context) => LevelCompletePage(),
