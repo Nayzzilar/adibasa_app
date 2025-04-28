@@ -1,16 +1,16 @@
-class Kata {
+class Word {
   final String word;
   final String definition;
   final List<String> labels;
 
-  Kata({
+  Word({
     required this.word,
     required this.definition,
     required this.labels,
   });
 
-  factory Kata.fromJson(Map<String, dynamic> json) {
-    return Kata(
+  factory Word.fromJson(Map<String, dynamic> json) {
+    return Word(
       word: json['word'] ?? '',
       definition: json['definition'] ?? '',
       labels: List<String>.from(json['labels'] ?? []),
