@@ -1,4 +1,6 @@
+import 'package:adibasa_app/screens/level_selection.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'theme/util.dart';
@@ -12,6 +14,14 @@ void main() async {
   
   Get.put(BottomNavbarController()); // inject controller GetX
 
+
+  //proses menghidupkan cache dari firestore offline
+  FirebaseFirestore.instance.settings = const Settings(
+    persistenceEnabled: true,
+    cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED, // Opsional: unlimited cache
+  );
+
+  print("Firebase initialized: ${app.name}");
   runApp(const MyApp());
 }
 
