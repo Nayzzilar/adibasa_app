@@ -5,3 +5,4 @@ abstract class RouteName {
   static const kamus = '/kamus';
   // static const koleksi = '/album';
 }
+
