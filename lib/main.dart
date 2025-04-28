@@ -2,6 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'theme/util.dart';
 import 'theme/theme.dart';
+import 'package:adibasa_app/gamification/multiple_choice_page.dart';
+import 'debug_home_page.dart';
+import 'gamification/level_complete_page.dart';
+import 'package:provider/provider.dart';
+import 'gamification/star_provider.dart';
+import 'gamification/streak_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,10 +24,20 @@ class MyApp extends StatelessWidget {
     TextTheme textTheme = createTextTheme(context, "Nunito", "PT Serif");
 
     MaterialTheme theme = MaterialTheme(textTheme);
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: theme.light(),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => StreakProvider()),
+        ChangeNotifierProvider(create: (_) => StarProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: theme.light(),
+        home: const DebugHomePage(),
+        routes: {
+          '/gamification': (context) => MultipleChoicePage(),
+          '/level-complete': (context) => LevelCompletePage(),
+        },
+      ),
     );
   }
 }
