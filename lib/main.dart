@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: theme.light(),
-        home: const LevelSelectionPage(),
+        home: MultipleChoicePage(),
         routes: {
           '/gamification': (context) => MultipleChoicePage(),
           '/level-complete': (context) => LevelCompletePage(),

@@ -26,9 +26,9 @@ class NewWordPopup extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               decoration: BoxDecoration(
-                color: const Color(0xFFFFF8E1), // oranye muda
+                color: const Color(0xFFFFF8E1), // kuning muda
                 borderRadius: BorderRadius.circular(18),
-                border: Border.all(color: Colors.orange, width: 2),
+                border: Border.all(color: Color(0xFFFFA726), width: 2), // oranye
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,8 +36,8 @@ class NewWordPopup extends StatelessWidget {
                 children: [
                   Text(
                     word,
-                    style: textTheme.titleMedium?.copyWith(
-                      color: Colors.orange,
+                    style: TextStyle(
+                      color: Color(0xFFFFA726),
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
                     ),
@@ -45,7 +45,10 @@ class NewWordPopup extends StatelessWidget {
                   const SizedBox(height: 6),
                   Text(
                     meaning,
-                    style: textTheme.bodyLarge?.copyWith(fontSize: 16),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFF61450F),
+                    ),
                   ),
                 ],
               ),

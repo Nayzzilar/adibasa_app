@@ -9,6 +9,7 @@ import '../widgets/gamification/new_word_popup.dart';
 import '../providers/star_provider.dart';
 import '../providers/streak_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class MultipleChoicePage extends StatefulWidget {
   const MultipleChoicePage({Key? key}) : super(key: key);
@@ -30,6 +31,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
   String _newWordMeaning = '';
   DateTime? _levelStartTime;
   OverlayEntry? _popupEntry;
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   @override
   void initState() {
@@ -50,19 +52,30 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
     if (_isAnswered) return;
     setState(() {
       _selectedIndex = index;
-      _isAnswered = true;
-      _correctIndex = _questions[_currentIndex]['options'].indexWhere((o) => o['correct'] == true);
-      _isCorrect = _selectedIndex == _correctIndex;
-      _showResult = true;
     });
-    if (_isCorrect) {
-      Provider.of<StreakProvider>(context, listen: false).incrementStreak();
-    } else {
-      Provider.of<StreakProvider>(context, listen: false).resetStreak();
-    }
   }
 
   void _onContinue() {
+    if (!_isAnswered) {
+      setState(() {
+        _isAnswered = true;
+        _correctIndex = _questions[_currentIndex]['options'].indexWhere((o) => o['correct'] == true);
+        _isCorrect = _selectedIndex == _correctIndex;
+        _showResult = true;
+      });
+      // Update streak immediately
+      if (_isCorrect) {
+        Provider.of<StreakProvider>(context, listen: false).incrementStreak();
+      } else {
+        Provider.of<StreakProvider>(context, listen: false).resetStreak();
+      }
+      // Play audio only when showing result
+      Future.microtask(() {
+        final player = AudioPlayer();
+        player.play(AssetSource(_isCorrect ? 'audio/success.mp3' : 'audio/failure.mp3'));
+      });
+      return;
+    }
     _hideNewWordBubble();
     if (_currentIndex < _questions.length - 1) {
       setState(() {
@@ -93,6 +106,17 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
     });
     _hideNewWordBubble();
     _showNewWordBubble(context, key);
+  }
+
+  void _handleNewWordTap(GlobalKey key) {
+    final currentQuestion = _questions[_currentIndex];
+    final match = RegExp(r'"([^"]+)"').firstMatch(currentQuestion['question']);
+    if (match != null) {
+      final word = match.group(1) ?? '';
+      final correctOption = currentQuestion['options'].firstWhere((o) => o['correct'] == true);
+      final meaning = correctOption['text'];
+      _onNewWordTap(key, word, meaning);
+    }
   }
 
   void _showNewWordBubble(BuildContext context, GlobalKey key) {
@@ -143,105 +167,124 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
       newWordMeaning = correctOption['text'];
     }
     return Scaffold(
+      backgroundColor: const Color(0xFFF6E7C1),
       appBar: null,
-      body: _questions.isEmpty
-          ? const Center(child: CircularProgressIndicator())
-          : Column(
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Column(
               children: [
-                Consumer<StreakProvider>(
-                  builder: (context, streakProvider, _) {
-                    return ProgressBar(
-                      currentQuestion: _currentIndex + 1,
-                      totalQuestions: _questions.length,
-                      streak: streakProvider.streak,
-                      onClose: _showExitDialogOverlay,
-                    );
-                  },
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                // ProgressBar only if questions loaded
+                if (_questions.isNotEmpty)
+                  Row(
                     children: [
-                      if (isNewWord)
-                        Padding(
-                          padding: const EdgeInsets.only(left: 16, top: 8, bottom: 4),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset(
-                                'assets/image/KataBaru.png',
-                                width: 18,
-                                height: 18,
-                              ),
-                              const SizedBox(width: 6),
-                              Text(
-                                'Kata Baru',
-                                style: TextStyle(
-                                  color: Colors.orange,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       Expanded(
-                        child: QuestionCard(
-                          question: currentQuestion['question'],
-                          options: List<String>.from(currentQuestion['options'].map((o) => o['text'])),
-                          selectedIndex: _selectedIndex,
-                          onOptionSelected: (index) {
-                            setState(() {
-                              _selectedIndex = index;
-                            });
-                          },
-                          isAnswered: _isAnswered,
-                          correctIndex: _correctIndex,
-                          isNewWord: isNewWord,
-                          onNewWordTap: isNewWord && newWord != null && newWordMeaning != null
-                              ? (key) => _onNewWordTap(key, newWord!, newWordMeaning!)
-                              : null,
-                          onNewWordBubbleClose: _hideNewWordBubble,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Consumer<StreakProvider>(
+                            builder: (context, streakProvider, _) {
+                              return ProgressBar(
+                                currentQuestion: _currentIndex + 1,
+                                totalQuestions: _questions.length,
+                                streak: streakProvider.streak,
+                                onClose: _showExitDialogOverlay,
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: (_showResult)
-                        ? const SizedBox.shrink()
-                        : (_isAnswered
-                            ? ElevatedButton(
-                                onPressed: _onContinue,
-                                style: ElevatedButton.styleFrom(),
-                                child: const Text('Lanjutkan'),
-                              )
-                            : ElevatedButton(
-                                onPressed: _selectedIndex != null
-                                    ? () {
-                                        _onOptionSelected(_selectedIndex!);
-                                      }
-                                    : null,
-                                style: ElevatedButton.styleFrom(),
-                                child: const Text('Periksa'),
-                              )),
+                if (_questions.isEmpty)
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: CircularProgressIndicator(),
                   ),
-                ),
+                // Always show 'Kata Baru' left-aligned if current question is NEW_WORD
+                if (_questions.isNotEmpty && _questions[_currentIndex]['type'] == 'NEW_WORD')
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset(
+                            'assets/image/KataBaru.png',
+                            width: 18,
+                            height: 18,
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            'Kata Baru',
+                            style: TextStyle(
+                              color: Color(0xFFFFA726),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              fontFamily: 'Nunito',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                if (_questions.isNotEmpty)
+                  Expanded(
+                    child: QuestionCard(
+                      key: ValueKey(_currentIndex),
+                      question: _questions[_currentIndex]['question'],
+                      options: List<String>.from(_questions[_currentIndex]['options'].map((o) => o['text'])),
+                      selectedIndex: _selectedIndex,
+                      onOptionSelected: _onOptionSelected,
+                      isAnswered: _isAnswered,
+                      correctIndex: _correctIndex,
+                      isNewWord: _questions[_currentIndex]['type'] == 'NEW_WORD',
+                      onNewWordTap: _questions[_currentIndex]['type'] == 'NEW_WORD' ? _handleNewWordTap : null,
+                      onNewWordBubbleClose: _hideNewWordBubble,
+                    ),
+                  ),
               ],
             ),
-      floatingActionButton: null,
-      bottomSheet:
-          (_showResult
-              ? ResultDialog(
+            // Main button at the bottom (only if !_showResult)
+            if (_questions.isNotEmpty && !_showResult)
+              Positioned(
+                left: 20,
+                right: 20,
+                bottom: 12,
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    onPressed: (_selectedIndex != null && !_isAnswered) ? _onContinue : null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _isAnswered ? const Color(0xFF4B6B2D) : (_selectedIndex != null ? const Color(0xFFB6B96C) : const Color(0xFFD6D6C2)),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                      textStyle: const TextStyle(fontFamily: 'Nunito', fontWeight: FontWeight.bold, fontSize: 16),
+                      padding: EdgeInsets.zero,
+                    ),
+                    child: Text(_isAnswered ? 'Lanjutkan' : 'Periksa'),
+                  ),
+                ),
+              ),
+            // ResultDialog at the very bottom (only if _showResult)
+            if (_showResult)
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: ResultDialog(
                   isCorrect: _isCorrect,
-                  correctAnswer: _questions[_currentIndex]['options'][_correctIndex ?? 0]['text'],
+                  correctAnswer: _questions[_currentIndex]['options']
+                      .firstWhere((o) => o['correct'] == true)['text'],
                   onContinue: _onContinue,
-                )
-              : null),
+                ),
+              ),
+          ],
+        ),
+      ),
+      floatingActionButton: null,
+      bottomSheet: null,
     );
   }
 } 

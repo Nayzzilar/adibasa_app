@@ -19,14 +19,10 @@ class ResultDialog extends StatelessWidget {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.zero,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 22),
       decoration: BoxDecoration(
         color: isCorrect ? const Color(0xFFE6F4EA) : const Color(0xFFFFE6E6),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: isCorrect ? const Color(0xFF2E7D32) : const Color(0xFFD32F2F),
-          width: 1.5,
-        ),
+        borderRadius: BorderRadius.circular(18),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -36,41 +32,101 @@ class ResultDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(
-                isCorrect ? 'assets/image/AndaBenar.png' : 'assets/image/AndaSalah.png',
-                width: 28,
-                height: 28,
+              Icon(
+                isCorrect ? Icons.check_circle_rounded : Icons.cancel_rounded,
+                color: isCorrect ? const Color(0xFF2E7D32) : const Color(0xFFD32F2F),
+                size: 32,
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 12),
               Text(
                 isCorrect ? 'Anda Benar' : 'Anda Salah',
-                style: textTheme.titleMedium?.copyWith(
+                style: TextStyle(
+                  fontFamily: 'Nunito',
                   fontWeight: FontWeight.bold,
                   color: isCorrect ? const Color(0xFF2E7D32) : const Color(0xFFD32F2F),
+                  fontSize: 22,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          Text('Jawaban yang benar:', style: textTheme.bodyMedium),
+          const SizedBox(height: 14),
+          Text('Jawaban yang benar:', style: TextStyle(fontFamily: 'Nunito', fontSize: 16)),
           Text(
             correctAnswer,
-            style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+            style: TextStyle(fontFamily: 'Nunito', fontWeight: FontWeight.bold, fontSize: 17),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 22),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               onPressed: onContinue,
               style: ElevatedButton.styleFrom(
-                backgroundColor: isCorrect ? const Color(0xFF2E7D32) : const Color(0xFFD32F2F),
+                backgroundColor: isCorrect ? const Color(0xFF4B6B2D) : const Color(0xFFA13A2C),
                 foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                textStyle: const TextStyle(fontFamily: 'Nunito', fontSize: 16, fontWeight: FontWeight.bold),
               ),
               child: const Text('Lanjutkan'),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class AnimatedResultDialog extends StatefulWidget {
+  final bool isCorrect;
+  final String correctAnswer;
+  final VoidCallback onContinue;
+  const AnimatedResultDialog({
+    Key? key,
+    required this.isCorrect,
+    required this.correctAnswer,
+    required this.onContinue,
+  }) : super(key: key);
+
+  @override
+  State<AnimatedResultDialog> createState() => _AnimatedResultDialogState();
+}
+
+class _AnimatedResultDialogState extends State<AnimatedResultDialog> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnim;
+  late Animation<double> _fadeAnim;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 450),
+    );
+    _scaleAnim = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
+    );
+    _fadeAnim = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaleTransition(
+      scale: _scaleAnim,
+      child: FadeTransition(
+        opacity: _fadeAnim,
+        child: ResultDialog(
+          isCorrect: widget.isCorrect,
+          correctAnswer: widget.correctAnswer,
+          onContinue: widget.onContinue,
+        ),
       ),
     );
   }
