@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:adibasa_app/onboarding/first_page.dart';
 import 'theme/util.dart';
 import 'theme/theme.dart';
 
@@ -19,9 +20,10 @@ class MyApp extends StatelessWidget {
 
     MaterialTheme theme = MaterialTheme(textTheme);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: theme.light(),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: FirstPage(),
     );
   }
 }
