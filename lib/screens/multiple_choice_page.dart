@@ -30,7 +30,8 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
   String _newWord = '';
   String _newWordMeaning = '';
   DateTime? _levelStartTime;
-  OverlayEntry? _popupEntry;
+  OverlayEntry? _overlayEntry;
+  bool _isPopupVisible = false;
   final AudioPlayer _audioPlayer = AudioPlayer();
 
   @override
@@ -95,46 +96,166 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
     }
   }
 
-  void _onNewWordTap(GlobalKey key, String word, String meaning) {
-    if (_popupEntry != null && _newWord == word) {
+  void _onNewWordTap(String word, String meaning, GlobalKey key) {
+    if (_isPopupVisible) {
       _hideNewWordBubble();
       return;
     }
-    setState(() {
-      _newWord = word;
-      _newWordMeaning = meaning;
-    });
-    _hideNewWordBubble();
-    _showNewWordBubble(context, key);
+
+    final RenderBox? renderBox = key.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox == null) return;
+
+    final Size screenSize = MediaQuery.of(context).size;
+    final double maxWidth = screenSize.width * 0.7;
+    final double maxHeight = 100; // Approximate height of popup
+    final double padding = 8.0; // Space between word and popup
+
+    final Offset wordPosition = renderBox.localToGlobal(Offset.zero);
+    final Size wordSize = renderBox.size;
+
+    // Calculate initial position (right of word)
+    double dx = wordPosition.dx + wordSize.width + padding;
+    double dy = wordPosition.dy + (wordSize.height / 2) - (maxHeight / 2);
+
+    // If popup would go off right edge, position it to the left of the word
+    if (dx + maxWidth > screenSize.width - padding) {
+      dx = wordPosition.dx - maxWidth - padding;
+    }
+
+    // If popup would go off left edge, position it at left edge with padding
+    if (dx < padding) {
+      dx = padding;
+    }
+
+    // If popup would go off top edge, position it below the word
+    if (dy < padding) {
+      dy = wordPosition.dy + wordSize.height + padding;
+    }
+
+    // If popup would go off bottom edge, position it above the word
+    if (dy + maxHeight > screenSize.height - padding) {
+      dy = wordPosition.dy - maxHeight - padding;
+    }
+
+    _showNewWordBubble(word, meaning, Offset(dx, dy));
   }
 
   void _handleNewWordTap(GlobalKey key) {
     final currentQuestion = _questions[_currentIndex];
-    final match = RegExp(r'"([^"]+)"').firstMatch(currentQuestion['question']);
+    
+    // Extract the word between quotes and remove all HTML formatting
+    String cleanWord = '';
+    final match = RegExp(r'"([^"]*)"').firstMatch(currentQuestion['question']);
     if (match != null) {
-      final word = match.group(1) ?? '';
-      final correctOption = currentQuestion['options'].firstWhere((o) => o['correct'] == true);
-      final meaning = correctOption['text'];
-      _onNewWordTap(key, word, meaning);
+      cleanWord = match.group(1) ?? '';
+      // Remove any HTML tags including underline
+      cleanWord = cleanWord
+          .replaceAll(RegExp(r'<u>|</u>'), '')  // Remove underline tags
+          .replaceAll(RegExp(r'<[^>]*>'), '')   // Remove any other HTML tags
+          .trim();
+    }
+
+    final correctOption = currentQuestion['options'].firstWhere((o) => o['correct'] == true);
+    final meaning = correctOption['text'];
+    
+    // Find position relative to the word in question
+    final RenderBox? renderBox = key.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox != null) {
+      final Size screenSize = MediaQuery.of(context).size;
+      final Offset wordPosition = renderBox.localToGlobal(Offset.zero);
+      final Size wordSize = renderBox.size;
+      
+      double dx = wordPosition.dx + wordSize.width + 12.0;
+      double dy = wordPosition.dy - 8.0;
+      
+      _showNewWordBubble(cleanWord, meaning, Offset(dx, dy));
     }
   }
 
-  void _showNewWordBubble(BuildContext context, GlobalKey key) {
-    final renderBox = key.currentContext?.findRenderObject() as RenderBox?;
-    final offset = renderBox?.localToGlobal(Offset.zero) ?? Offset(100, 100);
-    _popupEntry = OverlayEntry(
-      builder: (context) => NewWordPopup(
-        word: _newWord,
-        meaning: _newWordMeaning,
-        position: Offset(offset.dx + renderBox!.size.width + 8, offset.dy - 8),
+  void _showNewWordBubble(String word, String meaning, Offset position) {
+    setState(() => _isPopupVisible = true);
+    
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Stack(
+        children: [
+          Positioned.fill(
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: _hideNewWordBubble,
+              child: Container(
+                color: Colors.transparent,
+              ),
+            ),
+          ),
+          Positioned(
+            left: position.dx,
+            top: position.dy,
+            child: TweenAnimationBuilder<double>(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOutCubic,
+              tween: Tween(begin: 0.0, end: 1.0),
+              builder: (context, value, child) => Transform.scale(
+                scale: 0.8 + (0.2 * value),
+                child: Opacity(
+                  opacity: value,
+                  child: child,
+                ),
+              ),
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.25,
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: const Color(0xFFFFA726),
+                    width: 1.5,
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      word,
+                      style: const TextStyle(
+                        fontFamily: 'Nunito',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFFFFA726),
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      meaning,
+                      style: const TextStyle(
+                        fontFamily: 'Nunito',
+                        fontSize: 14,
+                        color: Color(0xFF4A4A4A),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
-    Overlay.of(context).insert(_popupEntry!);
+
+    Overlay.of(context).insert(_overlayEntry!);
   }
 
   void _hideNewWordBubble() {
-    _popupEntry?.remove();
-    _popupEntry = null;
+    if (_overlayEntry != null) {
+      _overlayEntry?.remove();
+      _overlayEntry = null;
+    }
+    if (mounted) {
+      setState(() => _isPopupVisible = false);
+    }
   }
 
   void _showExitDialogOverlay() {
@@ -232,7 +353,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                   Expanded(
                     child: QuestionCard(
                       key: ValueKey(_currentIndex),
-                      question: _questions[_currentIndex]['question'],
+                      question: _questions[_currentIndex]['question'],  // Keep original question format
                       options: List<String>.from(_questions[_currentIndex]['options'].map((o) => o['text'])),
                       selectedIndex: _selectedIndex,
                       onOptionSelected: _onOptionSelected,
@@ -286,5 +407,12 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
       floatingActionButton: null,
       bottomSheet: null,
     );
+  }
+
+  @override
+  void dispose() {
+    _hideNewWordBubble();
+    _audioPlayer.dispose();
+    super.dispose();
   }
 } 
