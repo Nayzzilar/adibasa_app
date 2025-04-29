@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d83943a2-d82c-477e-8632-a84fc32eb490" name="Changes" comment="coba2">
+    <list default="true" id="d83943a2-d82c-477e-8632-a84fc32eb490" name="Changes" comment="membenari level_unlocked.dart menggunakan star_widget">
+      <change afterPath="$PROJECT_DIR$/lib/models/level.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dummy/levels_dummy.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/dummy/levels_dummy.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/level_selection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/level_selection.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +41,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
@@ -68,7 +73,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "feat/level__complete",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/tumanggors/StudioProjects/adibasa_app",
     "settings.editor.selected.configurable": "preferences.keymap",
@@ -84,6 +89,23 @@
       <option name="presentableId" value="Default" />
       <updated>1745554710288</updated>
     </task>
+    <task id="LOCAL-00001" summary="menambahkan asset star active dan inactive">
+      <option name="closed" value="true" />
+      <created>1745923888987</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1745923888987</updated>
+    </task>
+    <task id="LOCAL-00002" summary="membenari level_unlocked.dart menggunakan star_widget">
+      <option name="closed" value="true" />
+      <created>1745926017886</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1745926017886</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -107,6 +129,8 @@
     <MESSAGE value="Saya membuat model kata, kamus(berisi listkata), dan kamus_service lalu buat test nya juga tipis2 bruakakakak" />
     <MESSAGE value="daftar kata" />
     <MESSAGE value="coba2" />
-    <option name="LAST_COMMIT_MESSAGE" value="coba2" />
+    <MESSAGE value="menambahkan asset star active dan inactive" />
+    <MESSAGE value="membenari level_unlocked.dart menggunakan star_widget" />
+    <option name="LAST_COMMIT_MESSAGE" value="membenari level_unlocked.dart menggunakan star_widget" />
   </component>
 </project>
