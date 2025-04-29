@@ -32,13 +32,14 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
   DateTime? _levelStartTime;
   OverlayEntry? _overlayEntry;
   bool _isPopupVisible = false;
-  final AudioPlayer _audioPlayer = AudioPlayer();
+  late AudioPlayer _audioPlayer;
 
   @override
   void initState() {
     super.initState();
     _loadQuestions();
     _levelStartTime = DateTime.now();
+    _audioPlayer = AudioPlayer();
   }
 
   Future<void> _loadQuestions() async {
@@ -173,88 +174,109 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
   }
 
   void _showNewWordBubble(String word, String meaning, Offset position) {
+    if (!mounted) return;
+    
+    // Hide any existing popup first
+    _hideNewWordBubble();
+    
     setState(() => _isPopupVisible = true);
     
-    _overlayEntry = OverlayEntry(
-      builder: (context) => Stack(
-        children: [
-          Positioned.fill(
-            child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: _hideNewWordBubble,
-              child: Container(
-                color: Colors.transparent,
+    try {
+      _overlayEntry = OverlayEntry(
+        builder: (context) => Stack(
+          children: [
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: _hideNewWordBubble,
+                child: Container(
+                  color: Colors.transparent,
+                ),
               ),
             ),
-          ),
-          Positioned(
-            left: position.dx,
-            top: position.dy,
-            child: TweenAnimationBuilder<double>(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeOutCubic,
-              tween: Tween(begin: 0.0, end: 1.0),
-              builder: (context, value, child) => Transform.scale(
-                scale: 0.8 + (0.2 * value),
-                child: Opacity(
-                  opacity: value,
-                  child: child,
-                ),
-              ),
-              child: Container(
-                constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.25,
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: const Color(0xFFFFA726),
-                    width: 1.5,
+            Positioned(
+              left: position.dx,
+              top: position.dy,
+              child: TweenAnimationBuilder<double>(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeOutCubic,
+                tween: Tween(begin: 0.0, end: 1.0),
+                builder: (context, value, child) => Transform.scale(
+                  scale: 0.8 + (0.2 * value),
+                  child: Opacity(
+                    opacity: value,
+                    child: child,
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      word,
-                      style: const TextStyle(
-                        fontFamily: 'Nunito',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFFFFA726),
-                      ),
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.25,
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: const Color(0xFFFFA726),
+                      width: 1.5,
                     ),
-                    const SizedBox(height: 2),
-                    Text(
-                      meaning,
-                      style: const TextStyle(
-                        fontFamily: 'Nunito',
-                        fontSize: 14,
-                        color: Color(0xFF4A4A4A),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        word,
+                        style: const TextStyle(
+                          fontFamily: 'Nunito',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFFFFA726),
+                        ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 2),
+                      Text(
+                        meaning,
+                        style: const TextStyle(
+                          fontFamily: 'Nunito',
+                          fontSize: 14,
+                          color: Color(0xFF4A4A4A),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
 
-    Overlay.of(context).insert(_overlayEntry!);
+      if (mounted) {
+        Overlay.of(context).insert(_overlayEntry!);
+      }
+    } catch (e) {
+      print('Error showing popup: $e');
+      _isPopupVisible = false;
+    }
   }
 
   void _hideNewWordBubble() {
+    if (!mounted) return;
+    
     if (_overlayEntry != null) {
-      _overlayEntry?.remove();
+      try {
+        _overlayEntry?.remove();
+      } catch (e) {
+        print('Error removing overlay: $e');
+      }
       _overlayEntry = null;
     }
+    
     if (mounted) {
-      setState(() => _isPopupVisible = false);
+      setState(() {
+        _isPopupVisible = false;
+      });
     }
   }
 
@@ -411,8 +433,18 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
 
   @override
   void dispose() {
-    _hideNewWordBubble();
-    _audioPlayer.dispose();
+    try {
+      _hideNewWordBubble();
+    } catch (e) {
+      print('Error in dispose: $e');
+    }
+    
+    try {
+      _audioPlayer.dispose();
+    } catch (e) {
+      print('Error disposing audio player: $e');
+    }
+    
     super.dispose();
   }
 } 
