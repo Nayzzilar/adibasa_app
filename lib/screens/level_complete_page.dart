@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/star_provider.dart';
+import '../providers/duration_provider.dart';
 import '../providers/streak_provider.dart';
 import '../widgets/star_rating.dart';
+import '../navigation/route_name.dart';
+import 'package:get/get.dart';
 
 class LevelCompletePage extends StatelessWidget {
   const LevelCompletePage({Key? key}) : super(key: key);
+
+  String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$minutes:$seconds";
+  }
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    final streak = Provider.of<StreakProvider>(context, listen: false).streak;
-    final star = 3;
+    // final streak = Provider.of<StreakProvider>(context, listen: false).streak;
+    final star = Provider.of<StarProvider>(context, listen: false).star;
+
+    // Mengakses duration dari provider
+    final duration = Provider.of<DurationProvider>(context, listen: false).duration;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8ECC2), // Warna background sesuai dengan screenshot
@@ -41,11 +54,11 @@ class LevelCompletePage extends StatelessWidget {
               ),
             ),
 
-            // Informasi bintang
+            // Informasi waktu penyelesaian
             Container(
               margin: EdgeInsets.only(top: screenHeight * 0.02),
               child: Text(
-                  '01:30',
+                  'Waktu: ${formatDuration(duration)}',
                   style: TextStyle(
                       fontSize: screenWidth * 0.05,
                       fontWeight: FontWeight.w500
@@ -70,7 +83,7 @@ class LevelCompletePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Tombol Home - IconButton dalam Container
+                  // Tombol Home - navigasi ke beranda
                   Container(
                     width: screenWidth * 0.15,
                     height: screenWidth * 0.15,
@@ -88,14 +101,14 @@ class LevelCompletePage extends StatelessWidget {
                     child: IconButton(
                       icon: const Icon(Icons.home, color: Colors.black87),
                       iconSize: screenWidth * 0.06,
-                      onPressed: () => Navigator.of(context).popUntil((route) => route.isFirst),
+                      onPressed: () => Get.offAllNamed(RouteName.beranda),
                     ),
                   ),
 
                   // Jarak antar tombol
                   SizedBox(width: screenWidth * 0.04),
 
-                  // Tombol Refresh
+                  // Tombol Refresh/Replay - navigasi ke questions (ulangi level)
                   Container(
                     width: screenWidth * 0.15,
                     height: screenWidth * 0.15,
@@ -113,14 +126,14 @@ class LevelCompletePage extends StatelessWidget {
                     child: IconButton(
                       icon: const Icon(Icons.refresh, color: Colors.black87),
                       iconSize: screenWidth * 0.06,
-                      onPressed: () => Navigator.of(context).pop(),
+                      onPressed: () => Get.offNamed(RouteName.questions),
                     ),
                   ),
 
                   // Jarak antar tombol
                   SizedBox(width: screenWidth * 0.04),
 
-                  // Tombol Next
+                  // Tombol Next - navigasi ke next level
                   Container(
                     width: screenWidth * 0.15,
                     height: screenWidth * 0.15,
@@ -138,10 +151,7 @@ class LevelCompletePage extends StatelessWidget {
                     child: IconButton(
                       icon: const Icon(Icons.arrow_forward, color: Colors.black87),
                       iconSize: screenWidth * 0.06,
-                      onPressed: () {
-                        // Navigasi ke level berikutnya
-                        Navigator.of(context).pop();
-                      },
+                      onPressed: () => Get.offNamed(RouteName.nextLevel),
                     ),
                   ),
                 ],
