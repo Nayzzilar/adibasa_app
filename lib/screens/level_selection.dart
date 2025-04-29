@@ -1,8 +1,8 @@
 import 'package:adibasa_app/navigation/buttom_navbar.dart';
-import 'package:adibasa_app/widgets/level_locked.dart';
-import 'package:adibasa_app/widgets/status_bar_level_selection.dart';
+import 'package:adibasa_app/widgets/level_selection/level_locked.dart';
+import 'package:adibasa_app/widgets/level_selection/status_bar_level_selection.dart';
 import 'package:flutter/material.dart';
-import 'package:adibasa_app/widgets/level_unlocked.dart';
+import 'package:adibasa_app/widgets/level_selection/level_unlocked.dart';
 import 'package:adibasa_app/dummy/levels_dummy.dart';
 
 import '../models/level.dart';
@@ -15,7 +15,7 @@ class LevelSelection extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Level> levels = getLevels();
     return Scaffold(
-      backgroundColor: const Color(0xFFF1DFBE),
+      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
