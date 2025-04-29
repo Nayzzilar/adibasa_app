@@ -1,15 +1,16 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:adibasa_app/onboarding/first_page.dart';
 import 'package:get/get.dart';
-import 'theme/util.dart';
-import 'theme/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'navigation/bottom_navbar_controller.dart';
+import 'navigation/page_route.dart';
 import 'providers/star_provider.dart';
 import 'providers/streak_provider.dart';
-import 'navigation/page_route.dart';
-import 'navigation/bottom_navbar_controller.dart';
+import 'theme/theme.dart';
+import 'theme/util.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,12 +24,18 @@ void main() async {
     cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED, // Opsional: unlimited cache
   );
 
+  final prefs = await SharedPreferencesWithCache.create(
+    cacheOptions: SharedPreferencesWithCacheOptions(),
+  );
+  final bool onboardingComplete = prefs.getBool('onboarding_complete') ?? false;
   print("Firebase initialized: ${app.name}");
-  runApp(const MyApp());
+  print('onboardingComplete: $onboardingComplete');
+  runApp(MyApp(onboardingComplete: onboardingComplete));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool onboardingComplete;
+  const MyApp({super.key, required this.onboardingComplete});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +51,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Adibasa App',
         theme: theme.light(),
-        initialRoute: '/beranda', // langsung ke beranda
+        initialRoute:
+            onboardingComplete
+                ? 'beranda'
+                : '/onboarding', // langsung ke beranda
         getPages: PageRouteApp.pages, // pakai route yang sudah kamu buat
       ),
     );
