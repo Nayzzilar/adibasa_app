@@ -4,8 +4,7 @@ import 'package:adibasa_app/widgets/level_selection/status_bar_level_selection.d
 import 'package:flutter/material.dart';
 import 'package:adibasa_app/widgets/level_selection/level_unlocked.dart';
 import 'package:adibasa_app/dummy/levels_dummy.dart';
-
-import '../models/level.dart';
+import 'package:adibasa_app/models/level.dart';
 
 
 class LevelSelection extends StatelessWidget {

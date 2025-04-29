@@ -4,5 +4,6 @@ abstract class RouteName {
   static const beranda = '/beranda';
   static const kamus = '/kamus';
   static const onboarding = '/onboarding';
-  // static const koleksi = '/album';
+  static const levelcomplete = '/level-complete';
+  static const debugMCQ = '/debug-mcq';
 }
