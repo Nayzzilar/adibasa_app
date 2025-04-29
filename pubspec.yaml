@@ -20,6 +20,7 @@ dependencies:
   google_fonts: ^6.2.1
   provider: ^6.1.4
   get: ^4.3.8
+  flutter_svg: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -36,3 +37,4 @@ flutter:
     - assets/
     - assets/dummy/greetings_lessons.json
     - assets/image/
+    - assets/star/
