@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Adibasa App',
         theme: theme.light(),
-        initialRoute: "/level-complete",
+        initialRoute: "/kamus",
         // onboardingComplete
         //     ? 'beranda'
         //     : '/onboarding', // langsung ke beranda

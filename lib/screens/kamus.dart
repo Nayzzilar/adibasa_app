@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:adibasa_app/navigation/buttom_navbar.dart';
+import 'package:adibasa_app/services/dictionary_service.dart';
+import 'package:adibasa_app/models/word.dart';
 
 void main() {
   runApp(const Kamus());
@@ -22,8 +24,77 @@ class Kamus extends StatelessWidget {
   }
 }
 
-class KamusPage extends StatelessWidget {
+class KamusPage extends StatefulWidget {
   const KamusPage({super.key});
+
+  @override
+  State<KamusPage> createState() => _KamusPageState();
+}
+
+class _KamusPageState extends State<KamusPage> {
+  final DictionaryService _dictionaryService = DictionaryService();
+  final TextEditingController _searchController = TextEditingController();
+  List<Word> _wordList = [];
+  List<Word> _filteredWords = [];
+  bool _isLoading = true;
+  String _sortOrder = 'asc'; // 'asc' atau 'desc'
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDictionary();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _loadDictionary() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final dictionary = await _dictionaryService.loadDictionaryFromAssets();
+      setState(() {
+        _wordList = dictionary.listWords;
+        _filteredWords = _wordList;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      print('Error loading dictionary: $e');
+    }
+  }
+
+  void _searchWords(String query) async {
+    if (query.isEmpty) {
+      setState(() {
+        _filteredWords = _wordList;
+      });
+    } else {
+      final searchResults = await _dictionaryService.searchWord(query);
+      setState(() {
+        _filteredWords = searchResults;
+      });
+    }
+  }
+
+  void _toggleSortOrder() {
+    setState(() {
+      if (_sortOrder == 'asc') {
+        _sortOrder = 'desc';
+        _filteredWords.sort((a, b) => b.word.compareTo(a.word));
+      } else {
+        _sortOrder = 'asc';
+        _filteredWords.sort((a, b) => a.word.compareTo(b.word));
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +133,7 @@ class KamusPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextField(
+                        controller: _searchController,
                         decoration: InputDecoration(
                           hintText: 'Cari kata',
                           contentPadding: const EdgeInsets.symmetric(horizontal: 15),
@@ -71,17 +143,32 @@ class KamusPage extends StatelessWidget {
                           ),
                           suffixIcon: const Icon(Icons.search),
                         ),
+                        onChanged: _searchWords,
                       ),
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: const Text(
-                      'Sort',
-                      style: TextStyle(
-                        color: Color(0xFF6B4C23),
-                        fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: _toggleSortOrder,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Sort',
+                            style: TextStyle(
+                              color: Color(0xFF6B4C23),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Icon(
+                            _sortOrder == 'asc'
+                                ? Icons.arrow_upward
+                                : Icons.arrow_downward,
+                            color: Color(0xFF6B4C23),
+                            size: 16,
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -89,10 +176,27 @@ class KamusPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView.builder(
+              child: _isLoading
+                  ? const Center(
+                child: CircularProgressIndicator(
+                  color: Color(0xFF6B4C23),
+                ),
+              )
+                  : _filteredWords.isEmpty
+                  ? const Center(
+                child: Text(
+                  'Tidak ada kata yang ditemukan',
+                  style: TextStyle(
+                    color: Color(0xFF6B4C23),
+                    fontSize: 16,
+                  ),
+                ),
+              )
+                  : ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: 7,
+                itemCount: _filteredWords.length,
                 itemBuilder: (context, index) {
+                  final word = _filteredWords[index];
                   return Container(
                     margin: const EdgeInsets.only(bottom: 12),
                     decoration: BoxDecoration(
@@ -107,19 +211,19 @@ class KamusPage extends StatelessWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
-                            'Mangan',
-                            style: TextStyle(
+                            word.word,
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Color(0xFF6B4C23),
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
-                            'Makan',
-                            style: TextStyle(
+                            word.definition,
+                            style: const TextStyle(
                               fontSize: 14,
                               color: Color(0xFF6B4C23),
                             ),
