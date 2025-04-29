@@ -1,6 +1,6 @@
+import 'package:adibasa_app/models/level.dart';
 import 'package:adibasa_app/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:adibasa_app/dummy/levels_dummy.dart';
 
 class LevelLocked extends StatelessWidget {
   final Level level;
