@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:adibasa_app/dummy/levels_dummy.dart';
+import '../widgets/star_rating.dart'; // Import widget StarRating kita
 
 class LevelUnlocked extends StatelessWidget {
   final Level level;
@@ -11,54 +12,64 @@ class LevelUnlocked extends StatelessWidget {
       padding: const EdgeInsets.only(right: 16.0, left: 16.0, bottom: 10.0),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFF1DFBE), // match Card color
+          color: const Color(0xFFF1DFBE),
           border: Border.all(
-            color: const Color(
-              0xFF7F833A,
-            ), // deeper brown for more visual weight
-            width: 1, // make it thicker
+            color: const Color(0xFF7F833A),
+            width: 1,
           ),
           borderRadius: BorderRadius.circular(12.0),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
-              color: const Color(0xFF7F833A),
-              // spreadRadius: 1,
-              // blurRadius: 1,
+              color: Color(0xFF7F833A),
               offset: Offset(1, 2),
             ),
           ],
         ),
         child: Card(
           color: const Color(0xFFF1DFBE),
-          // elevation: 2,
           shadowColor: Colors.black.withOpacity(0.1),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                // leading: const Icon(Icons.book, size: 50),
-                title: Text(
-                  '${level.name}:', // <-- Level name
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF61450F),
-                    fontWeight: FontWeight.bold,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Kolom untuk judul dan deskripsi level
+                Expanded(
+                  flex: 7,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${level.name}:', // Menggunakan title alih-alih name
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Color(0xFF61450F),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        level.description,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF634311),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                subtitle: Text(
-                  level.description, // <-- Level description
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF634311),
+
+                // Widget bintang di sisi kanan
+                Expanded(
+                  flex: 3,
+                  child: StarRating(
+                    starCount: level.stars ?? 0,
+                    size: 22,
+                    spacing: 2,
                   ),
                 ),
-                trailing: Image.asset(
-                  'assets/${level.stars}_stars.png', // <-- GANTI ICON BERDASARKAN STARS
-                  height: 80,
-                  width: 80,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d83943a2-d82c-477e-8632-a84fc32eb490" name="Changes" comment="coba2">
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+    <list default="true" id="d83943a2-d82c-477e-8632-a84fc32eb490" name="Changes" comment="menambahkan asset star active dan inactive">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +83,15 @@
       <option name="presentableId" value="Default" />
       <updated>1745554710288</updated>
     </task>
+    <task id="LOCAL-00001" summary="menambahkan asset star active dan inactive">
+      <option name="closed" value="true" />
+      <created>1745923888987</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1745923888987</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -106,6 +115,7 @@
     <MESSAGE value="Saya membuat model kata, kamus(berisi listkata), dan kamus_service lalu buat test nya juga tipis2 bruakakakak" />
     <MESSAGE value="daftar kata" />
     <MESSAGE value="coba2" />
-    <option name="LAST_COMMIT_MESSAGE" value="coba2" />
+    <MESSAGE value="menambahkan asset star active dan inactive" />
+    <option name="LAST_COMMIT_MESSAGE" value="menambahkan asset star active dan inactive" />
   </component>
 </project>
