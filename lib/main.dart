@@ -1,3 +1,4 @@
+import 'package:adibasa_app/providers/duration_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => StreakProvider()),
         ChangeNotifierProvider(create: (_) => StarProvider()),
+        ChangeNotifierProvider(create: (_) => DurationProvider()),
       ],
       child: GetMaterialApp(
         // <--- WAJIB GetMaterialApp

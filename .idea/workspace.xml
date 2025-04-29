@@ -4,6 +4,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
+    <list default="true" id="d83943a2-d82c-477e-8632-a84fc32eb490" name="Changes" comment="done level_complete_page.dart">
+      <change afterPath="$PROJECT_DIR$/lib/providers/duration_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/level_complete_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/level_complete_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/multiple_choice_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/multiple_choice_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+
     <list default="true" id="d83943a2-d82c-477e-8632-a84fc32eb490" name="Changes" comment="menambahkan service_kamus ke screen kamus yang lala buat">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/kamus_jawa_indonesia.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/kamus_jawa_indonesia.json" afterDir="false" />
@@ -73,7 +81,8 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/level__complete&quot;,
+
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/tumanggors/StudioProjects/adibasa_app&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
@@ -105,7 +114,23 @@
       <option name="project" value="LOCAL" />
       <updated>1745926017886</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="edit level_complete_page.dart">
+      <option name="closed" value="true" />
+      <created>1745945722537</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1745945722537</updated>
+    </task>
+    <task id="LOCAL-00004" summary="done level_complete_page.dart">
+      <option name="closed" value="true" />
+      <created>1745947237088</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1745947237088</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -131,6 +156,8 @@
     <MESSAGE value="coba2" />
     <MESSAGE value="menambahkan asset star active dan inactive" />
     <MESSAGE value="membenari level_unlocked.dart menggunakan star_widget" />
-    <option name="LAST_COMMIT_MESSAGE" value="membenari level_unlocked.dart menggunakan star_widget" />
+    <MESSAGE value="edit level_complete_page.dart" />
+    <MESSAGE value="done level_complete_page.dart" />
+    <option name="LAST_COMMIT_MESSAGE" value="done level_complete_page.dart" />
   </component>
 </project>

@@ -16,7 +16,7 @@ dependencies:
   cloud_firestore: ^5.6.6
   google_fonts: ^6.2.1
   provider: ^6.1.4
-  get: ^4.3.8
+  get: ^4.7.2
   flutter_svg: ^2.1.0
   shared_preferences: ^2.5.3
   riverpod: ^2.6.1
