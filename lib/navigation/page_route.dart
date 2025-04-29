@@ -1,3 +1,4 @@
+import 'package:adibasa_app/onboarding/first_page.dart';
 import 'package:adibasa_app/screens/level_selection.dart';
 import 'package:get/get.dart';
 import 'package:adibasa_app/screens/kamus.dart';
@@ -11,10 +12,10 @@ class PageRouteApp {
     // ),
     GetPage(name: RouteName.kamus, page: () => Kamus()),
     GetPage(name: RouteName.beranda, page: () => LevelSelection()),
+    GetPage(name: RouteName.onboarding, page: () => FirstPage()),
     // GetPage(
     //   name: RouteName.koleksi ,
     //   page: () =>  Koleksi()
     // ),
   ];
 }
-

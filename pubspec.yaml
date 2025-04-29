@@ -2,13 +2,10 @@ name: adibasa_app
 description: "aplikasi belajar Bahasa jawa, dengan metode gamifikasi, latihan interaktif, dan pembelajaran bertahap."
 publish_to: 'none' 
 
-
-
 version: 1.0.0+1
 
 environment:
   sdk: ^3.7.2
-
 
 dependencies:
   flutter:
@@ -21,12 +18,13 @@ dependencies:
   provider: ^6.1.4
   get: ^4.3.8
   flutter_svg: ^2.1.0
+  shared_preferences: ^2.5.3
+  riverpod: ^2.6.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
- 
   flutter_lints: ^5.0.0
 
 flutter:

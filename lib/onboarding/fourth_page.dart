@@ -1,5 +1,7 @@
 import 'package:adibasa_app/onboarding/second_page.dart';
+import 'package:adibasa_app/screens/level_selection.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FourthPage extends StatelessWidget {
   @override
@@ -21,7 +23,11 @@ class FourthPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset('images/icon.png', height: 345.5, width: 258.5),
+              Image.asset(
+                'assets/images/icon.png',
+                height: 345.5,
+                width: 258.5,
+              ),
               Text(
                 'Sistem Leveling',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
@@ -66,13 +72,20 @@ class FourthPage extends StatelessWidget {
               ),
               SizedBox(height: 30),
               Column(
-                mainAxisAlignment: MainAxisAlignment.end, // Ini baru mainAxisAlignment dipakai
+                mainAxisAlignment:
+                    MainAxisAlignment.end, // Ini baru mainAxisAlignment dipakai
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      final prefs = await SharedPreferencesWithCache.create(
+                        cacheOptions: SharedPreferencesWithCacheOptions(),
+                      );
+                      await prefs.setBool('onboarding_complete', true);
+                      Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => SecondPage()),
+                        MaterialPageRoute(
+                          builder: (context) => LevelSelection(),
+                        ), // replace with your main/home page
                       );
                     },
                     style: ElevatedButton.styleFrom(

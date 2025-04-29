@@ -21,16 +21,16 @@ class FirstPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset('images/logo.png', width: 100, height: 150),
+              Image.asset('assets/images/logo.png', width: 100, height: 150),
               SizedBox(height: 5),
               Text(
                 'AdiBasa',
                 style: GoogleFonts.ptSerif(
-                textStyle: TextStyle(
-                  fontSize: 45,
-                  color: Colors.brown,
-                  fontWeight: FontWeight.bold,
-                ),
+                  textStyle: TextStyle(
+                    fontSize: 45,
+                    color: Colors.brown,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
