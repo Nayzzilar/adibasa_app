@@ -1,10 +1,9 @@
+import 'package:adibasa_app/navigation/buttom_navbar.dart';
 import 'package:adibasa_app/widgets/level_locked.dart';
 import 'package:adibasa_app/widgets/status_bar_level_selection.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:adibasa_app/widgets/level_unlocked.dart';
 import 'package:adibasa_app/dummy/levels_dummy.dart';
-import 'package:adibasa_app/widgets/level_appbar.dart';
 
 class LevelSelection extends StatelessWidget {
   const LevelSelection({super.key});
@@ -97,6 +96,7 @@ class LevelSelection extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavbar(),
     );
   }
 }
