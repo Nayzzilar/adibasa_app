@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:google_fonts/google_fonts.dart';
 
 class MaterialTheme {
   final TextTheme textTheme;
@@ -11,7 +12,7 @@ class MaterialTheme {
       primary: Color(0xff462f00),
       surfaceTint: Color(0xff785922),
       onPrimary: Color(0xffffffff),
-      primaryContainer: Color(0xff61450f),
+      primaryContainer: Color(0xff61450f), // Matsu Foreground
       onPrimaryContainer: Color(0xffdbb474),
       secondary: Color(0xff6a5d43),
       onSecondary: Color(0xffffffff),
@@ -25,10 +26,10 @@ class MaterialTheme {
       onError: Color(0xffffffff),
       errorContainer: Color(0xff852c22),
       onErrorContainer: Color(0xffffa294),
-      surface: Color(0xfff2e3c6),
+      surface: Color(0xfff2e3c6), // Matsu Card
       onSurface: Color(0xff1d1b19),
       onSurfaceVariant: Color(0xff4d463c),
-      outline: Color(0xff7e766a),
+      outline: Color(0xffC0A77E), // Matsu Border
       outlineVariant: Color(0xffd0c5b8),
       shadow: Color(0xff000000),
       scrim: Color(0xff000000),
@@ -64,9 +65,15 @@ class MaterialTheme {
     useMaterial3: true,
     brightness: colorScheme.brightness,
     colorScheme: colorScheme,
-    textTheme: textTheme.apply(
-      bodyColor: colorScheme.onSurface,
-      displayColor: colorScheme.onSurface,
+    textTheme: GoogleFonts.ptSerifTextTheme(
+      ThemeData.light().textTheme,
+    ).copyWith(
+      headlineLarge: GoogleFonts.ptSerif(
+        fontSize: 26,
+        fontWeight: FontWeight.w600,
+        color: colorScheme.primaryContainer,
+        letterSpacing: 2.0,
+      ),
     ),
     scaffoldBackgroundColor: colorScheme.secondaryContainer,
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -86,7 +93,7 @@ class MaterialTheme {
           width: 2,
         ),
       ),
-      margin: EdgeInsets.all(8), // Optional: standard spacing
+      margin: const EdgeInsets.all(8), // Optional: standard spacing
     ),
   );
 }
