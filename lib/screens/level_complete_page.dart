@@ -7,37 +7,6 @@ import '../widgets/star_rating.dart';
 class LevelCompletePage extends StatelessWidget {
   const LevelCompletePage({Key? key}) : super(key: key);
 
-  // Widget helper untuk membuat tombol
-  Widget _buildButton(BuildContext context, double width, double height, IconData icon, String label, VoidCallback onPressed) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        color: const Color(0xFFB3C27C),
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: TextButton.icon(
-        onPressed: onPressed,
-        icon: Icon(icon, color: Colors.black87),
-        label: Text(
-          label,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Colors.black87,
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -55,17 +24,17 @@ class LevelCompletePage extends StatelessWidget {
 
             // Judul di bagian atas
             Text(
-                'Level Selesai!',
+                'Level telah diselesaikan!',
                 style: TextStyle(
-                    fontSize: screenWidth * 0.07,
+                    fontSize: screenWidth * 0.05,
                     fontWeight: FontWeight.bold
                 )
             ),
 
-            // Karakter/gambar - proporsi sekitar 30% tinggi layar
             Container(
-              margin: EdgeInsets.only(top: screenHeight * 0.03),
-              height: screenHeight * 0.3,
+              margin: EdgeInsets.only(top: screenHeight * 0.1),
+              height: screenHeight * 0.4,
+              width: screenWidth * 0.9,
               child: Image.asset(
                 'assets/images/icon.png',
                 fit: BoxFit.contain,
@@ -76,7 +45,7 @@ class LevelCompletePage extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: screenHeight * 0.02),
               child: Text(
-                  'Bintang didapat: $star',
+                  '01:30',
                   style: TextStyle(
                       fontSize: screenWidth * 0.05,
                       fontWeight: FontWeight.w500
@@ -95,53 +64,85 @@ class LevelCompletePage extends StatelessWidget {
               ),
             ),
 
-            // Spacer menggunakan Expanded
-            Expanded(child: Container()),
-
             // Tiga tombol sejajar horizontal
             Container(
               margin: EdgeInsets.only(bottom: screenHeight * 0.05),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Tombol 1
-                  _buildButton(
-                    context,
-                    screenWidth * 0.25,
-                    screenHeight * 0.06,
-                    Icons.home,
-                    'Home',
-                        () => Navigator.of(context).popUntil((route) => route.isFirst),
+                  // Tombol Home - IconButton dalam Container
+                  Container(
+                    width: screenWidth * 0.15,
+                    height: screenWidth * 0.15,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFB3C27C),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.home, color: Colors.black87),
+                      iconSize: screenWidth * 0.06,
+                      onPressed: () => Navigator.of(context).popUntil((route) => route.isFirst),
+                    ),
                   ),
 
                   // Jarak antar tombol
                   SizedBox(width: screenWidth * 0.04),
 
-                  // Tombol 2
-                  _buildButton(
-                    context,
-                    screenWidth * 0.25,
-                    screenHeight * 0.06,
-                    Icons.refresh,
-                    'Ulangi',
-                        () => Navigator.of(context).pop(),
+                  // Tombol Refresh
+                  Container(
+                    width: screenWidth * 0.15,
+                    height: screenWidth * 0.15,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFB3C27C),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.refresh, color: Colors.black87),
+                      iconSize: screenWidth * 0.06,
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
                   ),
 
                   // Jarak antar tombol
                   SizedBox(width: screenWidth * 0.04),
 
-                  // Tombol 3
-                  _buildButton(
-                    context,
-                    screenWidth * 0.25,
-                    screenHeight * 0.06,
-                    Icons.arrow_forward,
-                    'Lanjut',
-                        () {
-                      // Navigasi ke level berikutnya
-                      // Implementasi sesuai kebutuhan
-                      Navigator.of(context).pop();
-                    },
+                  // Tombol Next
+                  Container(
+                    width: screenWidth * 0.15,
+                    height: screenWidth * 0.15,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFB3C27C),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_forward, color: Colors.black87),
+                      iconSize: screenWidth * 0.06,
+                      onPressed: () {
+                        // Navigasi ke level berikutnya
+                        Navigator.of(context).pop();
+                      },
+                    ),
                   ),
                 ],
               ),

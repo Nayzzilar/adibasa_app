@@ -15,8 +15,9 @@ class PageRouteApp {
     GetPage(name: RouteName.kamus, page: () => Kamus()),
     GetPage(name: RouteName.beranda, page: () => LevelSelection()),
     GetPage(name: RouteName.onboarding, page: () => FirstPage()),
-    GetPage(name: RouteName.levelcomplete, page: () => LevelCompletePage()),
-    GetPage(name: RouteName.debugMCQ, page: () => MultipleChoicePage()),
+    GetPage(name: RouteName.levelComplete, page: () => LevelCompletePage()),
+    GetPage(name: RouteName.questions, page: () => MultipleChoicePage()),
+    GetPage(name: RouteName.nextLevel, page: () => MultipleChoicePage()),
     // GetPage(
     //   name: RouteName.koleksi ,
     //   page: () =>  Koleksi()

@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d83943a2-d82c-477e-8632-a84fc32eb490" name="Changes" comment="membenari level_unlocked.dart menggunakan star_widget">
+    <list default="true" id="d83943a2-d82c-477e-8632-a84fc32eb490" name="Changes" comment="edit level_complete_page.dart">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/navigation/page_route.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/navigation/page_route.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/navigation/route_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/navigation/route_name.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/level_complete_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/level_complete_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/level_selection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/level_selection.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +105,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745926017886</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="edit level_complete_page.dart">
+      <option name="closed" value="true" />
+      <created>1745945722537</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1745945722537</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -133,6 +139,7 @@
     <MESSAGE value="coba2" />
     <MESSAGE value="menambahkan asset star active dan inactive" />
     <MESSAGE value="membenari level_unlocked.dart menggunakan star_widget" />
-    <option name="LAST_COMMIT_MESSAGE" value="membenari level_unlocked.dart menggunakan star_widget" />
+    <MESSAGE value="edit level_complete_page.dart" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit level_complete_page.dart" />
   </component>
 </project>
