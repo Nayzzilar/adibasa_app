@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
         theme: theme.light(),
         initialRoute:
             onboardingComplete
-                ? 'beranda'
+                ? '/beranda'
                 : '/onboarding', // langsung ke beranda
         getPages: PageRouteApp.pages, // pakai route yang sudah kamu buat
       ),
