@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:adibasa_app/widgets/level_unlocked.dart';
 import 'package:adibasa_app/dummy/levels_dummy.dart';
 
+import '../models/level.dart';
+
+
 class LevelSelection extends StatelessWidget {
   const LevelSelection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<Level> levels = Level.getLevels();
+    List<Level> levels = getLevels();
     return Scaffold(
       backgroundColor: const Color(0xFFF1DFBE),
       body: SafeArea(
@@ -88,7 +91,7 @@ class LevelSelection extends StatelessWidget {
 
             SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
-                return levels[index].is_locked
+                return levels[index].isLocked
                     ? LevelLocked(level: levels[index])
                     : LevelUnlocked(level: levels[index]);
               }, childCount: levels.length),

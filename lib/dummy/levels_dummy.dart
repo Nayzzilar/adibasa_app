@@ -1,19 +1,6 @@
-class Level {
-  final int level;
-  final String name;
-  final String description;
-  int? stars;
-  bool is_locked;
+import 'package:adibasa_app/models/level.dart';
 
-  Level({
-    required this.level,
-    required this.name,
-    required this.description,
-    this.stars,
-    required this.is_locked,
-  });
-
-  static List<Level> getLevels() {
+List<Level> getLevels() {
     List<Level> levels = [];
 
     levels.add(
@@ -22,7 +9,7 @@ class Level {
         name: 'Level 1',
         description: 'Introduction to Adibasa',
         stars: 0,
-        is_locked: false,
+        isLocked: false,
       ),
     );
     levels.add(
@@ -31,7 +18,7 @@ class Level {
         name: 'Level 2',
         description: 'Basic Vocabulary',
         stars: 1,
-        is_locked: false,
+        isLocked: false,
       ),
     );
     levels.add(
@@ -40,7 +27,7 @@ class Level {
         name: 'Level 3',
         description: 'Simple Sentences',
         stars: 2,
-        is_locked: false,
+        isLocked: false,
       ),
     );
     levels.add(
@@ -49,7 +36,7 @@ class Level {
         name: 'Level 4',
         description: 'Intermediate Vocabulary',
         stars: 0,
-        is_locked: false,
+        isLocked: false,
       ),
     );
     levels.add(
@@ -58,7 +45,7 @@ class Level {
         name: 'Level 5',
         description: 'Complex Sentences',
         stars: 3,
-        is_locked: true,
+        isLocked: true,
       ),
     );
     levels.add(
@@ -67,7 +54,7 @@ class Level {
         name: 'Level 6',
         description: 'Advanced Vocabulary',
         stars: 3,
-        is_locked: true,
+        isLocked: true,
       ),
     );
     levels.add(
@@ -76,7 +63,7 @@ class Level {
         name: 'Level 7',
         description: 'Conversational Skills',
         stars: 3,
-        is_locked: true,
+        isLocked: true,
       ),
     );
     levels.add(
@@ -85,7 +72,7 @@ class Level {
         name: 'Level 8',
         description: 'Fluency Practice',
         stars: 3,
-        is_locked: true,
+        isLocked: true,
       ),
     );
     levels.add(
@@ -94,7 +81,7 @@ class Level {
         name: 'Level 9',
         description: 'Cultural Contexts',
         stars: 3,
-        is_locked: true,
+        isLocked: true,
       ),
     );
     levels.add(
@@ -103,7 +90,7 @@ class Level {
         name: 'Level 10',
         description: 'Mastery of Adibasa',
         stars: 3,
-        is_locked: true,
+        isLocked: true,
       ),
     );
 
@@ -127,4 +114,4 @@ class Level {
   //     return 'Level $level: $name - $description';
   //     return levelSelection;
   //   }
-}
+

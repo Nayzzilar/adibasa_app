@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:adibasa_app/dummy/levels_dummy.dart';
+import '../models/level.dart';
 import '../widgets/star_rating.dart'; // Import widget StarRating kita
 
 class LevelUnlocked extends StatelessWidget {

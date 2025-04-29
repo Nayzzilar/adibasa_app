@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:adibasa_app/dummy/levels_dummy.dart';
+import '../models/level.dart';
 
 class LevelLocked extends StatelessWidget {
   final Level level;
@@ -50,11 +50,6 @@ class LevelLocked extends StatelessWidget {
                     color: Color(0xFF9B9B9B),
                   ),
                 ),
-                // trailing: Image.asset(
-                //   'assets/${level.stars}_stars.png', // <-- GANTI ICON BERDASARKAN STARS
-                //   height: 80,
-                //   width: 80,
-                // ),
               ),
             ],
           ),
