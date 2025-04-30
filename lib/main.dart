@@ -10,6 +10,10 @@ import 'navigation/bottom_navbar_controller.dart';
 import 'navigation/page_route.dart';
 import 'providers/star_provider.dart';
 import 'providers/streak_provider.dart';
+import 'navigation/page_route.dart';
+import 'navigation/bottom_navbar_controller.dart';
+import 'screens/level_selection.dart';
+import 'navigation/bottom_navbar.dart';
 import 'theme/theme.dart';
 import 'theme/util.dart';
 
@@ -53,6 +57,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Adibasa App',
         theme: theme.light(),
+        home: const BottomNavbar(),
         initialRoute:
             onboardingComplete
                 ? '/beranda'

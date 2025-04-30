@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:adibasa_app/navigation/bottom_navbar.dart';
 import 'package:adibasa_app/navigation/buttom_navbar.dart';
 import 'package:adibasa_app/services/dictionary_service.dart';
 import 'package:adibasa_app/models/word.dart';
@@ -238,7 +239,6 @@ class _KamusPageState extends State<KamusPage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavbar(),
     );
   }
 }

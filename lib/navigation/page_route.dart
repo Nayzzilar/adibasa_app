@@ -5,22 +5,17 @@ import 'package:adibasa_app/screens/multiple_choice_page.dart';
 import 'package:get/get.dart';
 import 'package:adibasa_app/screens/kamus.dart';
 import 'package:adibasa_app/navigation/route_name.dart';
+import 'package:adibasa_app/navigation/bottom_navbar.dart';
 
 class PageRouteApp {
   static final pages = [
-    // GetPage(
-    //   name: RouteName.splash ,
-    //   page: () => const SplashScreen()
-    // ),
     GetPage(name: RouteName.kamus, page: () => Kamus()),
+    GetPage(name: RouteName.level_selection, page: () => LevelSelection()),
+    GetPage(name: RouteName.bottonnavbar, page: () => BottomNavbar()),
     GetPage(name: RouteName.beranda, page: () => LevelSelection()),
     GetPage(name: RouteName.onboarding, page: () => FirstPage()),
     GetPage(name: RouteName.levelComplete, page: () => LevelCompletePage()),
     GetPage(name: RouteName.questions, page: () => MultipleChoicePage()),
     GetPage(name: RouteName.nextLevel, page: () => MultipleChoicePage()),
-    // GetPage(
-    //   name: RouteName.koleksi ,
-    //   page: () =>  Koleksi()
-    // ),
   ];
 }
