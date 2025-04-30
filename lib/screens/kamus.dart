@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:adibasa_app/navigation/bottom_navbar.dart';
-import 'package:adibasa_app/navigation/buttom_navbar.dart';
 import 'package:adibasa_app/services/dictionary_service.dart';
 import 'package:adibasa_app/models/word.dart';
 
@@ -108,10 +106,7 @@ class _KamusPageState extends State<KamusPage> {
               padding: const EdgeInsets.symmetric(vertical: 15),
               decoration: const BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(
-                    color: Color(0xFFCBB28E),
-                    width: 1,
-                  ),
+                  bottom: BorderSide(color: Color(0xFFCBB28E), width: 1),
                 ),
               ),
               child: const Text(
@@ -137,7 +132,9 @@ class _KamusPageState extends State<KamusPage> {
                         controller: _searchController,
                         decoration: InputDecoration(
                           hintText: 'Cari kata',
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide: BorderSide.none,
@@ -152,7 +149,10 @@ class _KamusPageState extends State<KamusPage> {
                   GestureDetector(
                     onTap: _toggleSortOrder,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
                       child: Row(
                         children: [
                           Text(
@@ -177,64 +177,65 @@ class _KamusPageState extends State<KamusPage> {
               ),
             ),
             Expanded(
-              child: _isLoading
-                  ? const Center(
-                child: CircularProgressIndicator(
-                  color: Color(0xFF6B4C23),
-                ),
-              )
-                  : _filteredWords.isEmpty
-                  ? const Center(
-                child: Text(
-                  'Tidak ada kata yang ditemukan',
-                  style: TextStyle(
-                    color: Color(0xFF6B4C23),
-                    fontSize: 16,
-                  ),
-                ),
-              )
-                  : ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: _filteredWords.length,
-                itemBuilder: (context, index) {
-                  final word = _filteredWords[index];
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFEFDCC4),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: const Color(0xFFDBC59F),
-                        width: 1,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            word.word,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF6B4C23),
-                            ),
+              child:
+                  _isLoading
+                      ? const Center(
+                        child: CircularProgressIndicator(
+                          color: Color(0xFF6B4C23),
+                        ),
+                      )
+                      : _filteredWords.isEmpty
+                      ? const Center(
+                        child: Text(
+                          'Tidak ada kata yang ditemukan',
+                          style: TextStyle(
+                            color: Color(0xFF6B4C23),
+                            fontSize: 16,
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            word.definition,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Color(0xFF6B4C23),
+                        ),
+                      )
+                      : ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        itemCount: _filteredWords.length,
+                        itemBuilder: (context, index) {
+                          final word = _filteredWords[index];
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 12),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFEFDCC4),
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: const Color(0xFFDBC59F),
+                                width: 1,
+                              ),
                             ),
-                          ),
-                        ],
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    word.word,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF6B4C23),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    word.definition,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xFF6B4C23),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    ),
-                  );
-                },
-              ),
             ),
           ],
         ),
@@ -242,3 +243,4 @@ class _KamusPageState extends State<KamusPage> {
     );
   }
 }
+
