@@ -8,7 +8,7 @@ class PageRouteApp {
   static final pages = [
     GetPage(name: RouteName.kamus, page: () => Kamus()),
     GetPage(name: RouteName.level_selection, page: () => LevelSelection()),
-    GetPage(name: RouteName.bottonnavbar, page: () => BottomNavbar()),
+    GetPage(name: RouteName.bottomnavbar, page: () => BottomNavbar()),
   ];
 }
 
