@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../providers/duration_provider.dart';
 import '../widgets/gamification/progress_bar.dart';
 import '../widgets/gamification/question_card.dart';
 import '../widgets/gamification/result_dialog.dart';
@@ -76,6 +77,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
       // Hitung star berdasarkan durasi level
       final endTime = DateTime.now();
       final duration = endTime.difference(_levelStartTime ?? endTime);
+      Provider.of<DurationProvider>(context, listen: false).setDuration(duration);
       Provider.of<StarProvider>(context, listen: false).calculateStar(duration);
       // Navigasi ke halaman LevelCompletePage
       Navigator.of(context).pushReplacementNamed('/level-complete');
