@@ -1,5 +1,5 @@
 abstract class RouteName {
-  static const bottonnavbar = '/bottonnavbar';
+  static const bottomnavbar = '/bottomnavbar';
   static const level_selection = '/level_selection';
   static const kamus = '/kamus';
 }
