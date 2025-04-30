@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:adibasa_app/navigation/buttom_navbar.dart';
+import 'package:adibasa_app/navigation/bottom_navbar.dart';
 
 class Beranda extends StatefulWidget {
   const Beranda({super.key});

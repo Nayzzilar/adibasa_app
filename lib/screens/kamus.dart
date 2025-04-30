@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:adibasa_app/navigation/buttom_navbar.dart';
+import 'package:adibasa_app/navigation/bottom_navbar.dart';
 
 void main() {
   runApp(const Kamus());
@@ -134,7 +134,6 @@ class KamusPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavbar(),
     );
   }
 }
