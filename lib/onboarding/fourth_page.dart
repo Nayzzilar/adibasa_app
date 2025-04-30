@@ -1,5 +1,4 @@
-import 'package:adibasa_app/onboarding/second_page.dart';
-import 'package:adibasa_app/screens/level_selection.dart';
+import 'package:adibasa_app/navigation/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -81,12 +80,14 @@ class FourthPage extends StatelessWidget {
                         cacheOptions: SharedPreferencesWithCacheOptions(),
                       );
                       await prefs.setBool('onboarding_complete', true);
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LevelSelection(),
-                        ), // replace with your main/home page
-                      );
+                      if (context.mounted) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BottomNavbar(),
+                          ), // replace with your main/home page
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(

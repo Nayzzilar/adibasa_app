@@ -40,42 +40,47 @@ class QuestionCard extends StatelessWidget {
           children: [
             isNewWord
                 ? Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Builder(
-                        builder: (context) {
-                          final match = RegExp(r'"([^"]+)"').firstMatch(question);
-                          final word = match != null ? match.group(1) ?? '' : '';
-                          final before = question.split('"')[0];
-                          final after = question.split('"').length > 2 ? question.split('"')[2] : '';
-                          return Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(before, style: textTheme.titleMedium),
-                              GestureDetector(
-                                key: wordKey,
-                                onTap: () => onNewWordTap?.call(wordKey),
-                                child: Text(
-                                  word,
-                                  style: textTheme.titleMedium?.copyWith(
-                                    color: Colors.orange,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline,
-                                  ),
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Builder(
+                      builder: (context) {
+                        final match = RegExp(r'"([^"]+)"').firstMatch(question);
+                        final word = match != null ? match.group(1) ?? '' : '';
+                        final before = question.split('"')[0];
+                        final after =
+                            question.split('"').length > 2
+                                ? question.split('"')[2]
+                                : '';
+                        return Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(before, style: textTheme.titleMedium),
+                            GestureDetector(
+                              key: wordKey,
+                              onTap: () => onNewWordTap?.call(wordKey),
+                              child: Text(
+                                word,
+                                style: textTheme.titleMedium?.copyWith(
+                                  color: Colors.orange,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.underline,
                                 ),
                               ),
-                              Text(after, style: textTheme.titleMedium),
-                            ],
-                          );
-                        },
-                      ),
-                    ],
-                  )
+                            ),
+                            Text(after, style: textTheme.titleMedium),
+                          ],
+                        );
+                      },
+                    ),
+                  ],
+                )
                 : Text(
-                    question,
-                    style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  question,
+                  style: textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
+                ),
             const SizedBox(height: 16),
             ...List.generate(options.length, (index) {
               final isSelected = selectedIndex == index;
@@ -94,8 +99,14 @@ class QuestionCard extends StatelessWidget {
                   tileColor = colorScheme.surface;
                 }
               } else {
-                borderColor = isSelected ? colorScheme.primary : colorScheme.outlineVariant;
-                tileColor = isSelected ? colorScheme.primaryFixed.withOpacity(0.1) : colorScheme.surface;
+                borderColor =
+                    isSelected
+                        ? colorScheme.primary
+                        : colorScheme.outlineVariant;
+                tileColor =
+                    isSelected
+                        ? colorScheme.primaryFixed.withOpacity(0.1)
+                        : colorScheme.surface;
               }
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
@@ -108,26 +119,35 @@ class QuestionCard extends StatelessWidget {
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 180),
                       curve: Curves.easeInOut,
-                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 12,
+                      ),
                       decoration: BoxDecoration(
                         border: Border.all(color: borderColor, width: 2),
                         borderRadius: BorderRadius.circular(12),
-                        boxShadow: isSelected && !isAnswered
-                            ? [
-                                BoxShadow(
-                                  color: colorScheme.primary.withOpacity(0.08),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ]
-                            : [],
+                        boxShadow:
+                            isSelected && !isAnswered
+                                ? [
+                                  BoxShadow(
+                                    color: colorScheme.primary.withOpacity(
+                                      0.08,
+                                    ),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ]
+                                : [],
                       ),
                       child: Row(
                         children: [
                           Radio<int>(
                             value: index,
                             groupValue: selectedIndex,
-                            onChanged: isAnswered ? null : (val) => onOptionSelected(index),
+                            onChanged:
+                                isAnswered
+                                    ? null
+                                    : (val) => onOptionSelected(index),
                             activeColor: colorScheme.primary,
                           ),
                           const SizedBox(width: 8),
@@ -135,12 +155,18 @@ class QuestionCard extends StatelessWidget {
                             child: Text(
                               options[index],
                               style: textTheme.bodyLarge?.copyWith(
-                                color: isAnswered
-                                    ? (isCorrect
-                                        ? colorScheme.primary
-                                        : (isSelected ? colorScheme.error : colorScheme.onSurfaceVariant))
-                                    : colorScheme.onSurface,
-                                fontWeight: isSelected || isCorrect ? FontWeight.bold : FontWeight.normal,
+                                color:
+                                    isAnswered
+                                        ? (isCorrect
+                                            ? colorScheme.primary
+                                            : (isSelected
+                                                ? colorScheme.error
+                                                : colorScheme.onSurfaceVariant))
+                                        : colorScheme.onSurface,
+                                fontWeight:
+                                    isSelected || isCorrect
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
                                 fontSize: 15,
                               ),
                             ),
@@ -157,4 +183,5 @@ class QuestionCard extends StatelessWidget {
       ),
     );
   }
-} 
+}
+

@@ -7,7 +7,7 @@ class BottomNavbarController extends GetxController {
     selectedIndex.value = index;
     switch (index) {
       case 0:
-        Get.offAllNamed('/beranda');
+        Get.offAllNamed('/level_selection');
         break;
       case 1:
         Get.offAllNamed('/kamus');

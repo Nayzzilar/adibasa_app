@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/star_provider.dart';
 import '../providers/duration_provider.dart';
-import '../providers/streak_provider.dart';
 import '../widgets/star_rating.dart';
 import '../navigation/route_name.dart';
 import 'package:get/get.dart';
@@ -25,10 +24,13 @@ class LevelCompletePage extends StatelessWidget {
     final star = Provider.of<StarProvider>(context, listen: false).star;
 
     // Mengakses duration dari provider
-    final duration = Provider.of<DurationProvider>(context, listen: false).duration;
+    final duration =
+        Provider.of<DurationProvider>(context, listen: false).duration;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8ECC2), // Warna background sesuai dengan screenshot
+      backgroundColor: const Color(
+        0xFFF8ECC2,
+      ), // Warna background sesuai dengan screenshot
       body: Center(
         child: Column(
           children: [
@@ -37,32 +39,29 @@ class LevelCompletePage extends StatelessWidget {
 
             // Judul di bagian atas
             Text(
-                'Level telah diselesaikan!',
-                style: TextStyle(
-                    fontSize: screenWidth * 0.05,
-                    fontWeight: FontWeight.bold
-                )
+              'Level telah diselesaikan!',
+              style: TextStyle(
+                fontSize: screenWidth * 0.05,
+                fontWeight: FontWeight.bold,
+              ),
             ),
 
             Container(
               margin: EdgeInsets.only(top: screenHeight * 0.1),
               height: screenHeight * 0.4,
               width: screenWidth * 0.9,
-              child: Image.asset(
-                'assets/images/icon.png',
-                fit: BoxFit.contain,
-              ),
+              child: Image.asset('assets/images/icon.png', fit: BoxFit.contain),
             ),
 
             // Informasi waktu penyelesaian
             Container(
               margin: EdgeInsets.only(top: screenHeight * 0.02),
               child: Text(
-                  'Waktu: ${formatDuration(duration)}',
-                  style: TextStyle(
-                      fontSize: screenWidth * 0.05,
-                      fontWeight: FontWeight.w500
-                  )
+                'Waktu: ${formatDuration(duration)}',
+                style: TextStyle(
+                  fontSize: screenWidth * 0.05,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
 
@@ -101,7 +100,8 @@ class LevelCompletePage extends StatelessWidget {
                     child: IconButton(
                       icon: const Icon(Icons.home, color: Colors.black87),
                       iconSize: screenWidth * 0.06,
-                      onPressed: () => Get.offAllNamed(RouteName.beranda),
+                      onPressed:
+                          () => Get.offAllNamed(RouteName.levelSelection),
                     ),
                   ),
 
@@ -149,7 +149,10 @@ class LevelCompletePage extends StatelessWidget {
                       ],
                     ),
                     child: IconButton(
-                      icon: const Icon(Icons.arrow_forward, color: Colors.black87),
+                      icon: const Icon(
+                        Icons.arrow_forward,
+                        color: Colors.black87,
+                      ),
                       iconSize: screenWidth * 0.06,
                       onPressed: () => Get.offNamed(RouteName.nextLevel),
                     ),
