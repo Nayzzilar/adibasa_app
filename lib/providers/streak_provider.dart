@@ -1,22 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class StreakProvider extends ChangeNotifier {
-  int _streak = 0;
+class StreakNotifier extends StateNotifier<int> {
+  StreakNotifier() : super(0);
 
-  int get streak => _streak;
+  void increment() => state++;
+  void reset() => state = 0;
+  void setValue(int value) => state = value;
+}
 
-  void incrementStreak() {
-    _streak++;
-    notifyListeners();
-  }
-
-  void resetStreak() {
-    _streak = 0;
-    notifyListeners();
-  }
-
-  void setStreak(int value) {
-    _streak = value;
-    notifyListeners();
-  }
-} 
+final streakProvider = StateNotifierProvider<StreakNotifier, int>(
+  (ref) => StreakNotifier(),
+);

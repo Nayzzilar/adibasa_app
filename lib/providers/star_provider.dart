@@ -1,23 +1,18 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class StarProvider extends ChangeNotifier {
-  int _star = 0;
-
-  int get star => _star;
+class StarNotifier extends StateNotifier<int> {
+  StarNotifier() : super(0);
 
   void calculateStar(Duration duration) {
-    if (duration.inSeconds <= 60) {
-      _star = 3;
-    } else if (duration.inSeconds <= 120) {
-      _star = 2;
-    } else {
-      _star = 1;
-    }
-    notifyListeners();
+    state = duration.inSeconds <= 60 ? 3 :
+           duration.inSeconds <= 120 ? 2 : 1;
   }
 
   void resetStar() {
-    _star = 0;
-    notifyListeners();
+    state = 0;
   }
-} 
+}
+
+final starProvider = StateNotifierProvider<StarNotifier, int>(
+  (ref) => StarNotifier(),
+);

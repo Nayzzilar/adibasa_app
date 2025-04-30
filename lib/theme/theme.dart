@@ -95,6 +95,7 @@ class MaterialTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     ),
+    splashColor: colorScheme.tertiary.withAlpha(50),
     cardTheme: CardTheme(
       color: colorScheme.surface,
       elevation: 1,

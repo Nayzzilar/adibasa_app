@@ -1,10 +1,11 @@
+import 'package:adibasa_app/models/challenge_option_model.dart';
 import 'package:flutter/material.dart';
 
 typedef NewWordTapCallback = void Function(GlobalKey key);
 
 class QuestionCard extends StatelessWidget {
   final String question;
-  final List<String> options;
+  final List<ChallengeOption> options;
   final int? selectedIndex;
   final ValueChanged<int> onOptionSelected;
   final bool isAnswered;
@@ -153,7 +154,7 @@ class QuestionCard extends StatelessWidget {
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              options[index],
+                              options[index].text,
                               style: textTheme.bodyLarge?.copyWith(
                                 color:
                                     isAnswered
@@ -184,4 +185,3 @@ class QuestionCard extends StatelessWidget {
     );
   }
 }
-

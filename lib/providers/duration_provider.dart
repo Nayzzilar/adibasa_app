@@ -1,17 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DurationProvider extends ChangeNotifier {
-  Duration _duration = Duration.zero;
-
-  Duration get duration => _duration;
+class DurationNotifier extends StateNotifier<Duration> {
+  DurationNotifier() : super(Duration.zero);
 
   void setDuration(Duration newDuration) {
-    _duration = newDuration;
-    notifyListeners();
+    state = newDuration;
   }
 
   void resetDuration() {
-    _duration = Duration.zero;
-    notifyListeners();
+    state = Duration.zero;
   }
 }
+
+final durationProvider = StateNotifierProvider<DurationNotifier, Duration>(
+  (ref) => DurationNotifier(),
+);
