@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:adibasa_app/onboarding/fourth_page.dart';
-import 'package:adibasa_app/onboarding/third_page.dart';
+import 'package:adibasa_app/screens/onboarding/fourth_page.dart';
+import 'package:adibasa_app/screens/onboarding/third_page.dart';
 
 class SecondPage extends StatelessWidget {
   @override

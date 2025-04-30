@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:adibasa_app/onboarding/second_page.dart';
+import 'package:adibasa_app/screens/onboarding/second_page.dart';
 
 class FirstPage extends StatelessWidget {
   @override
