@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../models/lesson_model.dart';
 import '../models/challenge_model.dart';
+import '../providers/current_lesson_provider.dart';
+import '../providers/duration_provider.dart';
 import '../providers/star_provider.dart';
 import '../providers/streak_provider.dart';
 import '../widgets/gamification/progress_bar.dart';
@@ -11,9 +13,7 @@ import '../widgets/gamification/result_dialog.dart';
 import '../widgets/gamification/exit_dialog.dart';
 
 class MultipleChoicePage extends ConsumerStatefulWidget {
-  final Lesson lesson;
-
-  const MultipleChoicePage({super.key, required this.lesson});
+  const MultipleChoicePage({super.key});
 
   @override
   ConsumerState<MultipleChoicePage> createState() => _MultipleChoicePageState();
@@ -28,15 +28,17 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
   bool _isCorrect = false;
   DateTime? _levelStartTime;
   late AudioPlayer _audioPlayer;
-
-  List<Challenge> get challenges => widget.lesson.challenges ?? [];
+  late Lesson _currentLesson;
 
   @override
   void initState() {
     super.initState();
-    _levelStartTime = DateTime.now();
+    _currentLesson = ref.read(currentLessonProvider)!;
     _audioPlayer = AudioPlayer();
+    ref.read(durationProvider.notifier).start();
   }
+
+  List<Challenge> get challenges => _currentLesson.challenges ?? [];
 
   void _onOptionSelected(int index) {
     if (_isAnswered) return;
@@ -81,9 +83,12 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
   }
 
   void _handleLevelCompletion() {
-    final duration = DateTime.now().difference(_levelStartTime!);
+    final durationNotifier = ref.read(durationProvider.notifier);
+    durationNotifier.stop();
+    final duration = ref.read(durationProvider);
+
     ref.read(starProvider.notifier).calculateStar(duration);
-    Navigator.pushReplacementNamed(context, '/level-complete');
+    Navigator.pushReplacementNamed(context, '/level_complete');
   }
 
   void _showExitDialogOverlay() {
@@ -94,8 +99,7 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
           (context) => ExitDialog(
             onContinue: () => Navigator.pop(context),
             onExit: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, '/bottom_navbar');
             },
           ),
     );
