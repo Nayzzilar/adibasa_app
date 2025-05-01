@@ -51,9 +51,9 @@ class MaterialTheme {
       surfaceBright: Color(0xfffef8f4),
       surfaceContainerLowest: Color(0xffffffff),
       surfaceContainerLow: Color(0xfff8f3ee),
-      surfaceContainer: Color(0xff9B9B9B), // font
-      surfaceContainerHigh: Color(0xffF6F6F6), // card locked
-      surfaceContainerHighest: Color(0xffDEE3E5), //outline card locked
+      surfaceContainer: Color(0xfff2ede9),
+      surfaceContainerHigh: Color(0xffede7e3),
+      surfaceContainerHighest: Color(0xffe7e1dd),
     );
   }
 
@@ -65,6 +65,9 @@ class MaterialTheme {
     useMaterial3: true,
     brightness: colorScheme.brightness,
     colorScheme: colorScheme,
+    textTheme: textTheme.apply(
+      bodyColor: colorScheme.onSurface,
+      displayColor: colorScheme.onSurface,
     textTheme: GoogleFonts.ptSerifTextTheme(
       ThemeData.light().textTheme,
     ).copyWith(
@@ -76,7 +79,7 @@ class MaterialTheme {
       ),
       headlineMedium: GoogleFonts.nunito(
         fontSize: 16,
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w800,
         color: colorScheme.primaryContainer,
         letterSpacing: 0.5,
       ),
@@ -106,7 +109,7 @@ class MaterialTheme {
           width: 2,
         ),
       ),
-      margin: const EdgeInsets.all(8),
+      margin: EdgeInsets.all(8), // Optional: standard spacing
     ),
     extensions: <ThemeExtension<dynamic>>[
       CustomCardThemes(
@@ -116,11 +119,11 @@ class MaterialTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
             side: BorderSide(
-              color: colorScheme.surfaceContainerHighest, // Outline card locked
+              color: colorScheme.outline, // Outline card locked
               width: 2,
             ),
           ),
-          margin: const EdgeInsets.all(8),
+          margin: const EdgeInsets.only(right: 8, left: 8, bottom: 10),
         ),
         finishedCardTheme: CardTheme(
           color: colorScheme.surface, // Warna untuk card selesai
@@ -128,11 +131,11 @@ class MaterialTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
             side: BorderSide(
-              color: colorScheme.tertiary, // Border untuk card selesai
+              color: colorScheme.outline, // Border untuk card selesai
               width: 2,
             ),
           ),
-          margin: const EdgeInsets.all(8),
+          margin: const EdgeInsets.only(right: 8, left: 8, bottom: 10),
         ),
       ),
       FeedbackColors(

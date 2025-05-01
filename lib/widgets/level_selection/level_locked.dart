@@ -12,47 +12,50 @@ class LevelLocked extends StatelessWidget {
         Theme.of(context).extension<CustomCardThemes>()?.lockedCardTheme;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.only(right: 8, left: 8),
       child: Card(
-        color: lockedCardTheme?.color, // Menggunakan warna dari lockedCardTheme
-        elevation: lockedCardTheme?.elevation ?? 1,
-        shadowColor: Colors.black.withOpacity(0.1),
-        shape: lockedCardTheme?.shape, // Menggunakan shape dari lockedCardTheme
-        margin:
-            lockedCardTheme?.margin, // Menggunakan margin dari lockedCardTheme
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Bagian Kiri: Level Name dan Description
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Level Name
-                  Text(
-                    '${level.name}:', // Nama level
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color:
-                          Theme.of(
-                            context,
-                          ).colorScheme.surfaceContainer, // Warna font
+        // Gunakan properti card untuk shadow
+        color: lockedCardTheme?.color,
+        elevation: 1, // Gunakan nilai elevation yang konsisten
+        shadowColor:
+            Theme.of(
+              context,
+            ).colorScheme.outline, // Warna shadow yang lebih konsisten
+        shape: lockedCardTheme?.shape,
+        margin: lockedCardTheme?.margin,
+        child: SizedBox(
+          height: 72, // Tinggi tetap untuk card yang terkunci
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Bagian Kiri: Level Name dan Description
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Level Name
+                    Text(
+                      '${level.name}:',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.surfaceContainer,
+                      ),
                     ),
-                  ),
-
-                  // Level Description
-                  Text(
-                    level.description, // Deskripsi level
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color:
-                          Theme.of(
-                            context,
-                          ).colorScheme.surfaceContainer, // Warna font
+                    // Level Description
+                    Text(
+                      level.description,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineSmall?.copyWith(
+                        color: Theme.of(context).colorScheme.surfaceContainer,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
