@@ -50,9 +50,15 @@ class MaterialTheme {
       surfaceBright: Color(0xfffef8f4),
       surfaceContainerLowest: Color(0xffffffff),
       surfaceContainerLow: Color(0xfff8f3ee),
+<<<<<<< Updated upstream
       surfaceContainer: Color(0xfff2ede9),
       surfaceContainerHigh: Color(0xffede7e3),
       surfaceContainerHighest: Color(0xffe7e1dd),
+=======
+      surfaceContainer: Color(0xff9B9B9B), // font
+      surfaceContainerHigh: Color(0xffD6D6D6), // card locked
+      surfaceContainerHighest: Color(0xffDEE3E5), //outline card locked
+>>>>>>> Stashed changes
     );
   }
 
@@ -64,9 +70,33 @@ class MaterialTheme {
     useMaterial3: true,
     brightness: colorScheme.brightness,
     colorScheme: colorScheme,
+<<<<<<< Updated upstream
     textTheme: textTheme.apply(
       bodyColor: colorScheme.onSurface,
       displayColor: colorScheme.onSurface,
+=======
+    textTheme: GoogleFonts.ptSerifTextTheme(
+      ThemeData.light().textTheme,
+    ).copyWith(
+      headlineLarge: GoogleFonts.ptSerif(
+        fontSize: 26,
+        fontWeight: FontWeight.w600,
+        color: colorScheme.primaryContainer,
+        letterSpacing: 2.0,
+      ),
+      headlineMedium: GoogleFonts.nunito(
+        fontSize: 16,
+        fontWeight: FontWeight.w800,
+        color: colorScheme.primaryContainer,
+        letterSpacing: 0.5,
+      ),
+      headlineSmall: GoogleFonts.nunito(
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        color: colorScheme.primaryContainer,
+        letterSpacing: 0.25,
+      ),
+>>>>>>> Stashed changes
     ),
     scaffoldBackgroundColor: colorScheme.secondaryContainer,
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -86,8 +116,41 @@ class MaterialTheme {
           width: 2,
         ),
       ),
+<<<<<<< Updated upstream
       margin: EdgeInsets.all(8), // Optional: standard spacing
     ),
+=======
+      margin: const EdgeInsets.only(right: 8, left: 8, bottom: 10),
+    ),
+    extensions: <ThemeExtension<dynamic>>[
+      CustomCardThemes(
+        lockedCardTheme: CardTheme(
+          color: colorScheme.surfaceContainerHigh, // Warna untuk card locked
+          elevation: 1,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(
+              color: colorScheme.outline, // Outline card locked
+              width: 2,
+            ),
+          ),
+          margin: const EdgeInsets.only(right: 8, left: 8, bottom: 10),
+        ),
+        finishedCardTheme: CardTheme(
+          color: colorScheme.surface, // Warna untuk card selesai
+          elevation: 1,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(
+              color: colorScheme.outline, // Border untuk card selesai
+              width: 2,
+            ),
+          ),
+          margin: const EdgeInsets.only(right: 8, left: 8, bottom: 10),
+        ),
+      ),
+    ],
+>>>>>>> Stashed changes
   );
 }
 

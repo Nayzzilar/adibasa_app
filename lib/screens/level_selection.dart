@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:adibasa_app/widgets/level_unlocked.dart';
 import 'package:adibasa_app/dummy/levels_dummy.dart';
+<<<<<<< Updated upstream
 import 'package:adibasa_app/widgets/level_appbar.dart';
+=======
+import 'package:adibasa_app/models/level.dart';
+>>>>>>> Stashed changes
 
 class LevelSelection extends StatelessWidget {
   const LevelSelection({super.key});
@@ -12,6 +16,7 @@ class LevelSelection extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Level> levels = Level.getLevels();
     return Scaffold(
+<<<<<<< Updated upstream
       backgroundColor: const Color(0xFFF1DFBE),
       body: Column(
         children: [
@@ -83,6 +88,20 @@ class LevelSelection extends StatelessWidget {
               itemCount: levels.length,
               itemBuilder: (context, index) {
                 return levels[index].is_locked
+=======
+      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            // Sliver untuk StatusBarLevelSelection
+            SliverToBoxAdapter(
+              child: Column(children: [StatusBarLevelSelection()]),
+            ),
+
+            SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                return levels[index].isLocked
+>>>>>>> Stashed changes
                     ? LevelLocked(level: levels[index])
                     : LevelUnlocked(
                       level: levels[index],
