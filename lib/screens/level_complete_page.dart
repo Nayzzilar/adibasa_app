@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/star_provider.dart';
 import '../providers/duration_provider.dart';
-import '../providers/streak_provider.dart';
 import '../widgets/star_rating.dart';
 import '../navigation/route_name.dart';
 import 'package:get/get.dart';

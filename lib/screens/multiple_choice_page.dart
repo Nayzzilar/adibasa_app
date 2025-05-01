@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../models/lesson_model.dart';
 import '../models/challenge_model.dart';
+import '../providers/duration_provider.dart';
 import '../providers/star_provider.dart';
 import '../providers/streak_provider.dart';
 import '../widgets/gamification/progress_bar.dart';
@@ -34,8 +35,8 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
   @override
   void initState() {
     super.initState();
-    _levelStartTime = DateTime.now();
     _audioPlayer = AudioPlayer();
+    ref.read(durationProvider.notifier).start();
   }
 
   void _onOptionSelected(int index) {
@@ -81,9 +82,12 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
   }
 
   void _handleLevelCompletion() {
-    final duration = DateTime.now().difference(_levelStartTime!);
+    final durationNotifier = ref.read(durationProvider.notifier);
+    durationNotifier.stop();
+    final duration = ref.read(durationProvider);
+
     ref.read(starProvider.notifier).calculateStar(duration);
-    Navigator.pushReplacementNamed(context, '/level-complete');
+    Navigator.pushReplacementNamed(context, '/level_complete');
   }
 
   void _showExitDialogOverlay() {
