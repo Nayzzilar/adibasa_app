@@ -10,24 +10,22 @@ import '../providers/streak_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:audioplayers/audioplayers.dart';
 
-class MultipleChoicePage extends StatefulWidget {
-  const MultipleChoicePage({Key? key}) : super(key: key);
+class MultipleChoicePage extends ConsumerStatefulWidget {
+  final Lesson lesson;
+
+  const MultipleChoicePage({super.key, required this.lesson});
 
   @override
-  State<MultipleChoicePage> createState() => _MultipleChoicePageState();
+  ConsumerState<MultipleChoicePage> createState() => _MultipleChoicePageState();
 }
 
-class _MultipleChoicePageState extends State<MultipleChoicePage> {
-  List<dynamic> _questions = [];
+class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
   int _currentIndex = 0;
   int? _selectedIndex;
   bool _isAnswered = false;
   int? _correctIndex;
   bool _showResult = false;
   bool _isCorrect = false;
-  bool _showNewWordPopup = false;
-  String _newWord = '';
-  String _newWordMeaning = '';
   DateTime? _levelStartTime;
   OverlayEntry? _overlayEntry;
   bool _isPopupVisible = false;
@@ -36,26 +34,29 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
   @override
   void initState() {
     super.initState();
-    _loadQuestions();
     _levelStartTime = DateTime.now();
     _audioPlayer = AudioPlayer();
   }
 
-  Future<void> _loadQuestions() async {
-    final String data = await rootBundle.loadString(
-      'assets/dummy/greetings_lessons.json',
-    );
-    final List<dynamic> jsonResult = json.decode(data);
-    setState(() {
-      _questions = jsonResult[0]['challenges'];
-    });
-  }
+  List<Challenge> get challenges => widget.lesson.challenges ?? [];
 
   void _onOptionSelected(int index) {
-    if (_isAnswered) return;
+    if (_isAnswered || challenges.isEmpty) return;
+
+    final currentChallenge = challenges[_currentIndex];
+    final correctIndex =
+        currentChallenge.options?.indexWhere((o) => o.correct) ?? -1;
+
     setState(() {
       _selectedIndex = index;
+      _isAnswered = true;
+      _correctIndex = correctIndex;
+      _isCorrect = index == correctIndex;
+      _showResult = true;
     });
+
+    final streakNotifier = ref.read(streakProvider.notifier);
+    _isCorrect ? streakNotifier.increment() : streakNotifier.reset();
   }
 
   void _onContinue() {
@@ -84,12 +85,9 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
       return;
     }
     _hideNewWordBubble();
-    if (_currentIndex < _questions.length - 1) {
+    if (_currentIndex < challenges.length - 1) {
       setState(() {
-        _showResult = false;
-        _isAnswered = false;
-        _selectedIndex = null;
-        _correctIndex = null;
+        _resetQuestionState();
         _currentIndex++;
       });
     } else {
@@ -297,12 +295,10 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
       barrierColor: Colors.black.withOpacity(0.3),
       builder:
           (context) => ExitDialog(
-            onContinue: () {
-              Navigator.of(context).pop();
-            },
+            onContinue: () => Navigator.pop(context),
             onExit: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
+              Navigator.pop(context);
+              Navigator.pop(context);
             },
           ),
     );
@@ -310,22 +306,21 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
 
   @override
   Widget build(BuildContext context) {
-    final currentQuestion =
-        _questions.isNotEmpty ? _questions[_currentIndex] : null;
-    final isNewWord =
-        currentQuestion != null && currentQuestion['type'] == 'NEW_WORD';
-    String? newWord;
-    String? newWordMeaning;
-    if (isNewWord && currentQuestion != null) {
-      final match = RegExp(
-        r'"([^"]+)"',
-      ).firstMatch(currentQuestion['question']);
-      newWord = match != null ? match.group(1) ?? '' : '';
-      final correctOption = currentQuestion['options'].firstWhere(
-        (o) => o['correct'] == true,
+    if (challenges.isEmpty) {
+      return Scaffold(
+        body: Center(
+          child: Text(
+            'No challenges available',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ),
       );
-      newWordMeaning = correctOption['text'];
     }
+
+    final currentChallenge = challenges[_currentIndex];
+    final isNewWord = true;
+    final streak = ref.watch(streakProvider);
+
     return Scaffold(
       backgroundColor: const Color(0xFFF6E7C1),
       appBar: null,

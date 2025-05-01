@@ -1,3 +1,4 @@
+import 'package:adibasa_app/models/challenge_option_model.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -5,7 +6,7 @@ typedef NewWordTapCallback = void Function(GlobalKey key);
 
 class QuestionCard extends StatefulWidget {
   final String question;
-  final List<String> options;
+  final List<ChallengeOption> options;
   final int? selectedIndex;
   final ValueChanged<int> onOptionSelected;
   final bool isAnswered;
