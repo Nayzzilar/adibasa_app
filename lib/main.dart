@@ -1,8 +1,10 @@
 import 'package:adibasa_app/providers/duration_provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'theme/util.dart';
+import 'theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,12 +12,10 @@ import 'navigation/bottom_navbar_controller.dart';
 import 'navigation/page_route.dart';
 import 'providers/star_provider.dart';
 import 'providers/streak_provider.dart';
-import 'theme/theme.dart';
-import 'theme/util.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  FirebaseApp app = await Firebase.initializeApp();
+  await Firebase.initializeApp();
 
   Get.put(BottomNavbarController()); // inject controller GetX
 
@@ -29,8 +29,6 @@ void main() async {
     cacheOptions: SharedPreferencesWithCacheOptions(),
   );
   final bool onboardingComplete = prefs.getBool('onboarding_complete') ?? false;
-  print("Firebase initialized: ${app.name}");
-  print('onboardingComplete: $onboardingComplete');
   runApp(MyApp(onboardingComplete: onboardingComplete));
 }
 

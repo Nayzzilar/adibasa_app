@@ -16,23 +16,26 @@ dependencies:
   cloud_firestore: ^5.6.6
   google_fonts: ^6.2.1
   provider: ^6.1.4
-  get: ^4.7.2
   flutter_svg: ^2.1.0
   shared_preferences: ^2.5.3
   riverpod: ^2.6.1
+  get: ^4.3.8
+  audioplayers: ^5.2.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - data/kamus_jawa_indonesia.json
+    - assets/image/
     - assets/
+    - data/kamus_jawa_indonesia.json
     - assets/dummy/greetings_lessons.json
     - assets/image/
     - assets/star/
+    - assets/audio/success.mp3
+    - assets/audio/failure.mp3
