@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/star_provider.dart';
 import '../providers/duration_provider.dart';
+import '../providers/streak_provider.dart';
 import '../widgets/star_rating.dart';
 import '../navigation/route_name.dart';
 import 'package:get/get.dart';
+import '../providers/current_lesson_provider.dart';
 
 class LevelCompletePage extends ConsumerWidget {
   const LevelCompletePage({Key? key}) : super(key: key);
@@ -24,6 +26,35 @@ class LevelCompletePage extends ConsumerWidget {
     // Get provider values
     final star = ref.read(starProvider);
     final duration = ref.read(durationProvider);
+
+    // Tambahkan method baru di class LevelCompletePage
+    void _replayLesson(WidgetRef ref) {
+      // Reset semua state terkait lesson
+      ref.read(durationProvider.notifier).reset();
+      ref.read(streakProvider.notifier).reset();
+
+      // Navigasi ke halaman questions dengan state segar
+      Get.offAllNamed(RouteName.questions);
+    }
+
+    void _nextLesson(WidgetRef ref) {
+      final currentLesson = ref.read(currentLessonProvider);
+      final nextLesson = ref.read(currentLessonProvider.notifier).getNextLesson();
+
+      if (nextLesson != null) {
+        // Reset state
+        ref.read(durationProvider.notifier).reset();
+        ref.read(streakProvider.notifier).reset();
+
+        // Set lesson berikutnya
+        ref.read(currentLessonProvider.notifier).setLesson(nextLesson);
+        Get.offAllNamed(RouteName.questions);
+      } else {
+        // Tampilkan dialog atau navigasi ke level selection
+        Get.offAllNamed(RouteName.levelSelection);
+        Get.snackbar('Selamat!', 'Anda telah menyelesaikan semua level');
+      }
+    }
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8ECC2),
@@ -82,13 +113,13 @@ class LevelCompletePage extends ConsumerWidget {
                   _buildIconButton(
                     context,
                     Icons.refresh,
-                    () => Get.offNamed(RouteName.questions),
+                    () => _replayLesson(ref),
                   ),
                   SizedBox(width: screenWidth * 0.04),
                   _buildIconButton(
                     context,
                     Icons.arrow_forward,
-                    () => Get.offNamed(RouteName.nextLevel),
+                    () => _nextLesson(ref),
                   ),
                 ],
               ),

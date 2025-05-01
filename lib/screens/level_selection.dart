@@ -8,6 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:adibasa_app/widgets/level_selection/level_unlocked.dart';
 import 'package:adibasa_app/models/lesson_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
+
+
+import '../navigation/route_name.dart';
+import '../providers/current_lesson_provider.dart';
 
 class LevelSelection extends ConsumerWidget {
   const LevelSelection({super.key});
@@ -33,7 +38,7 @@ class LevelSelection extends ConsumerWidget {
                   (error, stack) => SliverFillRemaining(
                     child: Center(child: Text('Error: $error')),
                   ),
-              data: (lessons) => _buildLevelsList(lessons),
+              data: (lessons) => _buildLevelsList(ref, lessons),
             ),
           ],
         ),
@@ -41,7 +46,7 @@ class LevelSelection extends ConsumerWidget {
     );
   }
 
-  SliverList _buildLevelsList(List<Lesson> lessons) {
+  SliverList _buildLevelsList(ref, List<Lesson> lessons) {
     // Convert lessons to levels with all unlocked
     final levels =
         lessons
@@ -100,7 +105,7 @@ class LevelSelection extends ConsumerWidget {
             levels[index].isLocked
                 ? LevelLocked(level: levels[index])
                 : InkWell(
-                  onTap: () => _navigateToLesson(context, lessons[index]),
+                  onTap: () => _navigateToLesson(ref,lessons[index]),
                   child: LevelUnlocked(level: levels[index]),
                 ),
         childCount: levels.length,
@@ -108,12 +113,8 @@ class LevelSelection extends ConsumerWidget {
     );
   }
 
-  void _navigateToLesson(BuildContext context, Lesson lesson) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MultipleChoicePage(lesson: lesson),
-      ),
-    );
+  void _navigateToLesson(WidgetRef ref, Lesson lesson) {
+    ref.read(currentLessonProvider.notifier).setLesson(lesson);
+    Get.toNamed(RouteName.questions);
   }
 }
