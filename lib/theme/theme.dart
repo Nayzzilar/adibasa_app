@@ -135,6 +135,14 @@ class MaterialTheme {
           margin: const EdgeInsets.all(8),
         ),
       ),
+      FeedbackColors(
+        correctBackground: const Color(0xFFE6F4EA),
+        correctForeground: const Color(0xFF2E7D32),
+        correctButton: const Color(0xFF4B6B2D),
+        wrongBackground: const Color(0xFFFFE6E6),
+        wrongForeground: const Color(0xFFD32F2F),
+        wrongButton: const Color(0xFFA13A2C),
+      ),
     ],
   );
 }
@@ -181,6 +189,56 @@ class CustomCardThemes extends ThemeExtension<CustomCardThemes> {
           CardTheme.lerp(lockedCardTheme, other.lockedCardTheme, t)!,
       finishedCardTheme:
           CardTheme.lerp(finishedCardTheme, other.finishedCardTheme, t)!,
+    );
+  }
+}
+
+class FeedbackColors extends ThemeExtension<FeedbackColors> {
+  final Color correctBackground;
+  final Color correctForeground;
+  final Color correctButton;
+  final Color wrongBackground;
+  final Color wrongForeground;
+  final Color wrongButton;
+
+  const FeedbackColors({
+    required this.correctBackground,
+    required this.correctForeground,
+    required this.correctButton,
+    required this.wrongBackground,
+    required this.wrongForeground,
+    required this.wrongButton,
+  });
+
+  @override
+  FeedbackColors copyWith({
+    Color? correctBackground,
+    Color? correctForeground,
+    Color? correctButton,
+    Color? wrongBackground,
+    Color? wrongForeground,
+    Color? wrongButton,
+  }) {
+    return FeedbackColors(
+      correctBackground: correctBackground ?? this.correctBackground,
+      correctForeground: correctForeground ?? this.correctForeground,
+      correctButton: correctButton ?? this.correctButton,
+      wrongBackground: wrongBackground ?? this.wrongBackground,
+      wrongForeground: wrongForeground ?? this.wrongForeground,
+      wrongButton: wrongButton ?? this.wrongButton,
+    );
+  }
+
+  @override
+  FeedbackColors lerp(ThemeExtension<FeedbackColors>? other, double t) {
+    if (other is! FeedbackColors) return this;
+    return FeedbackColors(
+      correctBackground: Color.lerp(correctBackground, other.correctBackground, t)!,
+      correctForeground: Color.lerp(correctForeground, other.correctForeground, t)!,
+      correctButton: Color.lerp(correctButton, other.correctButton, t)!,
+      wrongBackground: Color.lerp(wrongBackground, other.wrongBackground, t)!,
+      wrongForeground: Color.lerp(wrongForeground, other.wrongForeground, t)!,
+      wrongButton: Color.lerp(wrongButton, other.wrongButton, t)!,
     );
   }
 }

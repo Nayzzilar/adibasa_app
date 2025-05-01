@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:adibasa_app/theme/theme.dart';
 
 class ResultDialog extends StatelessWidget {
   final bool isCorrect;
@@ -14,14 +16,31 @@ class ResultDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final feedbackColors = theme.extension<FeedbackColors>();
+    
+    if (feedbackColors == null) {
+      throw Exception('FeedbackColors extension not found in theme');
+    }
+    
+    final backgroundColor = isCorrect 
+        ? feedbackColors.correctBackground 
+        : feedbackColors.wrongBackground;
+    
+    final foregroundColor = isCorrect 
+        ? feedbackColors.correctForeground 
+        : feedbackColors.wrongForeground;
+    
+    final buttonColor = isCorrect 
+        ? feedbackColors.correctButton 
+        : feedbackColors.wrongButton;
+    
     return Container(
       width: double.infinity,
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 22),
       decoration: BoxDecoration(
-        color: isCorrect ? const Color(0xFFE6F4EA) : const Color(0xFFFFE6E6),
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(18),
       ),
       child: Column(
@@ -34,26 +53,31 @@ class ResultDialog extends StatelessWidget {
             children: [
               Icon(
                 isCorrect ? Icons.check_circle_rounded : Icons.cancel_rounded,
-                color: isCorrect ? const Color(0xFF2E7D32) : const Color(0xFFD32F2F),
+                color: foregroundColor,
                 size: 32,
               ),
               const SizedBox(width: 12),
               Text(
                 isCorrect ? 'Anda Benar' : 'Anda Salah',
-                style: TextStyle(
-                  fontFamily: 'Nunito',
+                style: GoogleFonts.nunito(
                   fontWeight: FontWeight.bold,
-                  color: isCorrect ? const Color(0xFF2E7D32) : const Color(0xFFD32F2F),
+                  color: foregroundColor,
                   fontSize: 22,
                 ),
               ),
             ],
           ),
           const SizedBox(height: 14),
-          Text('Jawaban yang benar:', style: TextStyle(fontFamily: 'Nunito', fontSize: 16)),
+          Text(
+            'Jawaban yang benar:', 
+            style: GoogleFonts.nunito(fontSize: 16),
+          ),
           Text(
             correctAnswer,
-            style: TextStyle(fontFamily: 'Nunito', fontWeight: FontWeight.bold, fontSize: 17),
+            style: GoogleFonts.nunito(
+              fontWeight: FontWeight.bold, 
+              fontSize: 17,
+            ),
           ),
           const SizedBox(height: 22),
           SizedBox(
@@ -61,13 +85,20 @@ class ResultDialog extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onContinue,
               style: ElevatedButton.styleFrom(
-                backgroundColor: isCorrect ? const Color(0xFF4B6B2D) : const Color(0xFFA13A2C),
+                backgroundColor: buttonColor,
                 foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                textStyle: const TextStyle(fontFamily: 'Nunito', fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              child: const Text('Lanjutkan'),
+              child: Text(
+                'Lanjutkan',
+                style: GoogleFonts.nunito(
+                  fontSize: 16, 
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
         ],
@@ -80,6 +111,7 @@ class AnimatedResultDialog extends StatefulWidget {
   final bool isCorrect;
   final String correctAnswer;
   final VoidCallback onContinue;
+  
   const AnimatedResultDialog({
     Key? key,
     required this.isCorrect,
@@ -91,7 +123,8 @@ class AnimatedResultDialog extends StatefulWidget {
   State<AnimatedResultDialog> createState() => _AnimatedResultDialogState();
 }
 
-class _AnimatedResultDialogState extends State<AnimatedResultDialog> with SingleTickerProviderStateMixin {
+class _AnimatedResultDialogState extends State<AnimatedResultDialog> 
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnim;
   late Animation<double> _fadeAnim;
@@ -130,4 +163,4 @@ class _AnimatedResultDialogState extends State<AnimatedResultDialog> with Single
       ),
     );
   }
-} 
+}
