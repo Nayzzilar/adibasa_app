@@ -51,9 +51,9 @@ class MaterialTheme {
       surfaceBright: Color(0xfffef8f4),
       surfaceContainerLowest: Color(0xffffffff),
       surfaceContainerLow: Color(0xfff8f3ee),
-      surfaceContainer: Color(0xfff2ede9),
-      surfaceContainerHigh: Color(0xffede7e3),
-      surfaceContainerHighest: Color(0xffe7e1dd),
+      surfaceContainer: Color(0xff9B9B9B), // font
+      surfaceContainerHigh: Color(0xffD6D6D6), // card locked
+      surfaceContainerHighest: Color(0xffDEE3E5), //outline card locked
     );
   }
 
@@ -65,9 +65,6 @@ class MaterialTheme {
     useMaterial3: true,
     brightness: colorScheme.brightness,
     colorScheme: colorScheme,
-    textTheme: textTheme.apply(
-      bodyColor: colorScheme.onSurface,
-      displayColor: colorScheme.onSurface,
     textTheme: GoogleFonts.ptSerifTextTheme(
       ThemeData.light().textTheme,
     ).copyWith(
@@ -188,10 +185,16 @@ class CustomCardThemes extends ThemeExtension<CustomCardThemes> {
   CustomCardThemes lerp(ThemeExtension<CustomCardThemes>? other, double t) {
     if (other is! CustomCardThemes) return this;
     return CustomCardThemes(
-      lockedCardTheme:
-          CardTheme.lerp(lockedCardTheme, other.lockedCardTheme, t)!,
-      finishedCardTheme:
-          CardTheme.lerp(finishedCardTheme, other.finishedCardTheme, t)!,
+      lockedCardTheme: CardTheme.lerp(
+        lockedCardTheme,
+        other.lockedCardTheme,
+        t,
+      ),
+      finishedCardTheme: CardTheme.lerp(
+        finishedCardTheme,
+        other.finishedCardTheme,
+        t,
+      ),
     );
   }
 }
@@ -236,8 +239,10 @@ class FeedbackColors extends ThemeExtension<FeedbackColors> {
   FeedbackColors lerp(ThemeExtension<FeedbackColors>? other, double t) {
     if (other is! FeedbackColors) return this;
     return FeedbackColors(
-      correctBackground: Color.lerp(correctBackground, other.correctBackground, t)!,
-      correctForeground: Color.lerp(correctForeground, other.correctForeground, t)!,
+      correctBackground:
+          Color.lerp(correctBackground, other.correctBackground, t)!,
+      correctForeground:
+          Color.lerp(correctForeground, other.correctForeground, t)!,
       correctButton: Color.lerp(correctButton, other.correctButton, t)!,
       wrongBackground: Color.lerp(wrongBackground, other.wrongBackground, t)!,
       wrongForeground: Color.lerp(wrongForeground, other.wrongForeground, t)!,

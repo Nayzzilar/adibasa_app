@@ -4,16 +4,11 @@ class ExitDialog extends StatelessWidget {
   final VoidCallback onContinue;
   final VoidCallback onExit;
 
-  const ExitDialog({
-    Key? key,
-    required this.onContinue,
-    required this.onExit,
-  }) : super(key: key);
+  const ExitDialog({Key? key, required this.onContinue, required this.onExit})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       backgroundColor: Colors.white,
@@ -41,9 +36,15 @@ class ExitDialog extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4B6B2D),
                   foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  textStyle: const TextStyle(fontFamily: 'Nunito', fontSize: 16, fontWeight: FontWeight.bold),
+                  textStyle: const TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 child: const Text('Lanjutkan'),
               ),
@@ -56,9 +57,15 @@ class ExitDialog extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFA13A2C),
                   foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  textStyle: const TextStyle(fontFamily: 'Nunito', fontSize: 16, fontWeight: FontWeight.bold),
+                  textStyle: const TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 child: const Text('Keluar'),
               ),
@@ -68,4 +75,5 @@ class ExitDialog extends StatelessWidget {
       ),
     );
   }
-} 
+}
+

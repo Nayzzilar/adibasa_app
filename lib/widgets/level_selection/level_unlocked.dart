@@ -2,7 +2,6 @@ import 'package:adibasa_app/models/level.dart';
 import 'package:adibasa_app/theme/theme.dart';
 import 'package:flutter/material.dart';
 
-
 class LevelUnlocked extends StatelessWidget {
   final Level level;
   const LevelUnlocked({super.key, required this.level});
