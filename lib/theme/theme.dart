@@ -51,9 +51,9 @@ class MaterialTheme {
       surfaceBright: Color(0xfffef8f4),
       surfaceContainerLowest: Color(0xffffffff),
       surfaceContainerLow: Color(0xfff8f3ee),
-      surfaceContainer: Color(0xfff2ede9),
-      surfaceContainerHigh: Color(0xffede7e3),
-      surfaceContainerHighest: Color(0xffe7e1dd),
+      surfaceContainer: Color(0xff9B9B9B), // font
+      surfaceContainerHigh: Color(0xffD6D6D6), // card locked
+      surfaceContainerHighest: Color(0xffDEE3E5), //outline card locked
     );
   }
 
