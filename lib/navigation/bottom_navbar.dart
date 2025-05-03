@@ -100,8 +100,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
         isSelected
             ? Text(
               label,
-              style: const TextStyle(
-                color: Color(0xff462f00),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
               ),
