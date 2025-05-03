@@ -100,11 +100,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
         isSelected
             ? Text(
               label,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                fontWeight: FontWeight.w800
+              )
             )
             : const SizedBox.shrink(),
       ],
