@@ -10,15 +10,10 @@ import 'package:adibasa_app/screens/multiple_choice_page.dart';
 class PageRouteApp {
   static final pages = [
     GetPage(name: RouteName.kamus, page: () => Kamus()),
-    GetPage(name: RouteName.level_selection, page: () => LevelSelection()),
-    GetPage(name: RouteName.bottomnavbar, page: () => BottomNavbar()),
     GetPage(name: RouteName.levelSelection, page: () => LevelSelection()),
     GetPage(name: RouteName.bottomNavbar, page: () => BottomNavbar()),
     GetPage(name: RouteName.onboarding, page: () => FirstPage()),
     GetPage(name: RouteName.levelComplete, page: () => LevelCompletePage()),
-    GetPage(
-      name: RouteName.questions,
-      page: () => const MultipleChoicePage(), 
-    ),
+    GetPage(name: RouteName.questions, page: () => const MultipleChoicePage()),
   ];
 }
