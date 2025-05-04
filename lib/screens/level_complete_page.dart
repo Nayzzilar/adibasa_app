@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/star_provider.dart';
 import '../providers/duration_provider.dart';
-import '../providers/streak_provider.dart';
 import '../widgets/star_rating.dart';
 import '../navigation/route_name.dart';
 import 'package:get/get.dart';
@@ -31,7 +30,6 @@ class LevelCompletePage extends ConsumerWidget {
     void _replayLesson(WidgetRef ref) {
       // Reset semua state terkait lesson
       ref.read(durationProvider.notifier).reset();
-      ref.read(streakProvider.notifier).reset();
 
       // Navigasi ke halaman questions dengan state segar
       Get.offAllNamed(RouteName.questions);
@@ -39,12 +37,12 @@ class LevelCompletePage extends ConsumerWidget {
 
     void _nextLesson(WidgetRef ref) {
       final currentLesson = ref.read(currentLessonProvider);
-      final nextLesson = ref.read(currentLessonProvider.notifier).getNextLesson();
+      final nextLesson =
+          ref.read(currentLessonProvider.notifier).getNextLesson();
 
       if (nextLesson != null) {
         // Reset state
         ref.read(durationProvider.notifier).reset();
-        ref.read(streakProvider.notifier).reset();
 
         // Set lesson berikutnya
         ref.read(currentLessonProvider.notifier).setLesson(nextLesson);
