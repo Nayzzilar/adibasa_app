@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:adibasa_app/theme/theme.dart';
 
 class ResultDialog extends StatelessWidget {
   final bool isCorrect;
@@ -14,19 +16,32 @@ class ResultDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final feedbackColors = theme.extension<FeedbackColors>();
+    
+    if (feedbackColors == null) {
+      throw Exception('FeedbackColors extension not found in theme');
+    }
+    
+    final backgroundColor = isCorrect 
+        ? feedbackColors.correctBackground 
+        : feedbackColors.wrongBackground;
+    
+    final foregroundColor = isCorrect 
+        ? feedbackColors.correctForeground 
+        : feedbackColors.wrongForeground;
+    
+    final buttonColor = isCorrect 
+        ? feedbackColors.correctButton 
+        : feedbackColors.wrongButton;
+    
     return Container(
       width: double.infinity,
       margin: EdgeInsets.zero,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 22),
       decoration: BoxDecoration(
-        color: isCorrect ? const Color(0xFFE6F4EA) : const Color(0xFFFFE6E6),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: isCorrect ? const Color(0xFF2E7D32) : const Color(0xFFD32F2F),
-          width: 1.5,
-        ),
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(18),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -36,42 +51,116 @@ class ResultDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(
-                isCorrect ? 'assets/image/AndaBenar.png' : 'assets/image/AndaSalah.png',
-                width: 28,
-                height: 28,
+              Icon(
+                isCorrect ? Icons.check_circle_rounded : Icons.cancel_rounded,
+                color: foregroundColor,
+                size: 32,
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 12),
               Text(
                 isCorrect ? 'Anda Benar' : 'Anda Salah',
-                style: textTheme.titleMedium?.copyWith(
+                style: GoogleFonts.nunito(
                   fontWeight: FontWeight.bold,
-                  color: isCorrect ? const Color(0xFF2E7D32) : const Color(0xFFD32F2F),
+                  color: foregroundColor,
+                  fontSize: 22,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          Text('Jawaban yang benar:', style: textTheme.bodyMedium),
+          const SizedBox(height: 14),
+          Text(
+            'Jawaban yang benar:', 
+            style: GoogleFonts.nunito(fontSize: 16),
+          ),
           Text(
             correctAnswer,
-            style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+            style: GoogleFonts.nunito(
+              fontWeight: FontWeight.bold, 
+              fontSize: 17,
+            ),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 22),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               onPressed: onContinue,
               style: ElevatedButton.styleFrom(
-                backgroundColor: isCorrect ? const Color(0xFF2E7D32) : const Color(0xFFD32F2F),
+                backgroundColor: buttonColor,
                 foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 16),
               ),
-              child: const Text('Lanjutkan'),
+              child: Text(
+                'Lanjutkan',
+                style: GoogleFonts.nunito(
+                  fontSize: 16, 
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
         ],
       ),
     );
   }
-} 
+}
+
+class AnimatedResultDialog extends StatefulWidget {
+  final bool isCorrect;
+  final String correctAnswer;
+  final VoidCallback onContinue;
+  
+  const AnimatedResultDialog({
+    Key? key,
+    required this.isCorrect,
+    required this.correctAnswer,
+    required this.onContinue,
+  }) : super(key: key);
+
+  @override
+  State<AnimatedResultDialog> createState() => _AnimatedResultDialogState();
+}
+
+class _AnimatedResultDialogState extends State<AnimatedResultDialog> 
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnim;
+  late Animation<double> _fadeAnim;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 450),
+    );
+    _scaleAnim = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
+    );
+    _fadeAnim = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaleTransition(
+      scale: _scaleAnim,
+      child: FadeTransition(
+        opacity: _fadeAnim,
+        child: ResultDialog(
+          isCorrect: widget.isCorrect,
+          correctAnswer: widget.correctAnswer,
+          onContinue: widget.onContinue,
+        ),
+      ),
+    );
+  }
+}

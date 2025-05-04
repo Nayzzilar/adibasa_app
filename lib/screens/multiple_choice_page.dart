@@ -1,247 +1,241 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:audioplayers/audioplayers.dart';
+import '../models/lesson_model.dart';
+import '../models/challenge_model.dart';
+import '../providers/current_lesson_provider.dart';
+import '../providers/duration_provider.dart';
+import '../providers/star_provider.dart';
+import '../providers/streak_provider.dart';
 import '../widgets/gamification/progress_bar.dart';
 import '../widgets/gamification/question_card.dart';
 import '../widgets/gamification/result_dialog.dart';
 import '../widgets/gamification/exit_dialog.dart';
-import '../widgets/gamification/new_word_popup.dart';
-import '../providers/star_provider.dart';
-import '../providers/streak_provider.dart';
-import 'package:provider/provider.dart';
 
-class MultipleChoicePage extends StatefulWidget {
-  const MultipleChoicePage({Key? key}) : super(key: key);
+class MultipleChoicePage extends ConsumerStatefulWidget {
+  const MultipleChoicePage({super.key});
 
   @override
-  State<MultipleChoicePage> createState() => _MultipleChoicePageState();
+  ConsumerState<MultipleChoicePage> createState() => _MultipleChoicePageState();
 }
 
-class _MultipleChoicePageState extends State<MultipleChoicePage> {
-  List<dynamic> _questions = [];
+class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
   int _currentIndex = 0;
   int? _selectedIndex;
-  bool _isAnswered = false;
   int? _correctIndex;
+  bool _isAnswered = false;
   bool _showResult = false;
   bool _isCorrect = false;
-  bool _showNewWordPopup = false;
-  String _newWord = '';
-  String _newWordMeaning = '';
   DateTime? _levelStartTime;
-  OverlayEntry? _popupEntry;
+  late AudioPlayer _audioPlayer;
+  late Lesson _currentLesson;
 
   @override
   void initState() {
     super.initState();
-    _loadQuestions();
-    _levelStartTime = DateTime.now();
+    _currentLesson = ref.read(currentLessonProvider)!;
+    _audioPlayer = AudioPlayer();
+    ref.read(durationProvider.notifier).start();
   }
 
-  Future<void> _loadQuestions() async {
-    final String data = await rootBundle.loadString('assets/dummy/greetings_lessons.json');
-    final List<dynamic> jsonResult = json.decode(data);
-    setState(() {
-      _questions = jsonResult[0]['challenges'];
-    });
-  }
+  List<Challenge> get challenges => _currentLesson.challenges ?? [];
 
   void _onOptionSelected(int index) {
     if (_isAnswered) return;
-    setState(() {
-      _selectedIndex = index;
-      _isAnswered = true;
-      _correctIndex = _questions[_currentIndex]['options'].indexWhere((o) => o['correct'] == true);
-      _isCorrect = _selectedIndex == _correctIndex;
-      _showResult = true;
-    });
-    if (_isCorrect) {
-      Provider.of<StreakProvider>(context, listen: false).incrementStreak();
-    } else {
-      Provider.of<StreakProvider>(context, listen: false).resetStreak();
-    }
+    setState(() => _selectedIndex = index);
   }
 
   void _onContinue() {
-    _hideNewWordBubble();
-    if (_currentIndex < _questions.length - 1) {
+    if (!_isAnswered) {
+      final currentChallenge = challenges[_currentIndex];
       setState(() {
-        _showResult = false;
-        _isAnswered = false;
-        _selectedIndex = null;
-        _correctIndex = null;
+        _isAnswered = true;
+        _correctIndex =
+            currentChallenge.options?.indexWhere((o) => o.correct) ?? -1;
+        _isCorrect = _selectedIndex == _correctIndex;
+        _showResult = true;
+      });
+
+      final streakNotifier = ref.read(streakProvider.notifier);
+      _isCorrect ? streakNotifier.increment() : streakNotifier.reset();
+
+      _audioPlayer.play(
+        AssetSource(_isCorrect ? 'audio/success.mp3' : 'audio/failure.mp3'),
+      );
+      return;
+    }
+
+    if (_currentIndex < challenges.length - 1) {
+      setState(() {
+        _resetQuestionState();
         _currentIndex++;
       });
     } else {
-      // Hitung star berdasarkan durasi level
-      final endTime = DateTime.now();
-      final duration = endTime.difference(_levelStartTime ?? endTime);
-      Provider.of<StarProvider>(context, listen: false).calculateStar(duration);
-      // Navigasi ke halaman LevelCompletePage
-      Navigator.of(context).pushReplacementNamed('/level-complete');
+      _handleLevelCompletion();
     }
   }
 
-  void _onNewWordTap(GlobalKey key, String word, String meaning) {
-    if (_popupEntry != null && _newWord == word) {
-      _hideNewWordBubble();
-      return;
-    }
-    setState(() {
-      _newWord = word;
-      _newWordMeaning = meaning;
-    });
-    _hideNewWordBubble();
-    _showNewWordBubble(context, key);
+  void _resetQuestionState() {
+    _showResult = false;
+    _isAnswered = false;
+    _selectedIndex = null;
+    _correctIndex = null;
   }
 
-  void _showNewWordBubble(BuildContext context, GlobalKey key) {
-    final renderBox = key.currentContext?.findRenderObject() as RenderBox?;
-    final offset = renderBox?.localToGlobal(Offset.zero) ?? Offset(100, 100);
-    _popupEntry = OverlayEntry(
-      builder: (context) => NewWordPopup(
-        word: _newWord,
-        meaning: _newWordMeaning,
-        position: Offset(offset.dx + renderBox!.size.width + 8, offset.dy - 8),
-      ),
-    );
-    Overlay.of(context).insert(_popupEntry!);
-  }
+  void _handleLevelCompletion() {
+    final durationNotifier = ref.read(durationProvider.notifier);
+    durationNotifier.stop();
+    final duration = ref.read(durationProvider);
 
-  void _hideNewWordBubble() {
-    _popupEntry?.remove();
-    _popupEntry = null;
+    ref.read(starProvider.notifier).calculateStar(duration);
+    Navigator.pushReplacementNamed(context, '/level_complete');
   }
 
   void _showExitDialogOverlay() {
     showDialog(
       context: context,
       barrierDismissible: false,
-      barrierColor: Colors.black.withOpacity(0.3),
-      builder: (context) => ExitDialog(
-        onContinue: () {
-          Navigator.of(context).pop();
-        },
-        onExit: () {
-          Navigator.of(context).pop();
-          Navigator.of(context).pop();
-        },
-      ),
+      builder:
+          (context) => ExitDialog(
+            onContinue: () => Navigator.pop(context),
+            onExit: () {
+              Navigator.pushReplacementNamed(context, '/bottom_navbar');
+            },
+          ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final currentQuestion = _questions.isNotEmpty ? _questions[_currentIndex] : null;
-    final isNewWord = currentQuestion != null && currentQuestion['type'] == 'NEW_WORD';
-    String? newWord;
-    String? newWordMeaning;
-    if (isNewWord && currentQuestion != null) {
-      final match = RegExp(r'"([^"]+)"').firstMatch(currentQuestion['question']);
-      newWord = match != null ? match.group(1) ?? '' : '';
-      final correctOption = currentQuestion['options'].firstWhere((o) => o['correct'] == true);
-      newWordMeaning = correctOption['text'];
+    if (challenges.isEmpty) {
+      return const Scaffold(
+        body: Center(child: Text('No challenges available')),
+      );
     }
+
+    final currentChallenge = challenges[_currentIndex];
+    final isNewWord = true;
+    final streak = ref.watch(streakProvider);
+
     return Scaffold(
+      backgroundColor: const Color(0xFFF6E7C1),
       appBar: null,
-      body: _questions.isEmpty
-          ? const Center(child: CircularProgressIndicator())
-          : Column(
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Column(
               children: [
-                Consumer<StreakProvider>(
-                  builder: (context, streakProvider, _) {
-                    return ProgressBar(
-                      currentQuestion: _currentIndex + 1,
-                      totalQuestions: _questions.length,
-                      streak: streakProvider.streak,
-                      onClose: _showExitDialogOverlay,
-                    );
-                  },
+                ProgressBar(
+                  currentQuestion: _currentIndex + 1,
+                  totalQuestions: challenges.length,
+                  streak: streak,
+                  onClose: _showExitDialogOverlay,
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (isNewWord)
-                        Padding(
-                          padding: const EdgeInsets.only(left: 16, top: 8, bottom: 4),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset(
-                                'assets/image/KataBaru.png',
-                                width: 18,
-                                height: 18,
-                              ),
-                              const SizedBox(width: 6),
-                              Text(
-                                'Kata Baru',
-                                style: TextStyle(
-                                  color: Colors.orange,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      Expanded(
-                        child: QuestionCard(
-                          question: currentQuestion['question'],
-                          options: List<String>.from(currentQuestion['options'].map((o) => o['text'])),
-                          selectedIndex: _selectedIndex,
-                          onOptionSelected: (index) {
-                            setState(() {
-                              _selectedIndex = index;
-                            });
-                          },
-                          isAnswered: _isAnswered,
-                          correctIndex: _correctIndex,
-                          isNewWord: isNewWord,
-                          onNewWordTap: isNewWord && newWord != null && newWordMeaning != null
-                              ? (key) => _onNewWordTap(key, newWord!, newWordMeaning!)
-                              : null,
-                          onNewWordBubbleClose: _hideNewWordBubble,
-                        ),
+                if (isNewWord)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        top: 8,
+                        bottom: 8,
                       ),
-                    ],
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset(
+                            'assets/image/KataBaru.png',
+                            width: 18,
+                            height: 18,
+                          ),
+                          const SizedBox(width: 6),
+                          const Text(
+                            'Kata Baru',
+                            style: TextStyle(
+                              color: Color(0xFFFFA726),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              fontFamily: 'Nunito',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: (_showResult)
-                        ? const SizedBox.shrink()
-                        : (_isAnswered
-                            ? ElevatedButton(
-                                onPressed: _onContinue,
-                                style: ElevatedButton.styleFrom(),
-                                child: const Text('Lanjutkan'),
-                              )
-                            : ElevatedButton(
-                                onPressed: _selectedIndex != null
-                                    ? () {
-                                        _onOptionSelected(_selectedIndex!);
-                                      }
-                                    : null,
-                                style: ElevatedButton.styleFrom(),
-                                child: const Text('Periksa'),
-                              )),
+                Expanded(
+                  child: QuestionCard(
+                    key: ValueKey(_currentIndex),
+                    options: currentChallenge.options!,
+                    question: currentChallenge.question,
+                    isNewWord: isNewWord,
+                    selectedIndex: _selectedIndex,
+                    onOptionSelected: _onOptionSelected,
+                    isAnswered: _isAnswered,
+                    correctIndex: _correctIndex,
                   ),
                 ),
               ],
             ),
-      floatingActionButton: null,
-      bottomSheet:
-          (_showResult
-              ? ResultDialog(
+            if (!_showResult)
+              Positioned(
+                left: 20,
+                right: 20,
+                bottom: 12,
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    onPressed:
+                        (_selectedIndex != null && !_isAnswered)
+                            ? _onContinue
+                            : null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          _isAnswered
+                              ? const Color(0xFF4B6B2D)
+                              : (_selectedIndex != null
+                                  ? const Color(0xFFB6B96C)
+                                  : const Color(0xFFD6D6C2)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                    ),
+                    child: Text(
+                      _isAnswered ? 'Lanjutkan' : 'Periksa',
+                      style: const TextStyle(
+                        fontFamily: 'Nunito',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            if (_showResult)
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: ResultDialog(
                   isCorrect: _isCorrect,
-                  correctAnswer: _questions[_currentIndex]['options'][_correctIndex ?? 0]['text'],
+                  correctAnswer:
+                      _correctIndex != null &&
+                              _correctIndex! < currentChallenge.options!.length
+                          ? currentChallenge.options![_correctIndex!].text
+                          : '',
                   onContinue: _onContinue,
-                )
-              : null),
+                ),
+              ),
+          ],
+        ),
+      ),
     );
   }
-} 
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+}
