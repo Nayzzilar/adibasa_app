@@ -7,5 +7,4 @@ abstract class RouteName {
   static const questions = '/questions';
   static const koleksi = '/koleksi';
   static const gamification = '/gamification';
-  // static const koleksi = '/album';
 }

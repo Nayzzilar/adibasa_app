@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:adibasa_app/services/dictionary_service.dart';
 import 'package:adibasa_app/models/word.dart';
+import 'package:adibasa_app/theme/theme.dart';
 
 void main() {
   runApp(const Kamus());
@@ -13,11 +14,7 @@ class Kamus extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Serif',
-        primaryColor: const Color(0xFFE4CBA8),
-        scaffoldBackgroundColor: const Color(0xFFE4CBA8),
-      ),
+      theme: MaterialTheme(const TextTheme()).light(),
       home: const KamusPage(),
     );
   }
@@ -103,19 +100,18 @@ class _KamusPageState extends State<KamusPage> {
           children: [
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              decoration: const BoxDecoration(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(color: Color(0xFFCBB28E), width: 1),
+                  bottom: BorderSide(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 2,
+                  ),
                 ),
               ),
-              child: const Text(
+              child: Text(
                 'Kamus',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF6B4C23),
-                ),
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
             ),
             Padding(
@@ -126,12 +122,26 @@ class _KamusPageState extends State<KamusPage> {
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.outline,
+                          width: 1,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context).colorScheme.outline,
+                            offset: const Offset(0, 2),
+                            blurRadius: 0,
+                            spreadRadius: 0,
+                          ),
+                        ],
                       ),
                       child: TextField(
                         controller: _searchController,
                         decoration: InputDecoration(
                           hintText: 'Cari kata',
+                          hintStyle: Theme.of(context).textTheme.headlineSmall!
+                                        .copyWith(color: Theme.of(context).colorScheme.outline),
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 15,
                           ),
@@ -157,10 +167,7 @@ class _KamusPageState extends State<KamusPage> {
                         children: [
                           Text(
                             'Sort',
-                            style: TextStyle(
-                              color: Color(0xFF6B4C23),
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: Theme.of(context).textTheme.headlineSmall,
                           ),
                           Icon(
                             _sortOrder == 'asc'
@@ -185,13 +192,10 @@ class _KamusPageState extends State<KamusPage> {
                         ),
                       )
                       : _filteredWords.isEmpty
-                      ? const Center(
+                      ? Center(
                         child: Text(
                           'Tidak ada kata yang ditemukan',
-                          style: TextStyle(
-                            color: Color(0xFF6B4C23),
-                            fontSize: 16,
-                          ),
+                          style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       )
                       : ListView.builder(
@@ -202,12 +206,20 @@ class _KamusPageState extends State<KamusPage> {
                           return Container(
                             margin: const EdgeInsets.only(bottom: 12),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFEFDCC4),
+                              color: Theme.of(context).colorScheme.surface,
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: const Color(0xFFDBC59F),
+                                color: Theme.of(context).colorScheme.outline,
                                 width: 1,
                               ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Theme.of(context).colorScheme.outline,
+                                  offset: const Offset(0, 2),
+                                  blurRadius: 0,
+                                  spreadRadius: 0,
+                                ),
+                              ], // Tambahkan array untuk BoxShadow
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
@@ -216,19 +228,18 @@ class _KamusPageState extends State<KamusPage> {
                                 children: [
                                   Text(
                                     word.word,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xFF6B4C23),
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(fontSize: 16, fontWeight: FontWeight.w800),
                                   ),
-                                  const SizedBox(height: 4),
+                                  SizedBox(height: 4),
                                   Text(
                                     word.definition,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      color: Color(0xFF6B4C23),
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(fontSize: 12),
                                   ),
                                 ],
                               ),
@@ -243,4 +254,3 @@ class _KamusPageState extends State<KamusPage> {
     );
   }
 }
-

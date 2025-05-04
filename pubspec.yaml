@@ -30,11 +30,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/image/
     - assets/
     - data/kamus_jawa_indonesia.json
     - assets/dummy/greetings_lessons.json
-    - assets/image/
     - assets/star/
     - assets/audio/success.mp3
     - assets/audio/failure.mp3

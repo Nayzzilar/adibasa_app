@@ -16,7 +16,7 @@ class PageRouteApp {
     GetPage(name: RouteName.levelComplete, page: () => LevelCompletePage()),
     GetPage(
       name: RouteName.questions,
-      page: () => const MultipleChoicePage(), // Ambil lesson dari provider
+      page: () => const MultipleChoicePage(), 
     ),
   ];
 }
