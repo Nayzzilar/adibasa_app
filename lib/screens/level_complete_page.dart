@@ -51,14 +51,13 @@ class LevelCompletePage extends ConsumerWidget {
           Get.offAllNamed(RouteName.questions);
         } else {
           // Tampilkan dialog atau navigasi ke level selection
-          Get.offAllNamed(RouteName.levelSelection);
+          Get.offAllNamed(RouteName.bottomNavbar);
           Get.snackbar('Selamat!', 'Anda telah menyelesaikan semua level');
         }
       });
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8ECC2),
       body: Center(
         child: Column(
           children: [

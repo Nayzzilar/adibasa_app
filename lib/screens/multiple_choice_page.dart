@@ -5,7 +5,6 @@ import 'package:audioplayers/audioplayers.dart';
 import '../models/lesson_model.dart';
 import '../models/challenge_model.dart';
 import '../providers/lesson_game_provider.dart';
-import '../providers/star_provider.dart';
 import '../widgets/gamification/progress_bar.dart';
 import '../widgets/gamification/question_card.dart';
 import '../widgets/gamification/result_dialog.dart';
@@ -261,14 +260,6 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    // Stop the timer when the widget is disposed
-    ref.read(lessonGameProvider.notifier).stopTimer();
-    _audioPlayer.dispose();
-    super.dispose();
   }
 }
 
