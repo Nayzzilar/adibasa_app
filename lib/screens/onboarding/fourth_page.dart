@@ -23,7 +23,7 @@ class FourthPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset('images/icon.png', height: 345.5, width: 258.5),
+              Image.asset('assets/images/icon.png', height: 345.5, width: 258.5),
               Text(
                 'Sistem Leveling',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),

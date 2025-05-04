@@ -20,7 +20,7 @@ class ThirdPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset('images/icon.png', height: 345.5, width: 258.5),
+              Image.asset('assets/images/icon.png', height: 345.5, width: 258.5),
               Text(
                 'Kamus Interaktif',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
