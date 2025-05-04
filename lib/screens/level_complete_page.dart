@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/lesson_game_provider.dart'; // Ganti import provider
-import '../providers/streak_provider.dart';
 import '../widgets/star_rating.dart';
 import '../navigation/route_name.dart';
 import 'package:get/get.dart';

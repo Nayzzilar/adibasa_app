@@ -1,5 +1,6 @@
 import 'package:adibasa_app/models/level.dart';
 import 'package:adibasa_app/providers/lessons_provider.dart';
+import 'package:adibasa_app/providers/user_data_provider.dart';
 import 'package:adibasa_app/widgets/level_selection/level_locked.dart';
 import 'package:adibasa_app/widgets/level_selection/status_bar_level_selection.dart';
 import 'package:flutter/material.dart';
@@ -48,74 +49,45 @@ class LevelSelection extends ConsumerWidget {
     );
   }
 
-  SliverList _buildLevelsList(
-      WidgetRef ref, List<Lesson> lessons, LessonGameState gameState) {
+  //SliverList _buildLevelsList(
+      //WidgetRef ref, List<Lesson> lessons, LessonGameState gameState) {
     // Di masa depan kita bisa menggunakan gameState untuk menentukan level mana yang terbuka
     // dan berapa bintang yang ada di setiap level
 
     // Convert lessons to levels with all unlocked
-    final levels =
-        lessons
-            .map(
-              (lesson) => Level(
-                level: lesson.order,
-                name: "Level ${lesson.order}",
-                description: lesson.title,
-                stars: 1,
-                isLocked: false, // Temporary override
-              ),
-            )
-            .toList();
+  SliverList _buildLevelsList(WidgetRef ref, List<Lesson> lessons) {
+    final userData = ref.watch(userDataProvider);
 
-    levels.addAll([
-      Level(
-        level: levels.length + 1,
-        name: "Level ${levels.length + 1}",
-        description: "Locked level",
-        stars: 0,
-        isLocked: true,
-      ),
-      Level(
-        level: levels.length + 2,
-        name: "Level ${levels.length + 2}",
-        description: "Locked level",
-        stars: 0,
-        isLocked: true,
-      ),
-      Level(
-        level: levels.length + 3,
-        name: "Level ${levels.length + 3}",
-        description: "Locked level",
-        stars: 0,
-        isLocked: true,
-      ),
-      Level(
-        level: levels.length + 4,
-        name: "Level ${levels.length + 4}",
-        description: "Locked level",
-        stars: 0,
-        isLocked: true,
-      ),
-      Level(
-        level: levels.length + 5,
-        name: "Level ${levels.length + 5}",
-        description: "Locked level",
-        stars: 0,
-        isLocked: true,
-      ),
-    ]);
+    final levels =
+        lessons.map((lesson) {
+          // Level 1 pasti terbuka
+          final isFirstLevel = lesson.order == 1;
+          // Level sebelumnya harus sudah selesai untuk membuka level selanjutnya
+          final isLocked =
+              !isFirstLevel &&
+              !userData.lessonStars.containsKey(lesson.order - 1);
+          // Berapa bintang level ini
+          final stars = userData.lessonStars[lesson.order] ?? 0;
+
+          return Level(
+            level: lesson.order,
+            name: "Level ${lesson.order}",
+            description: lesson.title,
+            stars: stars,
+            isLocked: isLocked,
+          );
+        }).toList();
 
     return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (context, index) =>
-            levels[index].isLocked
-                ? LevelLocked(level: levels[index])
-                : InkWell(
-                  onTap: () => _navigateToLesson(ref, lessons[index]),
-                  child: LevelUnlocked(level: levels[index]),
-                ),
-        childCount: levels.length,
-      ),
+      delegate: SliverChildBuilderDelegate((context, index) {
+        final level = levels[index];
+        return level.isLocked
+            ? LevelLocked(level: level)
+            : InkWell(
+              onTap: () => _navigateToLesson(ref, lessons[index]),
+              child: LevelUnlocked(level: level),
+            );
+      }, childCount: levels.length),
     );
   }
 

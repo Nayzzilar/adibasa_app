@@ -1,10 +1,12 @@
+import 'package:adibasa_app/providers/user_data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../models/lesson_model.dart';
 import '../models/challenge_model.dart';
 import '../providers/lesson_game_provider.dart';
-import '../providers/streak_provider.dart';
+import '../providers/current_lesson_provider.dart';
+import '../providers/star_provider.dart';
 import '../widgets/gamification/progress_bar.dart';
 import '../widgets/gamification/question_card.dart';
 import '../widgets/gamification/result_dialog.dart';
@@ -57,8 +59,9 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
   }
 
   void _onContinue() {
+    final userDataNotifier = ref.read(userDataProvider.notifier);
+    final currentChallenge = challenges[_currentIndex];
     if (!_isAnswered) {
-      final currentChallenge = challenges[_currentIndex];
       setState(() {
         _isAnswered = true;
         _correctIndex =
@@ -67,13 +70,20 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
         _showResult = true;
       });
 
-      final streakNotifier = ref.read(streakProvider.notifier);
-      _isCorrect ? streakNotifier.increment() : streakNotifier.reset();
+      if (_isCorrect) {
+        userDataNotifier.incrementStreak();
+      } else {
+        userDataNotifier.resetStreak();
+      }
 
       _audioPlayer.play(
         AssetSource(_isCorrect ? 'audio/success.mp3' : 'audio/failure.mp3'),
       );
       return;
+    } else {
+      if (_isCorrect) {
+        userDataNotifier.addSeenWord(currentChallenge.question);
+      }
     }
 
     if (_currentIndex < challenges.length - 1) {
@@ -99,7 +109,10 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
       // Use lessonGameProvider to calculate stars
       // This will stop the timer and calculate stars automatically
       ref.read(lessonGameProvider.notifier).calculateStars();
-
+      
+      ref
+        .read(userDataProvider.notifier)
+        .completeLesson(_currentLesson.order, ref.read(starProvider));
       Navigator.pushReplacementNamed(context, '/level_complete');
     });
   }
@@ -123,8 +136,13 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
   Widget build(BuildContext context) {
     // Normal lesson UI with challenges
     final currentChallenge = challenges[_currentIndex];
-    final isNewWord = true;
-    final streak = ref.watch(streakProvider);
+    final isNewWord =
+        !ref
+            .watch(userDataProvider)
+            .seenWords
+            .contains(currentChallenge.question);
+
+    final streak = ref.watch(userDataProvider).currentStreak;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF6E7C1),
