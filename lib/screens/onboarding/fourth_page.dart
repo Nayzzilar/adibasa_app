@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class FourthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -40,7 +42,7 @@ class FourthPage extends StatelessWidget {
                     width: 13,
                     height: 13,
                     decoration: BoxDecoration(
-                      color: Color(0xFFAEA6A8),
+                      color: colorScheme.secondary,
                       shape: BoxShape.circle,
                     ),
                   ),

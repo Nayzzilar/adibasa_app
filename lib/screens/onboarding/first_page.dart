@@ -1,7 +1,6 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:adibasa_app/screens/onboarding/second_page.dart';
+import 'dart:async';
 
 class FirstPage extends StatelessWidget {
   @override
@@ -25,12 +24,12 @@ class FirstPage extends StatelessWidget {
               SizedBox(height: 5),
               Text(
                 'AdiBasa',
-                style: GoogleFonts.ptSerif(
-                textStyle: TextStyle(
+                //style: GoogleFonts.ptSerif(
+                style: TextStyle(
                   fontSize: 45,
                   color: Colors.brown,
                   fontWeight: FontWeight.bold,
-                ),
+                //),
                 ),
               ),
             ],
