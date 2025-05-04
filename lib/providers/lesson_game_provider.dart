@@ -55,6 +55,7 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
   }
 
   Lesson? get currentLesson => state.currentLesson;
+  int? get stars => state.stars;
 
   // Reset semua state
   void reset() {

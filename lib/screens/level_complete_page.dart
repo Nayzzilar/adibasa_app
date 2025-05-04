@@ -113,7 +113,7 @@ class LevelCompletePage extends ConsumerWidget {
                   _buildIconButton(
                     context,
                     Icons.home,
-                        () => Get.offAllNamed(RouteName.levelSelection),
+                        () => Get.offAllNamed(RouteName.bottomNavbar),
                   ),
                   SizedBox(width: screenWidth * 0.04),
                   _buildIconButton(
