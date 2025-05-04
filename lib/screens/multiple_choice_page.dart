@@ -5,7 +5,6 @@ import 'package:audioplayers/audioplayers.dart';
 import '../models/lesson_model.dart';
 import '../models/challenge_model.dart';
 import '../providers/lesson_game_provider.dart';
-import '../providers/current_lesson_provider.dart';
 import '../providers/star_provider.dart';
 import '../widgets/gamification/progress_bar.dart';
 import '../widgets/gamification/question_card.dart';
@@ -109,10 +108,13 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
       // Use lessonGameProvider to calculate stars
       // This will stop the timer and calculate stars automatically
       ref.read(lessonGameProvider.notifier).calculateStars();
-      
+
       ref
-        .read(userDataProvider.notifier)
-        .completeLesson(_currentLesson.order, ref.read(starProvider));
+          .read(userDataProvider.notifier)
+          .completeLesson(
+            _currentLesson?.order ?? 0,
+            ref.read(lessonGameProvider).stars,
+          );
       Navigator.pushReplacementNamed(context, '/level_complete');
     });
   }
@@ -121,14 +123,15 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => ExitDialog(
-        onContinue: () => Navigator.pop(context),
-        onExit: () {
-          // Stop the timer when exiting the lesson
-          ref.read(lessonGameProvider.notifier).stopTimer();
-          Navigator.pushReplacementNamed(context, '/bottom_navbar');
-        },
-      ),
+      builder:
+          (context) => ExitDialog(
+            onContinue: () => Navigator.pop(context),
+            onExit: () {
+              // Stop the timer when exiting the lesson
+              ref.read(lessonGameProvider.notifier).stopTimer();
+              Navigator.pushReplacementNamed(context, '/bottom_navbar');
+            },
+          ),
     );
   }
 
@@ -212,15 +215,17 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                   width: double.infinity,
                   height: 48,
                   child: ElevatedButton(
-                    onPressed: (_selectedIndex != null && !_isAnswered)
-                        ? _onContinue
-                        : null,
+                    onPressed:
+                        (_selectedIndex != null && !_isAnswered)
+                            ? _onContinue
+                            : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: _isAnswered
-                          ? const Color(0xFF4B6B2D)
-                          : (_selectedIndex != null
-                          ? const Color(0xFFB6B96C)
-                          : const Color(0xFFD6D6C2)),
+                      backgroundColor:
+                          _isAnswered
+                              ? const Color(0xFF4B6B2D)
+                              : (_selectedIndex != null
+                                  ? const Color(0xFFB6B96C)
+                                  : const Color(0xFFD6D6C2)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                       ),
@@ -244,10 +249,11 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                 bottom: 0,
                 child: ResultDialog(
                   isCorrect: _isCorrect,
-                  correctAnswer: _correctIndex != null &&
-                      _correctIndex! < currentChallenge.options!.length
-                      ? currentChallenge.options![_correctIndex!].text
-                      : '',
+                  correctAnswer:
+                      _correctIndex != null &&
+                              _correctIndex! < currentChallenge.options!.length
+                          ? currentChallenge.options![_correctIndex!].text
+                          : '',
                   onContinue: _onContinue,
                 ),
               ),
@@ -265,3 +271,4 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
     super.dispose();
   }
 }
+

@@ -34,7 +34,6 @@ class LevelCompletePage extends ConsumerWidget {
 
         // Reset timer tapi tetap menggunakan lesson yang sama
         gameNotifier.resetTimer();
-        ref.read(streakProvider.notifier).reset();
 
         // Navigasi ke halaman questions dengan state segar
         Get.offAllNamed(RouteName.questions);
@@ -47,9 +46,6 @@ class LevelCompletePage extends ConsumerWidget {
         final nextLesson = gameNotifier.getNextLesson();
 
         if (nextLesson != null) {
-          // Reset state
-          ref.read(streakProvider.notifier).reset();
-
           // Set lesson berikutnya dengan lessonGameProvider
           gameNotifier.setLesson(nextLesson);
           Get.offAllNamed(RouteName.questions);
@@ -112,19 +108,19 @@ class LevelCompletePage extends ConsumerWidget {
                   _buildIconButton(
                     context,
                     Icons.home,
-                        () => Get.offAllNamed(RouteName.bottomNavbar),
+                    () => Get.offAllNamed(RouteName.bottomNavbar),
                   ),
                   SizedBox(width: screenWidth * 0.04),
                   _buildIconButton(
                     context,
                     Icons.refresh,
-                        () => _replayLesson(ref),
+                    () => _replayLesson(ref),
                   ),
                   SizedBox(width: screenWidth * 0.04),
                   _buildIconButton(
                     context,
                     Icons.arrow_forward,
-                        () => _nextLesson(ref),
+                    () => _nextLesson(ref),
                   ),
                 ],
               ),
@@ -136,10 +132,10 @@ class LevelCompletePage extends ConsumerWidget {
   }
 
   Widget _buildIconButton(
-      BuildContext context,
-      IconData icon,
-      VoidCallback onPressed,
-      ) {
+    BuildContext context,
+    IconData icon,
+    VoidCallback onPressed,
+  ) {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
@@ -164,3 +160,4 @@ class LevelCompletePage extends ConsumerWidget {
     );
   }
 }
+

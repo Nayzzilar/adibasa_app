@@ -35,12 +35,14 @@ class LevelSelection extends ConsumerWidget {
 
             // Lessons content
             lessonsAsync.when(
-              loading: () => const SliverFillRemaining(
-                child: Center(child: CircularProgressIndicator()),
-              ),
-              error: (error, stack) => SliverFillRemaining(
-                child: Center(child: Text('Error: $error')),
-              ),
+              loading:
+                  () => const SliverFillRemaining(
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+              error:
+                  (error, stack) => SliverFillRemaining(
+                    child: Center(child: Text('Error: $error')),
+                  ),
               data: (lessons) => _buildLevelsList(ref, lessons, gameState),
             ),
           ],
@@ -49,13 +51,16 @@ class LevelSelection extends ConsumerWidget {
     );
   }
 
-  //SliverList _buildLevelsList(
-      //WidgetRef ref, List<Lesson> lessons, LessonGameState gameState) {
+  SliverList _buildLevelsList(
+    WidgetRef ref,
+    List<Lesson> lessons,
+    LessonGameState gameState,
+  ) {
     // Di masa depan kita bisa menggunakan gameState untuk menentukan level mana yang terbuka
     // dan berapa bintang yang ada di setiap level
 
     // Convert lessons to levels with all unlocked
-  SliverList _buildLevelsList(WidgetRef ref, List<Lesson> lessons) {
+    // SliverList _buildLevelsList(WidgetRef ref, List<Lesson> lessons) {
     final userData = ref.watch(userDataProvider);
 
     final levels =
