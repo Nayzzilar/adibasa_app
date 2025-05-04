@@ -23,9 +23,15 @@ class LevelSelection extends ConsumerWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            const SliverToBoxAdapter(
-              child: Column(children: [StatusBarLevelSelection()]),
+            // Fixed status bar using SliverPersistentHeader with pinned: true
+            SliverPersistentHeader(
+              pinned: true, // This makes it stick to the top when scrolling
+              delegate: _SliverStatusBarDelegate(
+                child: const StatusBarLevelSelection(),
+              ),
             ),
+
+            // Lessons content
             lessonsAsync.when(
               loading:
                   () => const SliverFillRemaining(
@@ -113,5 +119,36 @@ class LevelSelection extends ConsumerWidget {
   void _navigateToLesson(WidgetRef ref, Lesson lesson) {
     ref.read(currentLessonProvider.notifier).setLesson(lesson);
     Get.toNamed(RouteName.questions);
+  }
+}
+
+// Custom delegate for the fixed status bar
+class _SliverStatusBarDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+
+  _SliverStatusBarDelegate({required this.child});
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    // Add background color to match the scaffold background
+    return Container(
+      color: Theme.of(context).colorScheme.secondaryContainer,
+      child: child,
+    );
+  }
+
+  @override
+  double get maxExtent => 85.0; // Adjust the height based on your status bar height
+
+  @override
+  double get minExtent => 85.0; // Usually the same as maxExtent for a fixed header
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
   }
 }
