@@ -144,7 +144,7 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Image.asset(
-                            'assets/image/KataBaru.png',
+                            'assets/images/KataBaru.png',
                             width: 18,
                             height: 18,
                           ),

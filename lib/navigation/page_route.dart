@@ -14,9 +14,6 @@ class PageRouteApp {
     GetPage(name: RouteName.bottomNavbar, page: () => BottomNavbar()),
     GetPage(name: RouteName.onboarding, page: () => FirstPage()),
     GetPage(name: RouteName.levelComplete, page: () => LevelCompletePage()),
-    GetPage(
-      name: RouteName.questions,
-      page: () => const MultipleChoicePage(), 
-    ),
+    GetPage(name: RouteName.questions, page: () => const MultipleChoicePage()),
   ];
 }
