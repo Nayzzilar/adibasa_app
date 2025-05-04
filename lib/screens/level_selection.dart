@@ -28,7 +28,7 @@ class LevelSelection extends ConsumerWidget {
             // Fixed status bar using SliverPersistentHeader with pinned: true
             SliverPersistentHeader(
               pinned: true, // This makes it stick to the top when scrolling
-              delegate: _SliverStatusBarDelegate(
+              delegate: SliverStatusBarDelegate(
                 child: const StatusBarLevelSelection(),
               ),
             ),
@@ -88,9 +88,9 @@ class LevelSelection extends ConsumerWidget {
         final level = levels[index];
         return level.isLocked
             ? LevelLocked(level: level)
-            : InkWell(
+            : LevelUnlocked(
+              level: level,
               onTap: () => _navigateToLesson(ref, lessons[index]),
-              child: LevelUnlocked(level: level),
             );
       }, childCount: levels.length),
     );
@@ -111,10 +111,10 @@ class LevelSelection extends ConsumerWidget {
 }
 
 // Custom delegate for the fixed status bar
-class _SliverStatusBarDelegate extends SliverPersistentHeaderDelegate {
+class SliverStatusBarDelegate extends SliverPersistentHeaderDelegate {
   final Widget child;
 
-  _SliverStatusBarDelegate({required this.child});
+  SliverStatusBarDelegate({required this.child});
 
   @override
   Widget build(
