@@ -7,9 +7,8 @@ import 'package:adibasa_app/widgets/level_selection/level_unlocked.dart';
 import 'package:adibasa_app/models/lesson_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-
-import '../navigation/route_name.dart';
-import '../providers/current_lesson_provider.dart';
+import 'package:adibasa_app/navigation/route_name.dart';
+import 'package:adibasa_app/providers/lesson_game_provider.dart';
 
 class LevelSelection extends ConsumerWidget {
   const LevelSelection({super.key});
@@ -17,6 +16,8 @@ class LevelSelection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lessonsAsync = ref.watch(lessonsProvider);
+    // Kita juga bisa mengamati state game jika dibutuhkan
+    final gameState = ref.watch(lessonGameProvider);
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
@@ -33,15 +34,13 @@ class LevelSelection extends ConsumerWidget {
 
             // Lessons content
             lessonsAsync.when(
-              loading:
-                  () => const SliverFillRemaining(
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
-              error:
-                  (error, stack) => SliverFillRemaining(
-                    child: Center(child: Text('Error: $error')),
-                  ),
-              data: (lessons) => _buildLevelsList(ref, lessons),
+              loading: () => const SliverFillRemaining(
+                child: Center(child: CircularProgressIndicator()),
+              ),
+              error: (error, stack) => SliverFillRemaining(
+                child: Center(child: Text('Error: $error')),
+              ),
+              data: (lessons) => _buildLevelsList(ref, lessons, gameState),
             ),
           ],
         ),
@@ -49,7 +48,11 @@ class LevelSelection extends ConsumerWidget {
     );
   }
 
-  SliverList _buildLevelsList(ref, List<Lesson> lessons) {
+  SliverList _buildLevelsList(
+      WidgetRef ref, List<Lesson> lessons, LessonGameState gameState) {
+    // Di masa depan kita bisa menggunakan gameState untuk menentukan level mana yang terbuka
+    // dan berapa bintang yang ada di setiap level
+
     // Convert lessons to levels with all unlocked
     final levels =
         lessons
@@ -117,8 +120,16 @@ class LevelSelection extends ConsumerWidget {
   }
 
   void _navigateToLesson(WidgetRef ref, Lesson lesson) {
-    ref.read(currentLessonProvider.notifier).setLesson(lesson);
-    Get.toNamed(RouteName.questions);
+    try {
+      // Langsung set lesson dulu
+      ref.read(lessonGameProvider.notifier).setLesson(lesson);
+
+      // Kemudian navigasi ke halaman questions
+      Get.toNamed(RouteName.questions);
+    } catch (e) {
+      // Tampilkan pesan error jika terjadi masalah
+      SnackBar(content: Text('Error: $e'));
+    }
   }
 }
 

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/star_provider.dart';
-import '../providers/duration_provider.dart';
+import '../providers/lesson_game_provider.dart'; // Ganti import provider
 import '../providers/streak_provider.dart';
 import '../widgets/star_rating.dart';
 import '../navigation/route_name.dart';
 import 'package:get/get.dart';
-import '../providers/current_lesson_provider.dart';
 
 class LevelCompletePage extends ConsumerWidget {
   const LevelCompletePage({Key? key}) : super(key: key);
@@ -23,37 +21,45 @@ class LevelCompletePage extends ConsumerWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    // Get provider values
-    final star = ref.read(starProvider);
-    final duration = ref.read(durationProvider);
+    // Mendapatkan state dari lessonGameProvider
+    final gameState = ref.read(lessonGameProvider);
+    final stars = gameState.stars;
+    final duration = gameState.duration;
 
-    // Tambahkan method baru di class LevelCompletePage
+    // Tambahkan method untuk replay lesson
     void _replayLesson(WidgetRef ref) {
-      // Reset semua state terkait lesson
-      ref.read(durationProvider.notifier).reset();
-      ref.read(streakProvider.notifier).reset();
+      // Gunakan Future.microtask untuk memastikan widget tree sudah selesai build
+      Future.microtask(() {
+        // Reset semua state terkait lesson dengan lessonGameProvider
+        final gameNotifier = ref.read(lessonGameProvider.notifier);
 
-      // Navigasi ke halaman questions dengan state segar
-      Get.offAllNamed(RouteName.questions);
+        // Reset timer tapi tetap menggunakan lesson yang sama
+        gameNotifier.resetTimer();
+        ref.read(streakProvider.notifier).reset();
+
+        // Navigasi ke halaman questions dengan state segar
+        Get.offAllNamed(RouteName.questions);
+      });
     }
 
     void _nextLesson(WidgetRef ref) {
-      final currentLesson = ref.read(currentLessonProvider);
-      final nextLesson = ref.read(currentLessonProvider.notifier).getNextLesson();
+      Future.microtask(() {
+        final gameNotifier = ref.read(lessonGameProvider.notifier);
+        final nextLesson = gameNotifier.getNextLesson();
 
-      if (nextLesson != null) {
-        // Reset state
-        ref.read(durationProvider.notifier).reset();
-        ref.read(streakProvider.notifier).reset();
+        if (nextLesson != null) {
+          // Reset state
+          ref.read(streakProvider.notifier).reset();
 
-        // Set lesson berikutnya
-        ref.read(currentLessonProvider.notifier).setLesson(nextLesson);
-        Get.offAllNamed(RouteName.questions);
-      } else {
-        // Tampilkan dialog atau navigasi ke level selection
-        Get.offAllNamed(RouteName.levelSelection);
-        Get.snackbar('Selamat!', 'Anda telah menyelesaikan semua level');
-      }
+          // Set lesson berikutnya dengan lessonGameProvider
+          gameNotifier.setLesson(nextLesson);
+          Get.offAllNamed(RouteName.questions);
+        } else {
+          // Tampilkan dialog atau navigasi ke level selection
+          Get.offAllNamed(RouteName.levelSelection);
+          Get.snackbar('Selamat!', 'Anda telah menyelesaikan semua level');
+        }
+      });
     }
 
     return Scaffold(
@@ -93,7 +99,7 @@ class LevelCompletePage extends ConsumerWidget {
               margin: EdgeInsets.only(top: screenHeight * 0.02),
               height: screenHeight * 0.15,
               child: StarRating(
-                starCount: star,
+                starCount: stars,
                 size: screenWidth * 0.2,
                 spacing: screenWidth * 0.04,
               ),
@@ -107,19 +113,19 @@ class LevelCompletePage extends ConsumerWidget {
                   _buildIconButton(
                     context,
                     Icons.home,
-                    () => Get.offAllNamed(RouteName.levelSelection),
+                        () => Get.offAllNamed(RouteName.levelSelection),
                   ),
                   SizedBox(width: screenWidth * 0.04),
                   _buildIconButton(
                     context,
                     Icons.refresh,
-                    () => _replayLesson(ref),
+                        () => _replayLesson(ref),
                   ),
                   SizedBox(width: screenWidth * 0.04),
                   _buildIconButton(
                     context,
                     Icons.arrow_forward,
-                    () => _nextLesson(ref),
+                        () => _nextLesson(ref),
                   ),
                 ],
               ),
@@ -131,10 +137,10 @@ class LevelCompletePage extends ConsumerWidget {
   }
 
   Widget _buildIconButton(
-    BuildContext context,
-    IconData icon,
-    VoidCallback onPressed,
-  ) {
+      BuildContext context,
+      IconData icon,
+      VoidCallback onPressed,
+      ) {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
