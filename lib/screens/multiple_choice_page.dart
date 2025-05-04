@@ -3,9 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../models/lesson_model.dart';
 import '../models/challenge_model.dart';
-import '../providers/current_lesson_provider.dart';
-import '../providers/duration_provider.dart';
-import '../providers/star_provider.dart';
+import '../providers/lesson_game_provider.dart';
 import '../providers/streak_provider.dart';
 import '../widgets/gamification/progress_bar.dart';
 import '../widgets/gamification/question_card.dart';
@@ -26,19 +24,32 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
   bool _isAnswered = false;
   bool _showResult = false;
   bool _isCorrect = false;
-  DateTime? _levelStartTime;
   late AudioPlayer _audioPlayer;
-  late Lesson _currentLesson;
+  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    _currentLesson = ref.read(currentLessonProvider)!;
     _audioPlayer = AudioPlayer();
-    ref.read(durationProvider.notifier).start();
+
+    // Do not access ref.read in initState directly for providers that might change
+    // Instead use a Future.microtask to ensure the widget is fully built
+    Future.microtask(() {
+      // Start the timer using lessonGameProvider
+      ref.read(lessonGameProvider.notifier).startTimer();
+
+      // Mark as initialized so build() knows we're ready
+      setState(() {
+        _isInitialized = true;
+      });
+    });
   }
 
-  List<Challenge> get challenges => _currentLesson.challenges ?? [];
+  // Get the current lesson from the provider whenever needed
+  Lesson? get _currentLesson => ref.read(lessonGameProvider).currentLesson;
+
+  // Get challenges from the current lesson
+  List<Challenge> get challenges => _currentLesson?.challenges ?? [];
 
   void _onOptionSelected(int index) {
     if (_isAnswered) return;
@@ -83,36 +94,34 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
   }
 
   void _handleLevelCompletion() {
-    final durationNotifier = ref.read(durationProvider.notifier);
-    durationNotifier.stop();
-    final duration = ref.read(durationProvider);
+    // Using Future.microtask to avoid updating state during widget lifecycle
+    Future.microtask(() {
+      // Use lessonGameProvider to calculate stars
+      // This will stop the timer and calculate stars automatically
+      ref.read(lessonGameProvider.notifier).calculateStars();
 
-    ref.read(starProvider.notifier).calculateStar(duration);
-    Navigator.pushReplacementNamed(context, '/level_complete');
+      Navigator.pushReplacementNamed(context, '/level_complete');
+    });
   }
 
   void _showExitDialogOverlay() {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder:
-          (context) => ExitDialog(
-            onContinue: () => Navigator.pop(context),
-            onExit: () {
-              Navigator.pushReplacementNamed(context, '/bottom_navbar');
-            },
-          ),
+      builder: (context) => ExitDialog(
+        onContinue: () => Navigator.pop(context),
+        onExit: () {
+          // Stop the timer when exiting the lesson
+          ref.read(lessonGameProvider.notifier).stopTimer();
+          Navigator.pushReplacementNamed(context, '/bottom_navbar');
+        },
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (challenges.isEmpty) {
-      return const Scaffold(
-        body: Center(child: Text('No challenges available')),
-      );
-    }
-
+    // Normal lesson UI with challenges
     final currentChallenge = challenges[_currentIndex];
     final isNewWord = true;
     final streak = ref.watch(streakProvider);
@@ -185,17 +194,15 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                   width: double.infinity,
                   height: 48,
                   child: ElevatedButton(
-                    onPressed:
-                        (_selectedIndex != null && !_isAnswered)
-                            ? _onContinue
-                            : null,
+                    onPressed: (_selectedIndex != null && !_isAnswered)
+                        ? _onContinue
+                        : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          _isAnswered
-                              ? const Color(0xFF4B6B2D)
-                              : (_selectedIndex != null
-                                  ? const Color(0xFFB6B96C)
-                                  : const Color(0xFFD6D6C2)),
+                      backgroundColor: _isAnswered
+                          ? const Color(0xFF4B6B2D)
+                          : (_selectedIndex != null
+                          ? const Color(0xFFB6B96C)
+                          : const Color(0xFFD6D6C2)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                       ),
@@ -219,11 +226,10 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                 bottom: 0,
                 child: ResultDialog(
                   isCorrect: _isCorrect,
-                  correctAnswer:
-                      _correctIndex != null &&
-                              _correctIndex! < currentChallenge.options!.length
-                          ? currentChallenge.options![_correctIndex!].text
-                          : '',
+                  correctAnswer: _correctIndex != null &&
+                      _correctIndex! < currentChallenge.options!.length
+                      ? currentChallenge.options![_correctIndex!].text
+                      : '',
                   onContinue: _onContinue,
                 ),
               ),
@@ -235,6 +241,8 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
 
   @override
   void dispose() {
+    // Stop the timer when the widget is disposed
+    ref.read(lessonGameProvider.notifier).stopTimer();
     _audioPlayer.dispose();
     super.dispose();
   }
