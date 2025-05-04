@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class LevelUnlocked extends StatelessWidget {
   final Level level;
   final VoidCallback? onTap; // Optional callback for tap events
-  const LevelUnlocked({super.key, required this.level, this.onTap});
+  const LevelUnlocked({super.key, required this.level, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,11 @@ class LevelUnlocked extends StatelessWidget {
         Theme.of(context).extension<CustomCardThemes>()?.finishedCardTheme;
 
     return Padding(
-      padding: const EdgeInsets.only(right: 16, left: 16, bottom: 10),
+      padding: const EdgeInsets.only(
+        right: 16,
+        left: 16,
+        bottom: 10,
+      ), // Konsisten dengan LevelLocked
       child: Material(
         color: finishedCardTheme?.color,
         elevation: 1,
@@ -30,40 +34,51 @@ class LevelUnlocked extends StatelessWidget {
           onTap: onTap,
           splashColor: Theme.of(context).colorScheme.primary,
           child: SizedBox(
-            height: 72,
+            height: 72, // Menggunakan shape dari finishedCardTheme
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Level name + desc
+                  // Bagian Kiri: Level Name dan Description
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Level Name
                       Text(
-                        '${level.name}:',
+                        '${level.name}:', // Nama level
                         style: Theme.of(
                           context,
                         ).textTheme.headlineMedium?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primaryContainer,
+                          color:
+                              Theme.of(
+                                context,
+                              ).colorScheme.primaryContainer, // Warna font
                         ),
                       ),
+
+                      // Level Description
                       Text(
-                        level.description,
+                        level.description, // Deskripsi level
                         style: Theme.of(
                           context,
                         ).textTheme.headlineSmall?.copyWith(
-                          color: Theme.of(context).colorScheme.primaryContainer,
+                          color:
+                              Theme.of(
+                                context,
+                              ).colorScheme.primaryContainer, // Warna font
                         ),
                       ),
                     ],
                   ),
 
-                  // Bintang-bintang
+                  // Bagian Kanan: Ikon Bintang
                   Row(
                     children: List.generate(3, (index) {
                       final isActive = level.stars > index;
+
+                      // Optional offset if you still want to shift the middle star
                       final offset = index == 1 ? Offset(0, -8) : Offset.zero;
 
                       return Transform.translate(
