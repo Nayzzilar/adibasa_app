@@ -1,6 +1,7 @@
 import 'package:adibasa_app/models/level.dart';
 import 'package:adibasa_app/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LevelUnlocked extends StatelessWidget {
   final Level level;
@@ -78,10 +79,10 @@ class LevelUnlocked extends StatelessWidget {
 
                     return Transform.translate(
                       offset: offset,
-                      child: Image.asset(
+                      child: SvgPicture.asset(
                         isActive
-                            ? 'assets/images/Star.png'
-                            : 'assets/images/Star_inactive.png',
+                            ? 'assets/star/star_active.svg'
+                            : 'assets/star/star_inactive.svg',
                         height: 30,
                         width: 30,
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class StatusBarLevelSelection extends StatelessWidget {
   const StatusBarLevelSelection({super.key});
@@ -21,15 +22,15 @@ class StatusBarLevelSelection extends StatelessWidget {
                 // Bagian Kiri
                 Row(
                   children: [
-                    Image.asset(
-                      'assets/images/Streak.png', // Path ke gambar
+                    SvgPicture.asset(
+                      'assets/images/streak.svg', // Path ke gambar
                       width: 20, // Sesuaikan ukuran gambar
                       height: 33,
                     ),
                     const SizedBox(width: 5),
                     const Text('5'), // Gaya teks otomatis diterapkan
                     const SizedBox(width: 20),
-                    Image.asset('assets/images/Star.png'),
+                    SvgPicture.asset('assets/star/star_active.svg'),
                     const SizedBox(width: 5),
                     const Text('5'), // Gaya teks otomatis diterapkan
                   ],
