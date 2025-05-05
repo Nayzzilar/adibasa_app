@@ -126,9 +126,9 @@ class MaterialTheme {
           color: colorScheme.surface, // Warna untuk card selesai
           elevation: 1,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(10),
             side: BorderSide(
-              color: colorScheme.outline, // Border untuk card selesai
+              color: colorScheme.tertiary, // Border untuk card selesai
               width: 2,
             ),
           ),
