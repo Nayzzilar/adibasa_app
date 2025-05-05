@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:adibasa_app/models/user_data_model.dart';
+import 'package:adibasa_app/providers/lessons_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,6 +51,16 @@ class UserDataNotifier extends StateNotifier<UserData> {
       lessonStars: {...state.lessonStars, lessonOrder: stars},
     );
     _saveToPrefs();
+  }
+
+  int get nextLessonOrder {
+    final completedLessons = state.lessonStars.keys.toList()..sort();
+    for (int i = 1; i <= completedLessons.length + 1; i++) {
+      if (!completedLessons.contains(i)) {
+        return i; // Level berikutnya yang belum diselesaikan
+      }
+    }
+    return 1; // Default ke level 1 jika tidak ada data
   }
 }
 
