@@ -104,3 +104,8 @@ class ColorFamily {
   final Color colorContainer;
   final Color onColorContainer;
 }
+
+class CustomColors {
+  static const Color slideOnboarding = Color(0xFFAEA6A8);
+  static const Color buttonColor = Color(0xFF7F833A);
+}

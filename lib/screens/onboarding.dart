@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:adibasa_app/theme/theme.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -30,6 +31,32 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     },
   ];
 
+  Future<void> _checkOnboardingStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool isOnboarded = prefs.getBool('onboardingCompleted') ?? false;
+
+    if (isOnboarded) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => Dummy()),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _checkOnboardingStatus();
+  }
+
+  Future<void> _markOnboardingCompleted() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool(
+      'onboardingCompleted',
+      true,
+    ); // Menyimpan status onboarding selesai
+  }
+
   void _nextPage() {
     if (currentPage < content.length - 1) {
       _controller.nextPage(
@@ -37,6 +64,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.ease,
       );
     } else {
+      _markOnboardingCompleted();
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => Dummy()),
@@ -70,8 +98,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   child: Column(
                     children: [
-                      Image.asset(content[index]['image']!, height: 250),
-                      SizedBox(height: 20),
+                      Image.asset(
+                        content[index]['image']!,
+                        height: 345.5,
+                        width: 258.5,
+                      ),
                       Text(
                         content[index]['title']!,
                         textAlign: TextAlign.center,
@@ -80,7 +111,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 10),
                       Text(
                         content[index]['desc']!,
                         textAlign: TextAlign.center,
@@ -102,8 +132,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 decoration: BoxDecoration(
                   color:
                       currentPage == index
-                          ? Color(0xFF7F833A)
-                          : Color(0xFFAEA6A8),
+                          ? CustomColors.buttonColor
+                          : CustomColors.slideOnboarding,
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
@@ -113,20 +143,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
             child:
                 currentPage == content.length - 1
-                    ? Center(
-                      child: ElevatedButton(
-                        onPressed: _nextPage,
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                    ? Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton(
+                          onPressed: _nextPage,
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 12,
+                            ),
+                            minimumSize: Size(
+                              330,
+                              48,
+                            ), // Lebar dan tinggi tombol
                           ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 12,
+                          child: Text(
+                            'Mulai',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                        child: Icon(Icons.arrow_forward),
-                      ),
+                      ],
                     )
                     : Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -143,11 +186,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             "Lewati",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF7F833A),
+                              color: CustomColors.buttonColor,
                             ),
                           ),
                         ),
-
                         ElevatedButton(
                           onPressed: _nextPage,
                           style: ElevatedButton.styleFrom(
