@@ -33,7 +33,9 @@ class StatusBarLevelSelection extends ConsumerWidget {
                     const SizedBox(width: 20),
                     SvgPicture.asset('assets/star/star_active.svg'),
                     const SizedBox(width: 5),
-                    const Text('5'),
+                    Text(
+                      '${ref.watch(userDataProvider.select((data) => data.totalStars))}',
+                    ),
                   ],
                 ),
 

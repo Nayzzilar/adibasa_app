@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:adibasa_app/providers/user_data_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:adibasa_app/models/lesson_model.dart';
 import 'package:adibasa_app/providers/lessons_provider.dart';
@@ -67,9 +68,12 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
   void calculateStars() {
     stopTimer();
     final duration = state.duration;
-    final stars = duration.inSeconds <= 60 ? 3 :
-    duration.inSeconds <= 120 ? 2 : 1;
-
+    final stars =
+        duration.inSeconds <= 60
+            ? 3
+            : duration.inSeconds <= 120
+            ? 2
+            : 1;
     state = state.copyWith(stars: stars);
   }
 
@@ -91,7 +95,8 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
 
     // Cari index berdasarkan order bukan ID
     final currentIndex = allLessons.indexWhere(
-            (l) => l.order == state.currentLesson!.order);
+      (l) => l.order == state.currentLesson!.order,
+    );
 
     if (currentIndex == -1) {
       print('Current lesson not found in lessons list');
@@ -112,7 +117,9 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
     state = state.copyWith(isTimerRunning: true);
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      state = state.copyWith(duration: state.duration + const Duration(seconds: 1));
+      state = state.copyWith(
+        duration: state.duration + const Duration(seconds: 1),
+      );
     });
   }
 
@@ -136,6 +143,7 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
   }
 }
 
-final lessonGameProvider = StateNotifierProvider<LessonGameNotifier, LessonGameState>(
+final lessonGameProvider =
+    StateNotifierProvider<LessonGameNotifier, LessonGameState>(
       (ref) => LessonGameNotifier(ref),
-);
+    );
