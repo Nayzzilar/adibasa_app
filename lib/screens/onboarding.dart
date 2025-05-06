@@ -151,15 +151,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(
+                                color: Theme.of(context).colorScheme.tertiary,
+                                width: 2.0,
+                              ),
                             ),
                             padding: EdgeInsets.symmetric(
                               horizontal: 20,
                               vertical: 12,
                             ),
-                            minimumSize: Size(
-                              330,
-                              48,
-                            ), // Lebar dan tinggi tombol
+                            minimumSize: Size(330, 48),
+                            backgroundColor: CustomColors.borderButton,
+                            foregroundColor: Colors.white,
                           ),
                           child: Text(
                             'Mulai',
@@ -195,11 +198,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(
+                                // ← tambahkan di sini
+                                color: CustomColors.buttonColor,
+                                width:
+                                    2.0, // ketebalan border, bisa disesuaikan
+                              ),
                             ),
                             padding: EdgeInsets.symmetric(
                               horizontal: 20,
                               vertical: 12,
                             ),
+                            backgroundColor:
+                                CustomColors.borderButton, // jika ingin latar
+                            foregroundColor: Colors.white, // warna ikon
                           ),
                           child: Icon(Icons.arrow_forward),
                         ),
