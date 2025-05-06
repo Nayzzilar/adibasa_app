@@ -1,18 +1,54 @@
-import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'navigation/page_route.dart';
+import 'package:flutter/services.dart';
+import 'theme/util.dart';
+import 'theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  FirebaseApp app = await Firebase.initializeApp();
-  print("Firebase initialized: ${app.name}");
-  runApp(MyApp());
+  await Firebase.initializeApp();
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  // Get.put(BottomNavbarController()); // inject controller GetX
+
+  //proses menghidupkan cache dari firestore offline
+  FirebaseFirestore.instance.settings = const Settings(
+    persistenceEnabled: true,
+    cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED, // Opsional: unlimited cache
+  );
+
+  final prefs = await SharedPreferencesWithCache.create(
+    cacheOptions: SharedPreferencesWithCacheOptions(),
+  );
+  final bool onboardingComplete = prefs.getBool('onboarding_complete') ?? false;
+  runApp(ProviderScope(child: MyApp(onboardingComplete: onboardingComplete)));
 }
 
 class MyApp extends StatelessWidget {
+  final bool onboardingComplete;
+  const MyApp({super.key, required this.onboardingComplete});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(body: Center(child: Text('Firebase Initialized'))),
+    TextTheme textTheme = createTextTheme(context, "Nunito", "PT Serif");
+    MaterialTheme theme = MaterialTheme(textTheme);
+    return GetMaterialApp(
+      // <--- WAJIB GetMaterialApp
+      debugShowCheckedModeBanner: false,
+      title: 'Adibasa App',
+      theme: theme.light(),
+      initialRoute:
+          onboardingComplete
+              ? '/bottom_navbar' // langusung masuk ke aplikasi
+              : '/onboarding', // masuk onboaridng dulu
+      getPages: PageRouteApp.pages, // pakai route yang sudah kamu buat
     );
   }
 }
