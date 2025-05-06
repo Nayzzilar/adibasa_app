@@ -5,7 +5,7 @@ class Lesson {
   final String title;
   //final String unitId;
   final int order;
-  final List<Challenge>? challenges;
+  List<Challenge>? challenges;
 
   Lesson({
     required this.id,
@@ -16,21 +16,24 @@ class Lesson {
   });
 
   factory Lesson.fromJson(Map<String, dynamic> json) => Lesson(
-        id: json['id']?? "",
-        title: json['title'],
-        //unitId: json['unitId'],
-        order: json['order'] ?? 0,
-        challenges: (json['challenges'] as List?)
-            ?.whereType<Map<String, dynamic>>().map((e) => Challenge.fromJson(e))
-            .toList() ?? [],
-      );
+    id: json['id'] ?? "",
+    title: json['title'],
+    //unitId: json['unitId'],
+    order: json['order'] ?? 0,
+    challenges:
+        (json['challenges'] as List?)
+            ?.whereType<Map<String, dynamic>>()
+            .map((e) => Challenge.fromJson(e))
+            .toList() ??
+        [],
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        //'unitId': unitId,
-        'order': order,
-        if (challenges != null)
-          'challenges': challenges!.map((c) => c.toJson()).toList(),
-      };
+    'id': id,
+    'title': title,
+    //'unitId': unitId,
+    'order': order,
+    if (challenges != null)
+      'challenges': challenges!.map((c) => c.toJson()).toList(),
+  };
 }
