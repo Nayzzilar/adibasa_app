@@ -15,7 +15,7 @@ class StatusBarLevelSelection extends ConsumerWidget {
         Theme.of(context).colorScheme; // Ambil colorScheme dari tema
 
     return Padding(
-      padding: const EdgeInsets.only(right: 8, left: 8, top: 8),
+      padding: const EdgeInsets.all(8),
       child: Card(
         margin: const EdgeInsets.only(right: 8, left: 8, top: 8, bottom: 0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -64,7 +64,7 @@ class StatusBarLevelSelection extends ConsumerWidget {
                     error: (error, stack) => Text('Error'),
                     data:
                         (lessons) => Text(
-                          '${ref.watch(userDataProvider.notifier).nextLessonOrder} / ${lessons.length}',
+                          'Level ${ref.watch(userDataProvider.notifier).nextLessonOrder}/${lessons.length}',
                         ),
                   ),
                 ],
