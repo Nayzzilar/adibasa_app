@@ -16,6 +16,8 @@ class NewWordPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Positioned(
       left: position.dx,
       top: position.dy,
@@ -40,20 +42,18 @@ class NewWordPopup extends StatelessWidget {
             children: [
               Text(
                 word,
-                style: const TextStyle(
-                  fontFamily: 'Nunito',
+                style: textTheme.titleSmall?.copyWith(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFFFFA726),
+                  color: const Color(0xFFFFA726),
                 ),
               ),
               const SizedBox(height: 4),
               Text(
                 meaning,
-                style: const TextStyle(
-                  fontFamily: 'Nunito',
+                style: textTheme.bodySmall?.copyWith(
                   fontSize: 14,
-                  color: Color(0xFF4A4A4A),
+                  color: const Color(0xFF4A4A4A),
                 ),
               ),
             ],
@@ -62,4 +62,4 @@ class NewWordPopup extends StatelessWidget {
       ),
     );
   }
-} 
+}

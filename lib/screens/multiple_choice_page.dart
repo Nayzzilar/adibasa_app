@@ -136,6 +136,9 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
 
   @override
   Widget build(BuildContext context) {
+    // Get textTheme for custom fonts
+    final textTheme = Theme.of(context).textTheme;
+
     // Normal lesson UI with challenges
     final currentChallenge = challenges[_currentIndex];
     final isNewWord =
@@ -178,13 +181,12 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                             height: 18,
                           ),
                           const SizedBox(width: 6),
-                          const Text(
+                          Text(
                             'Kata Baru',
-                            style: TextStyle(
-                              color: Color(0xFFFFA726),
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: const Color(0xFFFFA726),
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              fontFamily: 'Nunito',
                             ),
                           ),
                         ],
@@ -192,16 +194,20 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                     ),
                   ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 4, bottom: 0),
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    top: 4,
+                    bottom: 0,
+                  ),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Pilih terjemahan yang benar!',
-                      style: const TextStyle(
-                        fontFamily: 'Nunito',
+                      style: textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
-                        color: Color(0xFF61450F),
+                        color: const Color(0xFF61450F),
                       ),
                     ),
                   ),
@@ -246,8 +252,7 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                     ),
                     child: Text(
                       _isAnswered ? 'Lanjutkan' : 'Periksa',
-                      style: const TextStyle(
-                        fontFamily: 'Nunito',
+                      style: textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                         color: Colors.white,
