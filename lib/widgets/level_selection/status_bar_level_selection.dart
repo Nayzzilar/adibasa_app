@@ -15,9 +15,9 @@ class StatusBarLevelSelection extends ConsumerWidget {
         Theme.of(context).colorScheme; // Ambil colorScheme dari tema
 
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.only(right: 8, left: 8, top: 8),
       child: Card(
-        margin: const EdgeInsets.all(8),
+        margin: const EdgeInsets.only(right: 8, left: 8, top: 8, bottom: 0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         elevation: 0,
         child: Container(
