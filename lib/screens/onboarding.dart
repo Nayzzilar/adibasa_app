@@ -2,6 +2,7 @@ import 'package:adibasa_app/navigation/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:adibasa_app/theme/theme.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -64,16 +65,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "AdiBasa",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-      ),
       body: Column(
         children: [
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 20.0),
+            alignment: Alignment.center,
+            child: Text(
+              "AdiBasa",
+              style: GoogleFonts.ptSerif(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary, 
+              ),
+            ),
+          ),
           Expanded(
             child: PageView.builder(
               controller: _controller,
@@ -98,11 +103,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                       Text(
                         content[index]['desc']!,
                         textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ),
                     ],
                   ),
