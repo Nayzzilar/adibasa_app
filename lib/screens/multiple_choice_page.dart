@@ -2,6 +2,7 @@ import 'package:adibasa_app/providers/user_data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_svg/svg.dart';
 import '../models/lesson_model.dart';
 import '../models/challenge_model.dart';
 import '../providers/lesson_game_provider.dart';
@@ -71,6 +72,7 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
       if (_isCorrect) {
         userDataNotifier.incrementStreak();
       } else {
+        _currentLesson!.challenges?.add(currentChallenge);
         userDataNotifier.resetStreak();
       }
 
@@ -136,6 +138,10 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
 
   @override
   Widget build(BuildContext context) {
+    // Get textTheme for custom fonts
+    final textTheme = Theme.of(context).textTheme;
+    final colorTheme = Theme.of(context).colorScheme;
+
     // Normal lesson UI with challenges
     final currentChallenge = challenges[_currentIndex];
     final isNewWord =
@@ -172,19 +178,18 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Image.asset(
-                            'assets/images/KataBaru.png',
-                            width: 18,
-                            height: 18,
+                          SvgPicture.asset(
+                            'assets/images/KataBaru.svg', // Path ke gambar
+                            width: 20, // Sesuaikan ukuran gambar
+                            height: 20,
                           ),
                           const SizedBox(width: 6),
-                          const Text(
+                          Text(
                             'Kata Baru',
-                            style: TextStyle(
-                              color: Color(0xFFFFA726),
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: colorTheme.tertiary,
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              fontFamily: 'Nunito',
+                              fontSize: 18,
                             ),
                           ),
                         ],
@@ -192,16 +197,20 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                     ),
                   ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 4, bottom: 0),
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    top: 4,
+                    bottom: 0,
+                  ),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Pilih terjemahan yang benar!',
-                      style: const TextStyle(
-                        fontFamily: 'Nunito',
+                      currentChallenge.instruction,
+                      style: textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
-                        color: Color(0xFF61450F),
+                        color: const Color(0xFF61450F),
                       ),
                     ),
                   ),
@@ -246,8 +255,7 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                     ),
                     child: Text(
                       _isAnswered ? 'Lanjutkan' : 'Periksa',
-                      style: const TextStyle(
-                        fontFamily: 'Nunito',
+                      style: textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                         color: Colors.white,

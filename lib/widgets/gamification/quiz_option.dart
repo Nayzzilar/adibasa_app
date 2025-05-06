@@ -27,16 +27,33 @@ class QuizOption extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 20),
       child: Material(
         color: optionTheme.backgroundColor,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(12),
         elevation: isSelected && !isAnswered ? 1 : 0,
         child: InkWell(
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(12),
           onTap: onTap,
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 18),
             decoration: BoxDecoration(
-              border: Border.all(color: optionTheme.borderColor, width: 2),
-              borderRadius: BorderRadius.circular(18),
+              border: Border(
+                top: BorderSide(
+                  color: optionTheme.indicatorBorderColor,
+                  width: 1,
+                ),
+                left: BorderSide(
+                  color: optionTheme.indicatorBorderColor,
+                  width: 1,
+                ),
+                right: BorderSide(
+                  color: optionTheme.indicatorBorderColor,
+                  width: 1,
+                ),
+                bottom: BorderSide(
+                  color: optionTheme.indicatorBorderColor,
+                  width: 3,
+                ),
+              ),
+              borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
               children: [
@@ -123,12 +140,12 @@ class QuizOption extends StatelessWidget {
           isSelected ? colorScheme.secondaryContainer : colorScheme.surface,
       borderColor:
           isSelected ? colorScheme.primaryContainer : colorScheme.outline,
-      textColor: colorScheme.onSurface,
+      textColor: colorScheme.primaryContainer,
       indicatorBorderColor:
-          isSelected ? colorScheme.primaryContainer : colorScheme.outline,
+          isSelected ? colorScheme.tertiaryContainer : colorScheme.outline,
       indicatorBackgroundColor:
           isSelected ? colorScheme.secondaryContainer : colorScheme.surface,
-      indicatorDotColor: colorScheme.primaryContainer,
+      indicatorDotColor: colorScheme.tertiaryContainer,
     );
   }
 }

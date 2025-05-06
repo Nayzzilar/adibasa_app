@@ -72,10 +72,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             alignment: Alignment.center,
             child: Text(
               "AdiBasa",
-              style: GoogleFonts.ptSerif(
-                fontSize: 24,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary, 
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ),
@@ -123,7 +122,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
               content.length,
-              (index) => Container(
+              (index) => AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
                 margin: EdgeInsets.symmetric(horizontal: 4),
                 width: currentPage == index ? 35 : 13,
                 height: 13,
@@ -137,6 +138,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
             child:
