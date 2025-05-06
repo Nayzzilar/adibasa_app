@@ -24,6 +24,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  flutter_launcher_icons: "^0.14.3"
+  change_app_package_name: ^1.4.0
+
 
 flutter:
   uses-material-design: true
@@ -33,3 +36,8 @@ flutter:
     - assets/images/
     - assets/audio/
     - data/kamus_jawa_indonesia.json
+
+
+flutter_launcher_icons:
+  android: true
+  image_path: "assets/images/launcher_icon.png"
