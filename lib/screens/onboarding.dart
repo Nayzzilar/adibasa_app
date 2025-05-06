@@ -67,8 +67,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       body: Column(
         children: [
+          SizedBox(height: 40),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 20.0),
+            padding: EdgeInsets.symmetric(vertical: 16.0),
             alignment: Alignment.center,
             child: Text(
               "AdiBasa",
@@ -87,7 +88,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20.0,
-                    vertical: 50,
+                    vertical: 25,
                   ),
                   child: Column(
                     children: [
