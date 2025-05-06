@@ -72,10 +72,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             alignment: Alignment.center,
             child: Text(
               "AdiBasa",
-              style: GoogleFonts.ptSerif(
-                fontSize: 24,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary, 
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ),
@@ -120,24 +119,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
           ),
           Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: List.generate(
-    content.length,
-    (index) => AnimatedContainer(
-      duration: Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-      margin: EdgeInsets.symmetric(horizontal: 4),
-      width: currentPage == index ? 35 : 13,
-      height: 13,
-      decoration: BoxDecoration(
-        color: currentPage == index
-            ? CustomColors.buttonColor
-            : CustomColors.slideOnboarding,
-        borderRadius: BorderRadius.circular(20),
-      ),
-    ),
-  ),
-),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+              content.length,
+              (index) => AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+                margin: EdgeInsets.symmetric(horizontal: 4),
+                width: currentPage == index ? 35 : 13,
+                height: 13,
+                decoration: BoxDecoration(
+                  color:
+                      currentPage == index
+                          ? CustomColors.buttonColor
+                          : CustomColors.slideOnboarding,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+          ),
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
