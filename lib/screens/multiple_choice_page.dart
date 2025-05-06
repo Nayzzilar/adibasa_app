@@ -191,6 +191,21 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                       ),
                     ),
                   ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 4, bottom: 0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Pilih terjemahan yang benar!',
+                      style: const TextStyle(
+                        fontFamily: 'Nunito',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Color(0xFF61450F),
+                      ),
+                    ),
+                  ),
+                ),
                 Expanded(
                   child: QuestionCard(
                     key: ValueKey(_currentIndex),
@@ -262,4 +277,3 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
     );
   }
 }
-

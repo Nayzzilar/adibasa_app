@@ -88,75 +88,93 @@ class _ProgressBarState extends State<ProgressBar> with TickerProviderStateMixin
                 double pos = min + (max - min) * ((widget.currentQuestion - 1) / (widget.totalQuestions - 1).clamp(1, double.infinity));
                 pos = pos.clamp(min, max - 38);
                 double progress = widget.currentQuestion / widget.totalQuestions;
-                return Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    // Background bar
-                    Container(
-                      width: barWidth,
-                      height: 18,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE0CDAA).withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    // Progress bar dengan gradasi
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 350),
-                      curve: Curves.easeInOut,
-                      width: barWidth * progress,
-                      height: 18,
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFF4B6B2D), Color(0xFFF9B233)],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    // Nomor soal di atas progress
-                    Positioned(
-                      left: pos,
-                      top: -6,
-                      child: AnimatedBuilder(
-                        animation: _pulseAnim,
-                        builder: (context, child) {
-                          final scale = 1 + 0.18 * (1 - (_pulseAnim.value - 0.5).abs() * 2); // membesar lalu kembali
-                          return Transform.scale(
-                            scale: scale,
-                            child: child,
-                          );
-                        },
+                return SizedBox(
+                  height: 36,
+                  child: Stack(
+                    alignment: Alignment.centerLeft,
+                    children: [
+                      // Background bar
+                      Positioned(
+                        top: 9,
                         child: Container(
-                          width: 38,
-                          height: 38,
-                          alignment: Alignment.center,
+                          width: barWidth,
+                          height: 14,
                           decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            border: Border.all(color: const Color(0xFF61450F), width: 2.5),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.10),
-                                blurRadius: 8,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
+                            color: const Color(0xFFE0CDAA).withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Text(
-                            '${widget.currentQuestion}',
-                            style: const TextStyle(
-                              fontFamily: 'Nunito',
-                              color: Color(0xFF61450F),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
+                        ),
+                      ),
+                      // Progress bar dengan warna solid hijau untuk selesai
+                      Positioned(
+                        top: 9,
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 350),
+                          curve: Curves.easeInOut,
+                          width: barWidth * progress,
+                          height: 14,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF5E661F), // hijau selesai
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                      // Bar belum selesai warna coklat
+                      Positioned(
+                        top: 9,
+                        left: barWidth * progress,
+                        child: Container(
+                          width: barWidth * (1 - progress),
+                          height: 14,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF6B4711), // coklat belum selesai
+                            borderRadius: BorderRadius.horizontal(right: Radius.circular(12)),
+                          ),
+                        ),
+                      ),
+                      // Lingkaran nomor soal mengikuti progress
+                      Positioned(
+                        left: pos,
+                        top: 0,
+                        child: AnimatedBuilder(
+                          animation: _pulseAnim,
+                          builder: (context, child) {
+                            final scale = 1 + 0.18 * (1 - (_pulseAnim.value - 0.5).abs() * 2);
+                            return Transform.scale(
+                              scale: scale,
+                              child: child,
+                            );
+                          },
+                          child: Container(
+                            width: 28,
+                            height: 28,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              border: Border.all(color: const Color(0xFF61450F), width: 2.5),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.10),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Text(
+                              '${widget.currentQuestion}',
+                              style: const TextStyle(
+                                fontFamily: 'Nunito',
+                                color: Color(0xFF61450F),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               },
             ),

@@ -84,7 +84,7 @@ class _QuestionCardState extends State<QuestionCard>
     return GestureDetector(
       onTap: widget.onNewWordBubbleClose,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
