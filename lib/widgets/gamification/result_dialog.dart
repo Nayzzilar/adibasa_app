@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:adibasa_app/theme/theme.dart';
 
 class ResultDialog extends StatelessWidget {
@@ -59,7 +58,7 @@ class ResultDialog extends StatelessWidget {
               const SizedBox(width: 12),
               Text(
                 isCorrect ? 'Anda Benar' : 'Anda Salah',
-                style: GoogleFonts.nunito(
+                style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: foregroundColor,
                   fontSize: 22,
@@ -70,11 +69,11 @@ class ResultDialog extends StatelessWidget {
           const SizedBox(height: 14),
           Text(
             'Jawaban yang benar:', 
-            style: GoogleFonts.nunito(fontSize: 16),
+            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
           ),
           Text(
             correctAnswer,
-            style: GoogleFonts.nunito(
+            style: theme.textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.bold, 
               fontSize: 17,
             ),
@@ -94,7 +93,7 @@ class ResultDialog extends StatelessWidget {
               ),
               child: Text(
                 'Lanjutkan',
-                style: GoogleFonts.nunito(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 16, 
                   fontWeight: FontWeight.bold,
                 ),

@@ -9,6 +9,8 @@ class ExitDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Align(
       alignment: Alignment.bottomCenter,
       child: Material(
@@ -33,13 +35,12 @@ class ExitDialog extends StatelessWidget {
                       height: 24,
                     ),
                     const SizedBox(width: 12),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'Apakah Anda yakin ingin keluar?',
-                        style: TextStyle(
-                          fontFamily: 'Nunito',
+                        style: textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF61450F),
+                          color: const Color(0xFF61450F),
                           fontSize: 20,
                           decoration: TextDecoration.none,
                         ),
@@ -61,13 +62,15 @@ class ExitDialog extends StatelessWidget {
                         borderRadius: BorderRadius.circular(14),
                       ),
                       elevation: 0,
-                      textStyle: const TextStyle(
-                        fontFamily: 'Nunito',
+                    ),
+                    child: Text(
+                      'Lanjutkan',
+                      style: textTheme.labelLarge?.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
-                    child: const Text('Lanjutkan'),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -83,13 +86,15 @@ class ExitDialog extends StatelessWidget {
                         borderRadius: BorderRadius.circular(14),
                       ),
                       elevation: 0,
-                      textStyle: const TextStyle(
-                        fontFamily: 'Nunito',
+                    ),
+                    child: Text(
+                      'Keluar',
+                      style: textTheme.labelLarge?.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
-                    child: const Text('Keluar'),
                   ),
                 ),
               ],
