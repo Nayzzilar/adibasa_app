@@ -75,13 +75,13 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
   // Mendapatkan pelajaran berikutnya
   Lesson? getNextLesson() {
     if (state.currentLesson == null) {
-      print('Cannot get next lesson: currentLesson is null');
+      //print('Cannot get next lesson: currentLesson is null');
       return null;
     }
 
     final allLessons = ref.read(lessonsProvider).value ?? [];
     if (allLessons.isEmpty) {
-      print('Cannot get next lesson: no lessons available');
+      // print('Cannot get next lesson: no lessons available');
       return null;
     }
 
@@ -94,12 +94,12 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
     );
 
     if (currentIndex == -1) {
-      print('Current lesson not found in lessons list');
+      // print('Current lesson not found in lessons list');
       return null;
     }
 
     if (currentIndex + 1 >= allLessons.length) {
-      print('This is the last lesson');
+      // print('This is the last lesson');
       return null;
     }
 
