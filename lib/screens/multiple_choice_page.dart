@@ -76,6 +76,7 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
         userDataNotifier.resetStreak();
       }
 
+      _audioPlayer.stop();
       _audioPlayer.play(
         AssetSource(_isCorrect ? 'audio/success.mp3' : 'audio/failure.mp3'),
       );
