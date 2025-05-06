@@ -40,12 +40,12 @@ class NewWordText extends StatelessWidget {
       spans.add(
         i.isOdd
             ? WidgetSpan(
-                child: _UnderlinedWord(
-                  text: parts[i],
-                  meaning: correctMeaning,
-                  style: textStyle,
-                ),
-              )
+              child: _UnderlinedWord(
+                text: parts[i],
+                meaning: correctMeaning,
+                style: textStyle,
+              ),
+            )
             : TextSpan(text: parts[i]),
       );
     }
@@ -68,7 +68,8 @@ class _UnderlinedWord extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final defaultStyle = theme.textTheme.bodyLarge ?? const TextStyle();
+    final textStyle = theme.textTheme;
+    final defaultStyle = textStyle.bodyLarge ?? const TextStyle();
 
     return Tooltip(
       triggerMode: TooltipTriggerMode.tap,
@@ -89,18 +90,17 @@ class _UnderlinedWord extends StatelessWidget {
       ),
       message: meaning,
       textStyle: defaultStyle.copyWith(
-        color: colorScheme.primaryContainer,
+        color: colorScheme.tertiary,
         fontSize: 15,
         fontWeight: FontWeight.w600,
         height: 1.3,
       ),
       child: Text(
         text,
-        style: (style ?? defaultStyle).copyWith(
+        style: textStyle.titleLarge!.copyWith(
+          color: colorScheme.tertiary,
           decoration: TextDecoration.underline,
           decorationColor: colorScheme.tertiary,
-          color: colorScheme.tertiary,
-          fontWeight: FontWeight.w700,
         ),
       ),
     );

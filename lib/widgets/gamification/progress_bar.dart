@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'dart:math';
+import 'package:flutter_svg/svg.dart';
 
 class ProgressBar extends StatefulWidget {
   final int currentQuestion;
@@ -152,11 +151,13 @@ class _ProgressBarState extends State<ProgressBar>
                           ),
                           child: Text(
                             '${widget.currentQuestion}',
-                            style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                  color: const Color(0xFF61450F),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                ),
+                            style: Theme.of(
+                              context,
+                            ).textTheme.labelSmall?.copyWith(
+                              color: const Color(0xFF61450F),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                            ),
                           ),
                         ),
                       ),
@@ -167,19 +168,15 @@ class _ProgressBarState extends State<ProgressBar>
             ),
           ),
           const SizedBox(width: 12),
-          SvgPicture.asset(
-            'assets/images/streak.svg',
-            width: 22,
-            height: 22,
-          ),
+          SvgPicture.asset('assets/images/streak.svg', width: 22, height: 22),
           const SizedBox(width: 4),
           Text(
             '${widget.streak}',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF61450F),
-                  fontSize: 18,
-                ),
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF61450F),
+              fontSize: 18,
+            ),
           ),
         ],
       ),

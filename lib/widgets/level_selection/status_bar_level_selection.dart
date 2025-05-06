@@ -1,4 +1,3 @@
-import 'package:adibasa_app/providers/lesson_game_provider.dart';
 import 'package:adibasa_app/providers/lessons_provider.dart';
 import 'package:adibasa_app/providers/user_data_provider.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +59,7 @@ class StatusBarLevelSelection extends ConsumerWidget {
 
                   // Bagian Kanan
                   lessonsAsync.when(
-                    loading: () => const Text('Loading...'),
+                    loading: () => const Text('0 / 0'),
                     error: (error, stack) => Text('Error'),
                     data:
                         (lessons) => Text(
