@@ -66,7 +66,7 @@ class LevelCompletePage extends ConsumerWidget {
             Text(
               'Level ${gameState.currentLesson?.order ?? ""} telah diselesaikan!',
               style: TextStyle(
-                fontSize: screenWidth * 0.05,
+                fontSize: screenWidth * 0.055,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -153,6 +153,14 @@ class LevelCompletePage extends ConsumerWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF9BA85B), // warna mirip olive green
         borderRadius: BorderRadius.circular(30), // membuatnya oval/kapsul
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).colorScheme.tertiary,
+            offset: const Offset(0, 3),
+            blurRadius: 0,
+            spreadRadius: 0,
+          ),
+        ],
       ),
       child: Center(
         child: IconButton(
