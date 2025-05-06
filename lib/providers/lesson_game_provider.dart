@@ -41,8 +41,6 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
 
   // Fungsi untuk set lesson saat ini
   void setLesson(Lesson lesson) {
-    print('Setting lesson: ${lesson.title}');
-
     // Create a new state with the provided lesson
     state = LessonGameState(
       currentLesson: lesson,
@@ -50,9 +48,6 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
       stars: 0,
       isTimerRunning: false,
     );
-
-    // Verify that the lesson was set correctly
-    print('Current lesson after setting: ${state.currentLesson?.title}');
   }
 
   Lesson? get currentLesson => state.currentLesson;
