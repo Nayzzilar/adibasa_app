@@ -31,7 +31,7 @@ class LevelUnlocked extends StatelessWidget {
         child: Ink(
           decoration: BoxDecoration(
             color: backgroundColor,
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(12),
             border: Border(
               top: BorderSide(
                 color: isCurrentLevel ? borderColorCurrent : borderColor,
