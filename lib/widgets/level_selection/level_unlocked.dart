@@ -13,27 +13,42 @@ class LevelUnlocked extends StatelessWidget {
     final finishedCardTheme =
         Theme.of(context).extension<CustomCardThemes>()?.finishedCardTheme;
     final borderColor = Theme.of(context).colorScheme.tertiary;
+    final borderColorCurrent = Theme.of(context).colorScheme.outline;
+    final isCurrentLevel = level.stars == 0;
+
+    // Tentukan warna background berdasarkan status level
+    final backgroundColor =
+        isCurrentLevel
+            ? Theme.of(context)
+                .colorScheme
+                .surface // atau warna khusus untuk current level
+            : finishedCardTheme?.color;
 
     return Padding(
-      padding: const EdgeInsets.only(
-        right: 16,
-        left: 16,
-        bottom: 10,
-      ), // Konsisten dengan LevelLocked
+      padding: const EdgeInsets.only(right: 16, left: 16, bottom: 10),
       child: Material(
         color: Colors.transparent,
         child: Ink(
           decoration: BoxDecoration(
-            color: finishedCardTheme?.color,
-            borderRadius: BorderRadius.circular(12),
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(15),
             border: Border(
-              top: BorderSide(color: borderColor, width: 1),
-              left: BorderSide(color: borderColor, width: 1),
-              right: BorderSide(color: borderColor, width: 1),
+              top: BorderSide(
+                color: isCurrentLevel ? borderColorCurrent : borderColor,
+                width: 1,
+              ),
+              left: BorderSide(
+                color: isCurrentLevel ? borderColorCurrent : borderColor,
+                width: 1,
+              ),
+              right: BorderSide(
+                color: isCurrentLevel ? borderColorCurrent : borderColor,
+                width: 1,
+              ),
               bottom: BorderSide(
-                color: borderColor,
+                color: isCurrentLevel ? borderColorCurrent : borderColor,
                 width: 3,
-              ), // Border bawah lebih tebal
+              ),
             ),
           ),
           child: InkWell(
@@ -44,7 +59,7 @@ class LevelUnlocked extends StatelessWidget {
                         as BorderRadius?
                     : BorderRadius.circular(8),
             onTap: onTap,
-            splashColor: Theme.of(context).colorScheme.primary,
+            splashColor: Theme.of(context).colorScheme.outline,
             child: SizedBox(
               height: 72, // Menggunakan shape dari finishedCardTheme
               child: Padding(
@@ -92,7 +107,6 @@ class LevelUnlocked extends StatelessWidget {
                     Row(
                       children: List.generate(3, (index) {
                         final isActive = level.stars > index;
-
                         // Optional offset if you still want to shift the middle star
                         final offset = index == 1 ? Offset(0, -8) : Offset.zero;
 
