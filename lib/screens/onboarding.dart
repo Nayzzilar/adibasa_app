@@ -68,13 +68,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 16.0),
+            padding: EdgeInsets.symmetric(vertical: 20.0),
             alignment: Alignment.center,
             child: Text(
               "AdiBasa",
               style: GoogleFonts.ptSerif(
                 fontSize: 24,
-                fontWeight: FontWeight.bold, 
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary, 
               ),
             ),
           ),
@@ -102,11 +103,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                       Text(
                         content[index]['desc']!,
                         textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ),
                     ],
                   ),
