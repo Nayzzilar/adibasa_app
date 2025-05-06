@@ -29,7 +29,7 @@ flutter:
   assets:
     - assets/images/
     - assets/
-    - data/kamus_jawa_indonesia.json
+    - data/kamus_jawa_indonesia_cleaned.json
     - assets/dummy/greetings_lessons.json
     - assets/star/
     - assets/audio/success.mp3
