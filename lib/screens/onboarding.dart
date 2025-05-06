@@ -1,14 +1,18 @@
+import 'package:adibasa_app/navigation/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:adibasa_app/theme/theme.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
   int currentPage = 0;
 
   final List<Map<String, String>> content = [
@@ -31,30 +35,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     },
   ];
 
-  Future<void> _checkOnboardingStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    bool isOnboarded = prefs.getBool('onboardingCompleted') ?? false;
-
-    if (isOnboarded) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => Dummy()),
-      );
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    _checkOnboardingStatus();
   }
 
   Future<void> _markOnboardingCompleted() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool(
-      'onboardingCompleted',
-      true,
-    ); // Menyimpan status onboarding selesai
+    final prefs = await SharedPreferencesWithCache.create(
+      cacheOptions: SharedPreferencesWithCacheOptions(),
+    );
+    prefs.setBool('onboarding_complete', true);
   }
 
   void _nextPage() {
@@ -67,7 +57,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       _markOnboardingCompleted();
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => Dummy()),
+        MaterialPageRoute(builder: (_) => BottomNavbar()),
       );
     }
   }
@@ -75,16 +65,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "AdiBasa",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-      ),
       body: Column(
         children: [
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 16.0),
+            alignment: Alignment.center,
+            child: Text(
+              "AdiBasa",
+              style: GoogleFonts.ptSerif(
+                fontSize: 24,
+                fontWeight: FontWeight.bold, 
+              ),
+            ),
+          ),
           Expanded(
             child: PageView.builder(
               controller: _controller,
@@ -207,21 +200,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class Dummy extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Halaman Utama"), centerTitle: true),
-      body: Center(
-        child: Text(
-          "Selamat Datang di AdiBasa!",
-          style: TextStyle(fontSize: 24),
-        ),
       ),
     );
   }
