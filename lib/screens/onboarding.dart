@@ -19,18 +19,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       "title": "Pembelajaran berbasis Gamifikasi",
       "desc":
           "Konsep gamifikasi untuk membuat proses belajar terasa lebih menyenangkan dan interaktif.",
-      "image": "assets/images/icon.png",
+      "image": "assets/images/badak_ngegame.png",
     },
     {
       "title": "Kamus Interaktif",
       "desc": "Cari dan pelajari kosakata dalam Bahasa Jawa.",
-      "image": "assets/images/icon.png",
+      "image": "assets/images/badak_berpendidikan_tinggi.png",
     },
     {
       "title": "Sistem Leveling",
       "desc":
           "Cara untuk mengukur dan memotivasi perkembangan pengguna dalam proses belajar.",
-      "image": "assets/images/icon.png",
+      "image": "assets/images/badak_dapet_bintang.png",
     },
   ];
 
