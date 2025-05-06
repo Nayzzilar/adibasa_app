@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class StarRating extends StatelessWidget {
-  final int starCount; // Jumlah bintang yang aktif (1-3)
-  final int totalStars; // Total jumlah bintang (default 3)
-  final double size; // Ukuran bintang
-  final double spacing; // Jarak antar bintang
-  final MainAxisAlignment alignment; // Perataan bintang
+  final int starCount;
+  final int totalStars;
+  final double size;
+  final double spacing;
+  final MainAxisAlignment alignment;
 
   const StarRating({
     Key? key,
@@ -24,16 +24,20 @@ class StarRating extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: alignment,
       children: List.generate(totalStars, (index) {
-        // Tampilkan bintang aktif jika index < starCount
         final isActive = index < starCount;
+        final isMiddle = index == totalStars ~/ 2;
+
         return Padding(
           padding: EdgeInsets.only(right: index < totalStars - 1 ? spacing : 0),
-          child: SvgPicture.asset(
-            isActive
-                ? 'assets/star/star_active.svg'
-                : 'assets/star/star_inactive.svg',
-            height: size,
-            width: size,
+          child: Transform.translate(
+            offset: isMiddle ? const Offset(0, -10) : Offset.zero, // Naikkan tengah
+            child: SvgPicture.asset(
+              isActive
+                  ? 'assets/star/star_active.svg'
+                  : 'assets/star/star_inactive.svg',
+              height: size,
+              width: size,
+            ),
           ),
         );
       }),
