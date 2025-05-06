@@ -95,7 +95,7 @@ class LevelCompletePage extends ConsumerWidget {
               child: StarRating(
                 starCount: stars,
                 size: screenWidth * 0.2,
-                spacing: screenWidth * 0.04,
+                spacing: screenWidth * 0.02,
               ),
             ),
 
