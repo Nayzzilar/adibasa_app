@@ -65,14 +65,7 @@ class LevelUnlocked extends StatelessWidget {
                 () => showPopover(
                   context: context,
                   bodyBuilder:
-                      (context) => LevelPopup(
-                        title: level.name,
-                        description: level.description,
-                        onClose: () => Navigator.of(context).pop(),
-                        level: level,
-                      ),
-                  // width: 250,
-                  // height: 150,
+                      (context) => LevelPopup(onTap: onTap, level: level),
                   backgroundColor: Theme.of(context).colorScheme.surface,
                   direction: PopoverDirection.top, // atau sesuai kebutuhan
                   // barrierColor: Colors.transparent,

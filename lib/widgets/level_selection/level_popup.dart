@@ -4,18 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:adibasa_app/models/level.dart';
 
 class LevelPopup extends StatelessWidget {
-  final String title;
-  final String description;
-  final VoidCallback onClose;
   final Level level;
+  final VoidCallback? onTap;
 
-  const LevelPopup({
-    Key? key,
-    required this.title,
-    required this.description,
-    required this.onClose,
-    required this.level,
-  }) : super(key: key);
+  const LevelPopup({Key? key, required this.level, this.onTap})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +47,13 @@ class LevelPopup extends StatelessWidget {
           children: [
             /// Header with Title
             Text(
-              title,
+              level.name,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 color: Theme.of(context).colorScheme.primaryContainer,
               ),
             ),
             Text(
-              description,
+              level.description,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                 color: Theme.of(context).colorScheme.primaryContainer,
               ),
@@ -115,7 +108,14 @@ class LevelPopup extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: ElevatedButton(
-                    onPressed: onClose,
+                    onPressed: () {
+                      // Tutup popup terlebih dahulu
+
+                      // Kemudian navigasi ke soal jika onTap tersedia
+                      if (onTap != null) {
+                        onTap!();
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
                           Theme.of(context).colorScheme.tertiaryContainer,
