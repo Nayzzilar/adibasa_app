@@ -72,7 +72,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             padding: EdgeInsets.symmetric(vertical: 16.0),
             alignment: Alignment.center,
             child: Text(
-              "AdiBasa",
+              "Adibasa",
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.primary,

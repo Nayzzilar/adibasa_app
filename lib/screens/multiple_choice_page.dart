@@ -104,11 +104,12 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
 
   void _handleLevelCompletion() {
     Future.microtask(() {
-      ref.read(lessonGameProvider.notifier).calculateStars();
-      ref.read(userDataProvider.notifier).completeLesson(
-            _currentLesson?.order ?? 0,
-            ref.read(lessonGameProvider).stars,
-          );
+      final lessonGameNotifier = ref.read(lessonGameProvider.notifier);
+      lessonGameNotifier.calculateStars();
+
+      // Use the new method that respects previous scores
+      lessonGameNotifier.saveCompletionWithBestScore();
+
       Navigator.pushReplacementNamed(context, '/level_complete');
     });
   }
@@ -117,13 +118,15 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => ExitDialog(
-        onContinue: () => Navigator.pop(context),
-        onExit: () {
-          ref.read(lessonGameProvider.notifier).stopTimer();
-          Navigator.pushReplacementNamed(context, '/bottom_navbar');
-        },
-      ),
+      builder:
+          (context) => ExitDialog(
+            onContinue: () => Navigator.pop(context),
+            onExit: () {
+              ref.read(lessonGameProvider.notifier).stopTimer();
+              ref.read(userDataProvider.notifier).resetStreak();
+              Navigator.pushReplacementNamed(context, '/bottom_navbar');
+            },
+          ),
     );
   }
 
@@ -134,7 +137,10 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
 
     final currentChallenge = challenges[_currentIndex];
     final isNewWord =
-        !ref.watch(userDataProvider).seenWords.contains(currentChallenge.question);
+        !ref
+            .watch(userDataProvider)
+            .seenWords
+            .contains(currentChallenge.question);
     final streak = ref.watch(userDataProvider).currentStreak;
 
     return Scaffold(
@@ -155,7 +161,11 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        top: 8,
+                        bottom: 8,
+                      ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -178,7 +188,10 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                     ),
                   ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 4,
+                  ),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -214,15 +227,17 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                   width: double.infinity,
                   height: 48,
                   child: ElevatedButton(
-                    onPressed: (_selectedIndex != null && !_isAnswered)
-                        ? _onContinue
-                        : null,
+                    onPressed:
+                        (_selectedIndex != null && !_isAnswered)
+                            ? _onContinue
+                            : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: _isAnswered
-                          ? const Color(0xFF4B6B2D)
-                          : (_selectedIndex != null
-                              ? const Color(0xFFB6B96C)
-                              : const Color(0xFFD6D6C2)),
+                      backgroundColor:
+                          _isAnswered
+                              ? const Color(0xFF4B6B2D)
+                              : (_selectedIndex != null
+                                  ? const Color(0xFFB6B96C)
+                                  : const Color(0xFFD6D6C2)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                       ),
@@ -245,10 +260,11 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                 bottom: 0,
                 child: ResultDialog(
                   isCorrect: _isCorrect,
-                  correctAnswer: _correctIndex != null &&
-                          _correctIndex! < currentChallenge.options!.length
-                      ? currentChallenge.options![_correctIndex!].text
-                      : '',
+                  correctAnswer:
+                      _correctIndex != null &&
+                              _correctIndex! < currentChallenge.options!.length
+                          ? currentChallenge.options![_correctIndex!].text
+                          : '',
                   onContinue: _onContinue,
                 ),
               ),
