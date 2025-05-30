@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'navigation/page_route.dart';
-
+import 'package:flutter/services.dart';
 import 'theme/util.dart';
 import 'theme/theme.dart';
 
@@ -13,6 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // Get.put(BottomNavbarController()); // inject controller GetX
 
   //proses menghidupkan cache dari firestore offline
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       // <--- WAJIB GetMaterialApp
       debugShowCheckedModeBanner: false,
-      title: 'Adibasa App',
+      title: 'Adibasa',
       theme: theme.light(),
       initialRoute:
           onboardingComplete

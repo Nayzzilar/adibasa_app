@@ -2,6 +2,7 @@ import 'package:adibasa_app/navigation/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:adibasa_app/theme/theme.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -64,16 +65,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "AdiBasa",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-      ),
       body: Column(
         children: [
+          SizedBox(height: 40),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 16.0),
+            alignment: Alignment.center,
+            child: Text(
+              "Adibasa",
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          ),
           Expanded(
             child: PageView.builder(
               controller: _controller,
@@ -83,7 +88,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20.0,
-                    vertical: 50,
+                    vertical: 25,
                   ),
                   child: Column(
                     children: [
@@ -98,11 +103,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                       Text(
                         content[index]['desc']!,
                         textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ),
                     ],
                   ),
@@ -114,7 +123,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
               content.length,
-              (index) => Container(
+              (index) => AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
                 margin: EdgeInsets.symmetric(horizontal: 4),
                 width: currentPage == index ? 35 : 13,
                 height: 13,
@@ -128,6 +139,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
             child:
@@ -140,15 +152,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(
+                                color: Theme.of(context).colorScheme.tertiary,
+                                width: 2.0,
+                              ),
                             ),
                             padding: EdgeInsets.symmetric(
                               horizontal: 20,
                               vertical: 12,
                             ),
-                            minimumSize: Size(
-                              330,
-                              48,
-                            ), // Lebar dan tinggi tombol
+                            minimumSize: Size(330, 48),
+                            backgroundColor: CustomColors.borderButton,
+                            foregroundColor: Colors.white,
                           ),
                           child: Text(
                             'Mulai',
@@ -184,11 +199,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(
+                                // ← tambahkan di sini
+                                color: CustomColors.buttonColor,
+                                width:
+                                    2.0, // ketebalan border, bisa disesuaikan
+                              ),
                             ),
                             padding: EdgeInsets.symmetric(
                               horizontal: 20,
                               vertical: 12,
                             ),
+                            backgroundColor:
+                                CustomColors.borderButton, // jika ingin latar
+                            foregroundColor: Colors.white, // warna ikon
                           ),
                           child: Icon(Icons.arrow_forward),
                         ),
