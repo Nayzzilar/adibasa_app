@@ -2,7 +2,7 @@ name: adibasa_app
 description: "aplikasi belajar Bahasa jawa, dengan metode gamifikasi, latihan interaktif, dan pembelajaran bertahap."
 publish_to: 'none' 
 
-version: 1.0.0+1
+version: 1.0.0+3
 
 environment:
   sdk: ^3.7.2
@@ -41,3 +41,6 @@ flutter:
 flutter_launcher_icons:
   android: true
   image_path: "assets/images/launcher_icon.png"
+  adaptive_icon_foreground: "assets/images/launcher_icon.png"
+  adaptive_icon_background: "#F1DFBE"
+  adaptive_icon_foreground_inset: 20
