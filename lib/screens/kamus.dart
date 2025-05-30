@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:adibasa_app/services/dictionary_service.dart';
 import 'package:adibasa_app/models/word.dart';
 import 'package:adibasa_app/theme/theme.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 void main() {
   runApp(const Kamus());

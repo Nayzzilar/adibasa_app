@@ -19,6 +19,7 @@ dependencies:
   get: ^4.3.8
   audioplayers: ^5.2.1
   flutter_riverpod: ^2.6.1
+  scrollable_positioned_list: ^0.3.8 
 
 dev_dependencies:
   flutter_test:
