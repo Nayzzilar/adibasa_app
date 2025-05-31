@@ -72,7 +72,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             padding: EdgeInsets.symmetric(vertical: 16.0),
             alignment: Alignment.center,
             child: Text(
-              "AdiBasa",
+              "Adibasa",
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.primary,
@@ -147,29 +147,43 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ? Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        ElevatedButton(
-                          onPressed: _nextPage,
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(
-                                color: Theme.of(context).colorScheme.tertiary,
-                                width: 2.0,
+                        Container(
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: CustomColors.buttonColor.withOpacity(
+                                  1.0,
+                                ), 
+                                offset: Offset(0, 6), // arah dan jarak bayangan
                               ),
-                            ),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 12,
-                            ),
-                            minimumSize: Size(330, 48),
-                            backgroundColor: CustomColors.borderButton,
-                            foregroundColor: Colors.white,
+                            ],
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Text(
-                            'Mulai',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                          child: ElevatedButton(
+                            onPressed: _nextPage,
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(
+                                  color: Theme.of(context).colorScheme.tertiary,
+                                  width: 2.0,
+                                ),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 12,
+                              ),
+                              minimumSize: Size(330, 48),
+                              backgroundColor: CustomColors.borderButton,
+                              foregroundColor: Colors.white,
+                              elevation: 0, // penting agar tidak dobel shadow
+                            ),
+                            child: Text(
+                              'Mulai',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
@@ -194,27 +208,38 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                           ),
                         ),
-                        ElevatedButton(
-                          onPressed: _nextPage,
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(
-                                // ← tambahkan di sini
-                                color: CustomColors.buttonColor,
-                                width:
-                                    2.0, // ketebalan border, bisa disesuaikan
+                        Container(
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: CustomColors.buttonColor.withOpacity(
+                                  1.0,
+                                ), 
+                                offset: Offset(0, 2), // arah dan jarak bayangan
                               ),
-                            ),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 12,
-                            ),
-                            backgroundColor:
-                                CustomColors.borderButton, // jika ingin latar
-                            foregroundColor: Colors.white, // warna ikon
+                            ],
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Icon(Icons.arrow_forward),
+                          child: ElevatedButton(
+                            onPressed: _nextPage,
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(
+                                  color: CustomColors.buttonColor,
+                                  width: 2.0,
+                                ),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 12,
+                              ),
+                              backgroundColor: CustomColors.borderButton,
+                              foregroundColor: Colors.white,
+                              elevation: 0,
+                            ),
+                            child: Icon(Icons.arrow_forward),
+                          ),
                         ),
                       ],
                     ),
