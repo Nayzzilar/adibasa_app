@@ -62,13 +62,14 @@ class LevelCompletePage extends ConsumerWidget {
       body: Center(
         child: Column(
           children: [
-            Container(height: screenHeight * 0.105),
-
             Container(
-              margin: EdgeInsets.only(top: screenHeight * 0.1),
-              height: screenHeight * 0.4,
-              width: screenWidth * 0.9,
-              child: Image.asset('assets/images/icon.png', fit: BoxFit.contain),
+              margin: EdgeInsets.only(top: screenHeight * 0.16),
+              height: 345.5,
+              width: 258.5,
+              child: Image.asset(
+                'assets/images/badak_tepuk_tangan.png',
+                fit: BoxFit.contain,
+              ),
             ),
 
             /*Text(
@@ -135,6 +136,7 @@ class LevelCompletePage extends ConsumerWidget {
             ),
             */
             Container(
+              margin: EdgeInsets.only(top: screenHeight * 0.06),
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
