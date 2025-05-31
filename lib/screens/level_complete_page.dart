@@ -64,9 +64,9 @@ class LevelCompletePage extends ConsumerWidget {
             Container(height: screenHeight * 0.05),
 
             Text(
-              'Level telah diselesaikan!',
+              'Level ${gameState.currentLesson?.order ?? ""} telah diselesaikan!',
               style: TextStyle(
-                fontSize: screenWidth * 0.05,
+                fontSize: screenWidth * 0.055,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -80,12 +80,22 @@ class LevelCompletePage extends ConsumerWidget {
 
             Container(
               margin: EdgeInsets.only(top: screenHeight * 0.02),
-              child: Text(
-                'Waktu: ${formatDuration(duration)}',
-                style: TextStyle(
-                  fontSize: screenWidth * 0.05,
-                  fontWeight: FontWeight.w500,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.access_time,
+                    size: screenWidth * 0.07,
+                  ),
+                  SizedBox(width: screenWidth * 0.015), // sedikit jarak antara ikon dan teks
+                  Text(
+                    formatDuration(duration),
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.05,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
             ),
 
@@ -95,7 +105,7 @@ class LevelCompletePage extends ConsumerWidget {
               child: StarRating(
                 starCount: stars,
                 size: screenWidth * 0.2,
-                spacing: screenWidth * 0.04,
+                spacing: screenWidth * 0.02,
               ),
             ),
 
@@ -106,7 +116,7 @@ class LevelCompletePage extends ConsumerWidget {
                 children: [
                   _buildIconButton(
                     context,
-                    Icons.home,
+                    Icons.home_outlined,
                     () => Get.offAllNamed(RouteName.bottomNavbar),
                   ),
                   SizedBox(width: screenWidth * 0.04),
@@ -118,7 +128,7 @@ class LevelCompletePage extends ConsumerWidget {
                   SizedBox(width: screenWidth * 0.04),
                   _buildIconButton(
                     context,
-                    Icons.arrow_forward,
+                    Icons.double_arrow,
                     () => _nextLesson(ref),
                   ),
                 ],
@@ -131,30 +141,34 @@ class LevelCompletePage extends ConsumerWidget {
   }
 
   Widget _buildIconButton(
-    BuildContext context,
-    IconData icon,
-    VoidCallback onPressed,
-  ) {
+      BuildContext context,
+      IconData icon,
+      VoidCallback onPressed,
+      ) {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
       width: screenWidth * 0.15,
-      height: screenWidth * 0.15,
+      height: screenWidth * 0.07, // lebih pipih seperti di gambar
       decoration: BoxDecoration(
-        color: const Color(0xFFB3C27C),
-        borderRadius: BorderRadius.circular(15),
+        color: const Color(0xFF9BA85B), // warna mirip olive green
+        borderRadius: BorderRadius.circular(30), // membuatnya oval/kapsul
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
+            color: Theme.of(context).colorScheme.tertiary,
+            offset: const Offset(0, 3),
+            blurRadius: 0,
+            spreadRadius: 0,
           ),
         ],
       ),
-      child: IconButton(
-        icon: Icon(icon, color: Colors.black87),
-        iconSize: screenWidth * 0.06,
-        onPressed: onPressed,
+      child: Center(
+        child: IconButton(
+          icon: Icon(icon, color: Colors.white), // ikon putih
+          iconSize: screenWidth * 0.045,
+          padding: EdgeInsets.zero, // menghilangkan padding default
+          onPressed: onPressed,
+        ),
       ),
     );
   }

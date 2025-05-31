@@ -26,10 +26,13 @@ class LevelSelection extends ConsumerWidget {
         child: CustomScrollView(
           slivers: [
             // Fixed status bar using SliverPersistentHeader with pinned: true
-            SliverPersistentHeader(
-              pinned: true, // This makes it stick to the top when scrolling
-              delegate: SliverStatusBarDelegate(
-                child: const StatusBarLevelSelection(),
+            SliverPadding(
+              padding: const EdgeInsets.only(bottom: 16),
+              sliver: SliverPersistentHeader(
+                pinned: true,
+                delegate: SliverStatusBarDelegate(
+                  child: const StatusBarLevelSelection(),
+                ),
               ),
             ),
 
@@ -130,10 +133,10 @@ class SliverStatusBarDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 85.0; // Adjust the height based on your status bar height
+  double get maxExtent => 74.0; // Adjust the height based on your status bar height
 
   @override
-  double get minExtent => 85.0; // Usually the same as maxExtent for a fixed header
+  double get minExtent => 74.0; // Usually the same as maxExtent for a fixed header
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {

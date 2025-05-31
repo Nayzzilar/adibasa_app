@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
+import 'package:flutter_svg/svg.dart';
 
 class ProgressBar extends StatefulWidget {
   final int currentQuestion;
@@ -19,7 +19,8 @@ class ProgressBar extends StatefulWidget {
   State<ProgressBar> createState() => _ProgressBarState();
 }
 
-class _ProgressBarState extends State<ProgressBar> with TickerProviderStateMixin {
+class _ProgressBarState extends State<ProgressBar>
+    with TickerProviderStateMixin {
   int _lastStreak = 0;
   int _lastQuestion = 0;
   late AnimationController _sparkleController;
@@ -36,14 +37,20 @@ class _ProgressBarState extends State<ProgressBar> with TickerProviderStateMixin
       vsync: this,
       duration: const Duration(milliseconds: 700),
     );
-    _sparkleAnim = CurvedAnimation(parent: _sparkleController, curve: Curves.easeOut);
+    _sparkleAnim = CurvedAnimation(
+      parent: _sparkleController,
+      curve: Curves.easeOut,
+    );
     _pulseController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 350),
       lowerBound: 0.0,
       upperBound: 1.0,
     );
-    _pulseAnim = CurvedAnimation(parent: _pulseController, curve: Curves.easeOut);
+    _pulseAnim = CurvedAnimation(
+      parent: _pulseController,
+      curve: Curves.easeOut,
+    );
   }
 
   @override
@@ -69,7 +76,6 @@ class _ProgressBarState extends State<ProgressBar> with TickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 28, 20, 12),
       child: Row(
@@ -83,133 +89,97 @@ class _ProgressBarState extends State<ProgressBar> with TickerProviderStateMixin
             child: LayoutBuilder(
               builder: (context, constraints) {
                 final barWidth = constraints.maxWidth;
-                double min = 0;
-                double max = barWidth;
-                double pos = min + (max - min) * ((widget.currentQuestion - 1) / (widget.totalQuestions - 1).clamp(1, double.infinity));
-                pos = pos.clamp(min, max - 38);
-                double progress = widget.currentQuestion / widget.totalQuestions;
-                return Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    // Background bar
-                    Container(
-                      width: barWidth,
-                      height: 18,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE0CDAA).withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    // Progress bar dengan gradasi
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 350),
-                      curve: Curves.easeInOut,
-                      width: barWidth * progress,
-                      height: 18,
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFF4B6B2D), Color(0xFFF9B233)],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    // Nomor soal di atas progress
-                    Positioned(
-                      left: pos,
-                      top: -6,
-                      child: AnimatedBuilder(
-                        animation: _pulseAnim,
-                        builder: (context, child) {
-                          final scale = 1 + 0.18 * (1 - (_pulseAnim.value - 0.5).abs() * 2); // membesar lalu kembali
-                          return Transform.scale(
-                            scale: scale,
-                            child: child,
-                          );
-                        },
+                double progress =
+                    (widget.currentQuestion - 1) /
+                    (widget.totalQuestions - 1).clamp(1, double.infinity);
+                double circleOffset;
+                if (widget.currentQuestion == 1 ||
+                    widget.currentQuestion == widget.totalQuestions) {
+                  circleOffset = 0;
+                } else {
+                  circleOffset = 5;
+                }
+                double circleLeft =
+                    (barWidth * progress).clamp(0, barWidth - 28) -
+                    circleOffset;
+                return SizedBox(
+                  height: 36,
+                  child: Stack(
+                    alignment: Alignment.centerLeft,
+                    children: [
+                      // Bar coklat penuh
+                      Positioned(
+                        top: 9,
                         child: Container(
-                          width: 38,
-                          height: 38,
+                          width: barWidth,
+                          height: 14,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF6B4711),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                      // Bar hijau (progress)
+                      Positioned(
+                        top: 9,
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 350),
+                          curve: Curves.easeInOut,
+                          width: barWidth * progress,
+                          height: 14,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFF5E661F),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                        ),
+                      ),
+                      // Lingkaran nomor soal
+                      Positioned(
+                        left: circleLeft,
+                        top: 0,
+                        child: Container(
+                          width: 28,
+                          height: 28,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
-                            border: Border.all(color: const Color(0xFF61450F), width: 2.5),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.10),
-                                blurRadius: 8,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
+                            border: Border.all(
+                              color: const Color(0xFF61450F),
+                              width: 2.5,
+                            ),
                           ),
                           child: Text(
                             '${widget.currentQuestion}',
-                            style: const TextStyle(
-                              fontFamily: 'Nunito',
-                              color: Color(0xFF61450F),
+                            style: Theme.of(
+                              context,
+                            ).textTheme.labelSmall?.copyWith(
+                              color: const Color(0xFF61450F),
                               fontWeight: FontWeight.bold,
-                              fontSize: 13,
+                              fontSize: 11,
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               },
             ),
           ),
           const SizedBox(width: 12),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              SizedBox(
-                width: 32,
-                height: 32,
-                child: AnimatedScale(
-                  scale: 1 + 0.4 * _sparkleAnim.value,
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.easeOut,
-                  child: Icon(Icons.local_fire_department, color: Color(0xFFFFA726), size: 22),
-                ),
-              ),
-              SizedBox(
-                width: 32,
-                height: 32,
-                child: AnimatedBuilder(
-                  animation: _sparkleAnim,
-                  builder: (context, child) {
-                    if (_sparkleAnim.value == 0) return const SizedBox.shrink();
-                    final sparkleCount = 6;
-                    final sparkleRadius = 14.0 + 6 * _sparkleAnim.value;
-                    final sparkleOpacity = 1.0 - _sparkleAnim.value;
-                    return Stack(
-                      children: List.generate(sparkleCount, (i) {
-                        final angle = 2 * pi * i / sparkleCount;
-                        return Positioned(
-                          left: 16 + sparkleRadius * cos(angle),
-                          top: 16 + sparkleRadius * sin(angle),
-                          child: Opacity(
-                            opacity: sparkleOpacity,
-                            child: Text(
-                              '✨',
-                              style: TextStyle(fontSize: 10 + 4 * (1 - _sparkleAnim.value)),
-                            ),
-                          ),
-                        );
-                      }),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
+          SvgPicture.asset('assets/images/streak.svg', width: 22, height: 22),
           const SizedBox(width: 4),
-          Text('${widget.streak}', style: TextStyle(fontFamily: 'Nunito', fontWeight: FontWeight.bold, color: Color(0xFF61450F), fontSize: 18)),
+          Text(
+            '${widget.streak}',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF61450F),
+              fontSize: 18,
+            ),
+          ),
         ],
       ),
     );
   }
-} 
+}

@@ -1,3 +1,4 @@
+import 'package:adibasa_app/models/challenge_model.dart';
 import 'package:adibasa_app/models/lesson_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -21,8 +22,29 @@ class QuestionService {
   }
 
   List<Lesson> _processLessons(QuerySnapshot snapshot) {
-    return snapshot.docs.map((doc) {
-      return Lesson.fromJson(doc.data() as Map<String, dynamic>);
-    }).toList();
+    final lessons =
+        snapshot.docs
+            .map((doc) => Lesson.fromJson(doc.data() as Map<String, dynamic>))
+            .toList();
+
+    const int targetCount = 10;
+
+    for (var i = 1; i < lessons.length; i++) {
+      var current = lessons[i];
+      final prev = lessons[i - 1];
+
+      final currList = current.challenges ?? <Challenge>[];
+      final prevList = prev.challenges ?? <Challenge>[];
+
+      final deficit = targetCount - currList.length;
+      if (deficit > 0) {
+        final filler = prevList.take(deficit);
+        currList.addAll(filler);
+      }
+
+      current.challenges = currList;
+    }
+
+    return lessons;
   }
 }

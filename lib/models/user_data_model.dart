@@ -12,6 +12,8 @@ class UserData {
     required this.seenWords,
   });
 
+  int get totalStars => lessonStars.values.fold(0, (sum, stars) => sum + stars);
+
   UserData copyWith({
     int? currentStreak,
     Map<int, int>? lessonStars,

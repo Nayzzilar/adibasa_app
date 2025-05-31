@@ -28,8 +28,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
         decoration: BoxDecoration(
           border: Border(
             top: BorderSide(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              width: 2,
+              color: Theme.of(context).colorScheme.outline,
+              width: 3,
             ),
           ),
         ),
@@ -100,9 +100,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
         isSelected
             ? Text(
               label,
-              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                fontWeight: FontWeight.w800
-              )
+              style: Theme.of(
+                context,
+              ).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w800),
             )
             : const SizedBox.shrink(),
       ],

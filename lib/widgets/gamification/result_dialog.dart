@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:adibasa_app/theme/theme.dart';
 
 class ResultDialog extends StatelessWidget {
@@ -18,30 +17,33 @@ class ResultDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final feedbackColors = theme.extension<FeedbackColors>();
-    
+
     if (feedbackColors == null) {
       throw Exception('FeedbackColors extension not found in theme');
     }
-    
-    final backgroundColor = isCorrect 
-        ? feedbackColors.correctBackground 
-        : feedbackColors.wrongBackground;
-    
-    final foregroundColor = isCorrect 
-        ? feedbackColors.correctForeground 
-        : feedbackColors.wrongForeground;
-    
-    final buttonColor = isCorrect 
-        ? feedbackColors.correctButton 
-        : feedbackColors.wrongButton;
-    
+
+    final backgroundColor =
+        isCorrect
+            ? feedbackColors.correctBackground
+            : feedbackColors.wrongBackground;
+
+    final foregroundColor =
+        isCorrect
+            ? feedbackColors.correctForeground
+            : feedbackColors.wrongForeground;
+
+    final buttonColor =
+        isCorrect ? feedbackColors.correctButton : feedbackColors.wrongButton;
+
     return Container(
       width: double.infinity,
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 22),
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(18),
+        border: Border(
+          top: BorderSide(color: theme.colorScheme.outline, width: 4),
+        ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -59,7 +61,7 @@ class ResultDialog extends StatelessWidget {
               const SizedBox(width: 12),
               Text(
                 isCorrect ? 'Anda Benar' : 'Anda Salah',
-                style: GoogleFonts.nunito(
+                style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: foregroundColor,
                   fontSize: 22,
@@ -69,13 +71,13 @@ class ResultDialog extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           Text(
-            'Jawaban yang benar:', 
-            style: GoogleFonts.nunito(fontSize: 16),
+            'Jawaban yang benar:',
+            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
           ),
           Text(
             correctAnswer,
-            style: GoogleFonts.nunito(
-              fontWeight: FontWeight.bold, 
+            style: theme.textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.bold,
               fontSize: 17,
             ),
           ),
@@ -94,9 +96,10 @@ class ResultDialog extends StatelessWidget {
               ),
               child: Text(
                 'Lanjutkan',
-                style: GoogleFonts.nunito(
-                  fontSize: 16, 
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -111,7 +114,7 @@ class AnimatedResultDialog extends StatefulWidget {
   final bool isCorrect;
   final String correctAnswer;
   final VoidCallback onContinue;
-  
+
   const AnimatedResultDialog({
     Key? key,
     required this.isCorrect,
@@ -123,7 +126,7 @@ class AnimatedResultDialog extends StatefulWidget {
   State<AnimatedResultDialog> createState() => _AnimatedResultDialogState();
 }
 
-class _AnimatedResultDialogState extends State<AnimatedResultDialog> 
+class _AnimatedResultDialogState extends State<AnimatedResultDialog>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnim;
@@ -136,9 +139,10 @@ class _AnimatedResultDialogState extends State<AnimatedResultDialog>
       vsync: this,
       duration: const Duration(milliseconds: 450),
     );
-    _scaleAnim = Tween<double>(begin: 0.8, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
-    );
+    _scaleAnim = Tween<double>(
+      begin: 0.8,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
     _fadeAnim = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _controller.forward();
   }

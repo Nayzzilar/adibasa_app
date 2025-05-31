@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:adibasa_app/providers/user_data_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:adibasa_app/models/lesson_model.dart';
 import 'package:adibasa_app/providers/lessons_provider.dart';
@@ -40,8 +41,6 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
 
   // Fungsi untuk set lesson saat ini
   void setLesson(Lesson lesson) {
-    print('Setting lesson: ${lesson.title}');
-
     // Create a new state with the provided lesson
     state = LessonGameState(
       currentLesson: lesson,
@@ -49,9 +48,6 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
       stars: 0,
       isTimerRunning: false,
     );
-
-    // Verify that the lesson was set correctly
-    print('Current lesson after setting: ${state.currentLesson?.title}');
   }
 
   Lesson? get currentLesson => state.currentLesson;
@@ -67,22 +63,25 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
   void calculateStars() {
     stopTimer();
     final duration = state.duration;
-    final stars = duration.inSeconds <= 60 ? 3 :
-    duration.inSeconds <= 120 ? 2 : 1;
-
+    final stars =
+        duration.inSeconds <= 60
+            ? 3
+            : duration.inSeconds <= 120
+            ? 2
+            : 1;
     state = state.copyWith(stars: stars);
   }
 
   // Mendapatkan pelajaran berikutnya
   Lesson? getNextLesson() {
     if (state.currentLesson == null) {
-      print('Cannot get next lesson: currentLesson is null');
+      //print('Cannot get next lesson: currentLesson is null');
       return null;
     }
 
     final allLessons = ref.read(lessonsProvider).value ?? [];
     if (allLessons.isEmpty) {
-      print('Cannot get next lesson: no lessons available');
+      // print('Cannot get next lesson: no lessons available');
       return null;
     }
 
@@ -91,15 +90,16 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
 
     // Cari index berdasarkan order bukan ID
     final currentIndex = allLessons.indexWhere(
-            (l) => l.order == state.currentLesson!.order);
+      (l) => l.order == state.currentLesson!.order,
+    );
 
     if (currentIndex == -1) {
-      print('Current lesson not found in lessons list');
+      // print('Current lesson not found in lessons list');
       return null;
     }
 
     if (currentIndex + 1 >= allLessons.length) {
-      print('This is the last lesson');
+      // print('This is the last lesson');
       return null;
     }
 
@@ -112,7 +112,9 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
     state = state.copyWith(isTimerRunning: true);
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      state = state.copyWith(duration: state.duration + const Duration(seconds: 1));
+      state = state.copyWith(
+        duration: state.duration + const Duration(seconds: 1),
+      );
     });
   }
 
@@ -136,6 +138,7 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
   }
 }
 
-final lessonGameProvider = StateNotifierProvider<LessonGameNotifier, LessonGameState>(
+final lessonGameProvider =
+    StateNotifierProvider<LessonGameNotifier, LessonGameState>(
       (ref) => LessonGameNotifier(ref),
-);
+    );

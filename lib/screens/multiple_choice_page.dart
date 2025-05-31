@@ -2,6 +2,7 @@ import 'package:adibasa_app/providers/user_data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../models/lesson_model.dart';
 import '../models/challenge_model.dart';
 import '../providers/lesson_game_provider.dart';
@@ -32,23 +33,15 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
     super.initState();
     _audioPlayer = AudioPlayer();
 
-    // Do not access ref.read in initState directly for providers that might change
-    // Instead use a Future.microtask to ensure the widget is fully built
     Future.microtask(() {
-      // Start the timer using lessonGameProvider
       ref.read(lessonGameProvider.notifier).startTimer();
-
-      // Mark as initialized so build() knows we're ready
       setState(() {
         _isInitialized = true;
       });
     });
   }
 
-  // Get the current lesson from the provider whenever needed
   Lesson? get _currentLesson => ref.read(lessonGameProvider).currentLesson;
-
-  // Get challenges from the current lesson
   List<Challenge> get challenges => _currentLesson?.challenges ?? [];
 
   void _onOptionSelected(int index) {
@@ -56,9 +49,10 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
     setState(() => _selectedIndex = index);
   }
 
-  void _onContinue() {
+  Future<void> _onContinue() async {
     final userDataNotifier = ref.read(userDataProvider.notifier);
     final currentChallenge = challenges[_currentIndex];
+
     if (!_isAnswered) {
       setState(() {
         _isAnswered = true;
@@ -71,12 +65,19 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
       if (_isCorrect) {
         userDataNotifier.incrementStreak();
       } else {
+        _currentLesson!.challenges?.add(currentChallenge);
         userDataNotifier.resetStreak();
       }
 
-      _audioPlayer.play(
-        AssetSource(_isCorrect ? 'audio/success.mp3' : 'audio/failure.mp3'),
-      );
+      try {
+        await _audioPlayer.stop(); // stop dulu agar siap play ulang
+        await _audioPlayer.play(
+          AssetSource(_isCorrect ? 'audio/success.mp3' : 'audio/failure.mp3'),
+        );
+      } catch (e) {
+        debugPrint('Audio error: $e');
+      }
+
       return;
     } else {
       if (_isCorrect) {
@@ -102,15 +103,9 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
   }
 
   void _handleLevelCompletion() {
-    // Using Future.microtask to avoid updating state during widget lifecycle
     Future.microtask(() {
-      // Use lessonGameProvider to calculate stars
-      // This will stop the timer and calculate stars automatically
       ref.read(lessonGameProvider.notifier).calculateStars();
-
-      ref
-          .read(userDataProvider.notifier)
-          .completeLesson(
+      ref.read(userDataProvider.notifier).completeLesson(
             _currentLesson?.order ?? 0,
             ref.read(lessonGameProvider).stars,
           );
@@ -122,28 +117,24 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder:
-          (context) => ExitDialog(
-            onContinue: () => Navigator.pop(context),
-            onExit: () {
-              // Stop the timer when exiting the lesson
-              ref.read(lessonGameProvider.notifier).stopTimer();
-              Navigator.pushReplacementNamed(context, '/bottom_navbar');
-            },
-          ),
+      builder: (context) => ExitDialog(
+        onContinue: () => Navigator.pop(context),
+        onExit: () {
+          ref.read(lessonGameProvider.notifier).stopTimer();
+          Navigator.pushReplacementNamed(context, '/bottom_navbar');
+        },
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    // Normal lesson UI with challenges
+    final textTheme = Theme.of(context).textTheme;
+    final colorTheme = Theme.of(context).colorScheme;
+
     final currentChallenge = challenges[_currentIndex];
     final isNewWord =
-        !ref
-            .watch(userDataProvider)
-            .seenWords
-            .contains(currentChallenge.question);
-
+        !ref.watch(userDataProvider).seenWords.contains(currentChallenge.question);
     final streak = ref.watch(userDataProvider).currentStreak;
 
     return Scaffold(
@@ -164,33 +155,42 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        top: 8,
-                        bottom: 8,
-                      ),
+                      padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Image.asset(
-                            'assets/images/KataBaru.png',
-                            width: 18,
-                            height: 18,
+                          SvgPicture.asset(
+                            'assets/images/KataBaru.svg',
+                            width: 20,
+                            height: 20,
                           ),
                           const SizedBox(width: 6),
-                          const Text(
+                          Text(
                             'Kata Baru',
-                            style: TextStyle(
-                              color: Color(0xFFFFA726),
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: colorTheme.tertiary,
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              fontFamily: 'Nunito',
+                              fontSize: 18,
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      currentChallenge.instruction,
+                      style: textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: const Color(0xFF61450F),
+                      ),
+                    ),
+                  ),
+                ),
                 Expanded(
                   child: QuestionCard(
                     key: ValueKey(_currentIndex),
@@ -214,25 +214,22 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                   width: double.infinity,
                   height: 48,
                   child: ElevatedButton(
-                    onPressed:
-                        (_selectedIndex != null && !_isAnswered)
-                            ? _onContinue
-                            : null,
+                    onPressed: (_selectedIndex != null && !_isAnswered)
+                        ? _onContinue
+                        : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          _isAnswered
-                              ? const Color(0xFF4B6B2D)
-                              : (_selectedIndex != null
-                                  ? const Color(0xFFB6B96C)
-                                  : const Color(0xFFD6D6C2)),
+                      backgroundColor: _isAnswered
+                          ? const Color(0xFF4B6B2D)
+                          : (_selectedIndex != null
+                              ? const Color(0xFFB6B96C)
+                              : const Color(0xFFD6D6C2)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                       ),
                     ),
                     child: Text(
                       _isAnswered ? 'Lanjutkan' : 'Periksa',
-                      style: const TextStyle(
-                        fontFamily: 'Nunito',
+                      style: textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                         color: Colors.white,
@@ -248,11 +245,10 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                 bottom: 0,
                 child: ResultDialog(
                   isCorrect: _isCorrect,
-                  correctAnswer:
-                      _correctIndex != null &&
-                              _correctIndex! < currentChallenge.options!.length
-                          ? currentChallenge.options![_correctIndex!].text
-                          : '',
+                  correctAnswer: _correctIndex != null &&
+                          _correctIndex! < currentChallenge.options!.length
+                      ? currentChallenge.options![_correctIndex!].text
+                      : '',
                   onContinue: _onContinue,
                 ),
               ),
@@ -262,4 +258,3 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
     );
   }
 }
-

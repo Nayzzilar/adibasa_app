@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class NewWordText extends StatelessWidget {
   final String question;
@@ -69,6 +68,8 @@ class _UnderlinedWord extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final textStyle = theme.textTheme;
+    final defaultStyle = textStyle.bodyLarge ?? const TextStyle();
 
     return Tooltip(
       triggerMode: TooltipTriggerMode.tap,
@@ -88,19 +89,18 @@ class _UnderlinedWord extends StatelessWidget {
         ],
       ),
       message: meaning,
-      textStyle: GoogleFonts.nunito(
-        color: colorScheme.primaryContainer,
+      textStyle: defaultStyle.copyWith(
+        color: colorScheme.tertiary,
         fontSize: 15,
         fontWeight: FontWeight.w600,
         height: 1.3,
       ),
       child: Text(
         text,
-        style: (style ?? const TextStyle()).copyWith(
+        style: textStyle.titleLarge!.copyWith(
+          color: colorScheme.tertiary,
           decoration: TextDecoration.underline,
           decorationColor: colorScheme.tertiary,
-          color: colorScheme.tertiary,
-          fontWeight: FontWeight.w700,
         ),
       ),
     );

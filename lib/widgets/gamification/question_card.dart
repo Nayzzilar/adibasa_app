@@ -84,10 +84,11 @@ class _QuestionCardState extends State<QuestionCard>
     return GestureDetector(
       onTap: widget.onNewWordBubbleClose,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 16),
             _buildQuestionText(context, textTheme),
             const SizedBox(height: 16),
             ...widget.options.asMap().entries.map((entry) {
@@ -109,7 +110,7 @@ class _QuestionCardState extends State<QuestionCard>
     if (!widget.isNewWord) {
       return Text(
         widget.question,
-        style: textTheme.titleMedium?.copyWith(
+        style: textTheme.titleLarge?.copyWith(
           fontWeight: FontWeight.bold,
           color: Theme.of(context).colorScheme.primaryContainer,
         ),
