@@ -20,7 +20,7 @@ class MaterialTheme {
       onSecondaryContainer: Color(0xff6f6248),
       tertiary: Color(0xff7F833A), // primary border (outline finish card)
       onTertiary: Color(0xffffffff),
-      tertiaryContainer: Color(0xffa3a85e),
+      tertiaryContainer: Color(0xffa3a85e), // matsu primary
       onTertiaryContainer: Color(0xff383c00),
       error: Color(0xff66150e),
       onError: Color(0xffffffff),

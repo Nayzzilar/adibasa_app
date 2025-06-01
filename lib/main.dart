@@ -43,10 +43,9 @@ class MyApp extends StatelessWidget {
       title: 'Adibasa',
       theme: theme.light(),
       initialRoute:
-          // onboardingComplete
-          //     ? '/bottom_navbar' // langusung masuk ke aplikasi
-          //     : '/onboarding', // masuk onboaridng dulu
-          '/level_complete',
+          onboardingComplete
+              ? '/bottom_navbar' // langusung masuk ke aplikasi
+              : '/onboarding', // masuk onboaridng dulu
       getPages: PageRouteApp.pages, // pakai route yang sudah kamu buat
     );
   }
