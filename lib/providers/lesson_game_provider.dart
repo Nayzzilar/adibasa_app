@@ -10,12 +10,14 @@ class LessonGameState {
   final Duration duration;
   final int stars;
   final bool isTimerRunning;
+  final int percentage;
 
   LessonGameState({
     this.currentLesson,
     this.duration = Duration.zero,
     this.stars = 0,
     this.isTimerRunning = false,
+    this.percentage = 20,
   });
 
   LessonGameState copyWith({
@@ -29,6 +31,7 @@ class LessonGameState {
       duration: duration ?? this.duration,
       stars: stars ?? this.stars,
       isTimerRunning: isTimerRunning ?? this.isTimerRunning,
+      percentage: percentage ?? this.percentage, // Gunakan disini
     );
   }
 }
