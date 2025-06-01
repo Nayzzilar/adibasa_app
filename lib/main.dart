@@ -13,9 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // Get.put(BottomNavbarController()); // inject controller GetX
 
   //proses menghidupkan cache dari firestore offline
@@ -42,7 +40,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       // <--- WAJIB GetMaterialApp
       debugShowCheckedModeBanner: false,
-      title: 'Adibasa App',
+      title: 'Adibasa',
       theme: theme.light(),
       initialRoute:
           onboardingComplete

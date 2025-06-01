@@ -54,9 +54,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBv_rzyeVRZEPHpVo-hHQDwu9xbeNZXVh8',
-    appId: '1:425011746697:android:ed8d4eef465918466db358',
+    appId: '1:425011746697:android:b72050636f7763e36db358',
     messagingSenderId: '425011746697',
     projectId: 'adibasa-d5f75',
     storageBucket: 'adibasa-d5f75.firebasestorage.app',
   );
+
 }

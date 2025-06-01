@@ -1,4 +1,4 @@
-package com.example.adibasa_app
+package com.adibasa.app
 
 import io.flutter.embedding.android.FlutterActivity
 

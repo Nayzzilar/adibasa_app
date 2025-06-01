@@ -136,12 +136,12 @@ class MaterialTheme {
         ),
       ),
       FeedbackColors(
-        correctBackground: const Color(0xFFE6F4EA),
-        correctForeground: const Color(0xFF2E7D32),
-        correctButton: const Color(0xFF4B6B2D),
-        wrongBackground: const Color(0xFFFFE6E6),
-        wrongForeground: const Color(0xFFD32F2F),
-        wrongButton: const Color(0xFFA13A2C),
+        correctBackground: const Color(0xFFD6E3C4),
+        correctForeground: const Color(0xFF3F5932),
+        correctButton: const Color(0xFF5A7D4C),
+        wrongBackground: const Color(0xFFE6C8C1),
+        wrongForeground: const Color(0xFF8C4A3F),
+        wrongButton: const Color(0xFF852C22),
       ),
     ],
   );
@@ -164,6 +164,7 @@ class ColorFamily {
 class CustomColors {
   static const Color slideOnboarding = Color(0xFFAEA6A8);
   static const Color buttonColor = Color(0xFF7F833A);
+  static const Color borderButton = Color(0xFF9BA85B);
 }
 
 class CustomCardThemes extends ThemeExtension<CustomCardThemes> {

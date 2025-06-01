@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:adibasa_app/providers/user_data_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:adibasa_app/models/lesson_model.dart';
 import 'package:adibasa_app/providers/lessons_provider.dart';
+import 'package:adibasa_app/providers/user_data_provider.dart';
 
 // Model state untuk game
 class LessonGameState {
@@ -35,7 +35,6 @@ class LessonGameState {
 
 class LessonGameNotifier extends StateNotifier<LessonGameState> {
   LessonGameNotifier(this.ref) : super(LessonGameState());
-
   final Ref ref;
   Timer? _timer;
 
@@ -72,16 +71,32 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
     state = state.copyWith(stars: stars);
   }
 
+  // Menyimpan skor terbaik ke user data
+  void saveCompletionWithBestScore() {
+    if (state.currentLesson == null) return;
+
+    final userDataNotifier = ref.read(userDataProvider.notifier);
+    final currentLessonOrder = state.currentLesson!.order;
+    final currentStars = state.stars;
+
+    // Get previous completion data
+    final userData = ref.read(userDataProvider);
+    final previousStars = userData.lessonStars[currentLessonOrder] ?? 0;
+
+    // Only update if current stars are higher than previous stars
+    if (currentStars > previousStars) {
+      userDataNotifier.completeLesson(currentLessonOrder, currentStars);
+    }
+  }
+
   // Mendapatkan pelajaran berikutnya
   Lesson? getNextLesson() {
     if (state.currentLesson == null) {
-      print('Cannot get next lesson: currentLesson is null');
       return null;
     }
 
     final allLessons = ref.read(lessonsProvider).value ?? [];
     if (allLessons.isEmpty) {
-      print('Cannot get next lesson: no lessons available');
       return null;
     }
 
@@ -94,12 +109,10 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
     );
 
     if (currentIndex == -1) {
-      print('Current lesson not found in lessons list');
       return null;
     }
 
     if (currentIndex + 1 >= allLessons.length) {
-      print('This is the last lesson');
       return null;
     }
 
@@ -110,7 +123,6 @@ class LessonGameNotifier extends StateNotifier<LessonGameState> {
   void startTimer() {
     _timer?.cancel();
     state = state.copyWith(isTimerRunning: true);
-
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       state = state.copyWith(
         duration: state.duration + const Duration(seconds: 1),
