@@ -44,7 +44,7 @@ class LevelUnlocked extends StatelessWidget {
             splashColor: Theme.of(context).colorScheme.outline,
             child: SizedBox(
               width: 50,
-              height: 68, // Lebih tinggi dari lingkaran (50) + bintang (18)
+              height: 58, // Lebih tinggi dari lingkaran (50) + bintang (18)
               child: Stack(
                 alignment: Alignment.topCenter,
                 children: [
@@ -107,9 +107,7 @@ class LevelUnlocked extends StatelessWidget {
                   ),
                   // Bintang tepat di bawah lingkaran
                   Positioned(
-                    top: 48, // sedikit overlap agar menempel
-                    left: 0,
-                    right: 0,
+                    bottom: 0,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
