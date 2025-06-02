@@ -107,21 +107,53 @@ class _QuestionCardState extends State<QuestionCard>
   }
 
   Widget _buildQuestionText(BuildContext context, TextTheme textTheme) {
+    // Base style for question text when it's not a "new word" (isNewWord == false)
+    final defaultStyleForNonNewWord = textTheme.titleLarge?.copyWith(
+      fontWeight: FontWeight.bold,
+      color: Theme.of(context).colorScheme.primaryContainer,
+    );
+
+    // Style for text that should be underlined when isNewWord == false
+    final underlinedStyleForNonNewWord = defaultStyleForNonNewWord?.copyWith(
+      decoration: TextDecoration.underline,
+      decorationColor:
+          defaultStyleForNonNewWord
+              .color, // Match underline color to text color
+    );
+
     if (!widget.isNewWord) {
-      return Text(
-        widget.question,
-        style: textTheme.titleLarge?.copyWith(
-          fontWeight: FontWeight.bold,
-          color: Theme.of(context).colorScheme.primaryContainer,
-        ),
-      );
+      if (widget.question.contains('_')) {
+        final textParts = widget.question.split('_');
+        List<InlineSpan> spans = [];
+
+        for (int i = 0; i < textParts.length; i++) {
+          if (textParts[i].isEmpty) {
+            continue;
+          }
+
+          spans.add(
+            TextSpan(
+              text: textParts[i],
+              style:
+                  i.isOdd
+                      ? underlinedStyleForNonNewWord
+                      : defaultStyleForNonNewWord,
+            ),
+          );
+        }
+
+        return RichText(
+          text: TextSpan(style: defaultStyleForNonNewWord, children: spans),
+        );
+      } else {
+        return Text(widget.question, style: defaultStyleForNonNewWord);
+      }
     }
 
     return NewWordText(
       question: widget.question,
-      correctMeaning:
-          widget.options.firstWhere((o) => o.correct).text, // Pass meaning
-      textStyle: textTheme.titleMedium,
+      correctMeaning: widget.options.firstWhere((o) => o.correct).text,
+      textStyle: textTheme.titleLarge,
     );
   }
 

@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/lesson_game_provider.dart';
+import '../providers/lesson_game_provider.dart'; // Ganti import provider
 import '../widgets/star_rating.dart';
-import '../widgets/gamification/card_level_complete.dart'; // Import widget CompleteCard yang baru
 import '../navigation/route_name.dart';
 import 'package:get/get.dart';
 import 'package:adibasa_app/theme/theme.dart';
 
 class LevelCompletePage extends ConsumerWidget {
   const LevelCompletePage({Key? key}) : super(key: key);
+
+  String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$minutes:$seconds";
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,33 +25,6 @@ class LevelCompletePage extends ConsumerWidget {
     final gameState = ref.read(lessonGameProvider);
     final stars = gameState.stars;
     final duration = gameState.duration;
-
-    // Hitung persentase jawaban benar
-    final correctPercentage = gameState.percentage;
-
-    // Tambahkan method untuk replay lesson
-    void _replayLesson(WidgetRef ref) {
-      Future.microtask(() {
-        final gameNotifier = ref.read(lessonGameProvider.notifier);
-        gameNotifier.resetTimer();
-        Get.offAllNamed(RouteName.questions);
-      });
-    }
-
-    void _nextLesson(WidgetRef ref) {
-      Future.microtask(() {
-        final gameNotifier = ref.read(lessonGameProvider.notifier);
-        final nextLesson = gameNotifier.getNextLesson();
-
-        if (nextLesson != null) {
-          gameNotifier.setLesson(nextLesson);
-          Get.offAllNamed(RouteName.questions);
-        } else {
-          Get.offAllNamed(RouteName.bottomNavbar);
-          Get.snackbar('Selamat!', 'Anda telah menyelesaikan semua level');
-        }
-      });
-    }
 
     return Scaffold(
       body: Center(
@@ -86,12 +65,17 @@ class LevelCompletePage extends ConsumerWidget {
                   ),
                 ],
               ),
+            ),
 
-              // Complete Card
-              CardLevelComplete(
-                duration: duration,
-                correctPercentage: correctPercentage,
+            Container(
+              margin: EdgeInsets.only(top: screenHeight * 0.02),
+              height: screenHeight * 0.15,
+              child: StarRating(
+                starCount: stars,
+                size: screenWidth * 0.2,
+                spacing: screenWidth * 0.02,
               ),
+            ),
 
             /*Container(
               margin: EdgeInsets.only(bottom: screenHeight * 0.05),
@@ -167,7 +151,6 @@ class LevelCompletePage extends ConsumerWidget {
   ) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-
     return Container(
       width: screenWidth * 0.15,
       height: screenWidth * 0.06, // lebih pipih seperti di gambar
@@ -181,17 +164,16 @@ class LevelCompletePage extends ConsumerWidget {
             blurRadius: 0,
             spreadRadius: 0,
           ),
+        ],
+      ),
+      child: Center(
+        child: IconButton(
+          icon: Icon(icon, color: Colors.white), // ikon putih
+          iconSize: screenWidth * 0.045,
+          padding: EdgeInsets.zero, // menghilangkan padding default
+          onPressed: onPressed,
         ),
-        SizedBox(height: screenWidth * 0.02),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: screenWidth * 0.035,
-            fontWeight: FontWeight.w500,
-            color: Colors.grey[700],
-          ),
-        ),
-      ],
+      ),
     );
   }*/
 }
