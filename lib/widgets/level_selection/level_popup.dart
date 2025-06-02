@@ -18,7 +18,7 @@ class LevelPopup extends StatelessWidget {
     return Container(
       child: Container(
         width: 250,
-        height: 135,
+        height: 140,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
