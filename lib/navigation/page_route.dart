@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:adibasa_app/screens/kamus.dart';
 import 'package:adibasa_app/navigation/route_name.dart';
 import 'package:adibasa_app/navigation/bottom_navbar.dart';
-import 'package:adibasa_app/screens/multiple_choice_page.dart';
+import 'package:adibasa_app/screens/challenge_screen.dart';
 
 class PageRouteApp {
   static final pages = [
@@ -14,6 +14,6 @@ class PageRouteApp {
     GetPage(name: RouteName.bottomNavbar, page: () => BottomNavbar()),
     GetPage(name: RouteName.onboarding, page: () => OnboardingScreen()),
     GetPage(name: RouteName.levelComplete, page: () => LevelCompletePage()),
-    GetPage(name: RouteName.questions, page: () => const MultipleChoicePage()),
+    GetPage(name: RouteName.questions, page: () => const ChallengeScreen()),
   ];
 }
