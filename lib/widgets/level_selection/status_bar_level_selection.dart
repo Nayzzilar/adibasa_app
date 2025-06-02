@@ -30,43 +30,53 @@ class StatusBarLevelSelection extends ConsumerWidget {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: DefaultTextStyle(
-              style: Theme.of(context).textTheme.headlineLarge!,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Bagian Kiri
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/streak.svg', // Path ke gambar
-                        width: 20, // Sesuaikan ukuran gambar
-                        height: 33,
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        '${ref.watch(userDataProvider.select((data) => data.currentStreak))}',
-                      ), // Ganti dengan current streak dari user_data_provider
-                      const SizedBox(width: 20),
-                      SvgPicture.asset('assets/star/star_active.svg'),
-                      const SizedBox(width: 5),
-                      Text(
-                        '${ref.watch(userDataProvider.select((data) => data.totalStars))}',
-                      ),
-                    ],
-                  ),
-
-                  // Bagian Kanan
-                  lessonsAsync.when(
-                    loading: () => const Text('0 / 0'),
-                    error: (error, stack) => Text('Error'),
-                    data:
-                        (lessons) => Text(
-                          'Level ${ref.watch(userDataProvider.notifier).nextLessonOrder}/${lessons.length}',
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+            child: Center(
+              child: DefaultTextStyle(
+                style: Theme.of(context).textTheme.headlineLarge!,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Bagian Kiri
+                    Row(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.center, // pastikan ini
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/streak.svg',
+                          width: 24,
+                          height: 24,
                         ),
-                  ),
-                ],
+                        const SizedBox(width: 5),
+                        Text(
+                          '${ref.watch(userDataProvider.select((data) => data.currentStreak))}',
+                        ),
+                        const SizedBox(width: 20),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 2),
+                          child: SvgPicture.asset(
+                            'assets/star/star_active.svg',
+                            width: 24,
+                            height: 24,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          '${ref.watch(userDataProvider.select((data) => data.totalStars))}',
+                        ),
+                      ],
+                    ),
+                    // Bagian Kanan
+                    lessonsAsync.when(
+                      loading: () => const Text('0 / 0'),
+                      error: (error, stack) => Text('Error'),
+                      data:
+                          (lessons) => Text(
+                            'Level ${ref.watch(userDataProvider.notifier).nextLessonOrder}/${lessons.length}',
+                          ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
