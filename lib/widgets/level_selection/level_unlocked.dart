@@ -2,6 +2,8 @@ import 'package:adibasa_app/models/level.dart';
 import 'package:adibasa_app/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:popover/popover.dart';
+import 'level_popup.dart';
 
 class LevelUnlocked extends StatelessWidget {
   final Level level;
@@ -58,7 +60,19 @@ class LevelUnlocked extends StatelessWidget {
                             .borderRadius
                         as BorderRadius?
                     : BorderRadius.circular(8),
-            onTap: onTap,
+            //onTap: onTap,
+            onTap:
+                () => showPopover(
+                  context: context,
+                  bodyBuilder:
+                      (context) => LevelPopup(onTap: onTap, level: level),
+                  backgroundColor: Theme.of(context).colorScheme.surface,
+                  direction: PopoverDirection.top, // atau sesuai kebutuhan
+                  // barrierColor: Colors.transparent,
+                  // arrowHeight: 21,
+                  // arrowWidth: 21,
+                  //alignment: PopoverAlignment.center,
+                ),
             splashColor: Theme.of(context).colorScheme.outline,
             child: SizedBox(
               height: 72, // Menggunakan shape dari finishedCardTheme

@@ -36,6 +36,11 @@ class _KamusPageState extends State<KamusPage> {
   bool _isLoading = true;
   String _sortOrder = 'asc'; // 'asc' atau 'desc'
 
+  // Tambahan untuk alphabet scrolling
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
+  final List<String> alphabets = List.generate(26, (index) => String.fromCharCode('A'.codeUnitAt(0) + index)); // Membuat list ['A', 'B', ..., 'Z']
+
   @override
   void initState() {
     super.initState();

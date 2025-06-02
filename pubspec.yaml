@@ -1,8 +1,8 @@
 name: adibasa_app
 description: "aplikasi belajar Bahasa jawa, dengan metode gamifikasi, latihan interaktif, dan pembelajaran bertahap."
-publish_to: 'none' 
+publish_to: "none"
 
-version: 1.0.0+1
+version: 1.0.0+3
 
 environment:
   sdk: ^3.7.2
@@ -19,7 +19,8 @@ dependencies:
   get: ^4.3.8
   audioplayers: ^5.2.1
   flutter_riverpod: ^2.6.1
-  scrollable_positioned_list: ^0.3.8 
+  popover: ^0.3.1
+  scrollable_positioned_list: ^0.3.8
 
 dev_dependencies:
   flutter_test:
@@ -32,13 +33,16 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/audio/
+    - assets/images/
     - assets/
     - assets/star/
-    - assets/images/
-    - assets/audio/
     - data/kamus_jawa_indonesia.json
 
 
 flutter_launcher_icons:
   android: true
   image_path: "assets/images/launcher_icon.png"
+  adaptive_icon_foreground: "assets/images/launcher_icon.png"
+  adaptive_icon_background: "#F1DFBE"
+  adaptive_icon_foreground_inset: 20
