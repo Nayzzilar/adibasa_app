@@ -31,113 +31,128 @@ class LevelUnlocked extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: Ink(
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: BorderRadius.circular(12),
-            border: Border(
-              top: BorderSide(
-                color: isCurrentLevel ? borderColorCurrent : borderColor,
-                width: 1,
-              ),
-              left: BorderSide(
-                color: isCurrentLevel ? borderColorCurrent : borderColor,
-                width: 1,
-              ),
-              right: BorderSide(
-                color: isCurrentLevel ? borderColorCurrent : borderColor,
-                width: 1,
-              ),
-              bottom: BorderSide(
-                color: isCurrentLevel ? borderColorCurrent : borderColor,
-                width: 3,
-              ),
-            ),
-          ),
           child: InkWell(
-            borderRadius:
-                finishedCardTheme?.shape is RoundedRectangleBorder
-                    ? (finishedCardTheme!.shape as RoundedRectangleBorder)
-                            .borderRadius
-                        as BorderRadius?
-                    : BorderRadius.circular(8),
-            //onTap: onTap,
+            borderRadius: BorderRadius.circular(40),
             onTap:
                 () => showPopover(
                   context: context,
                   bodyBuilder:
                       (context) => LevelPopup(onTap: onTap, level: level),
                   backgroundColor: Theme.of(context).colorScheme.surface,
-                  direction: PopoverDirection.top, // atau sesuai kebutuhan
-                  // barrierColor: Colors.transparent,
-                  // arrowHeight: 21,
-                  // arrowWidth: 21,
-                  //alignment: PopoverAlignment.center,
+                  direction: PopoverDirection.top,
                 ),
             splashColor: Theme.of(context).colorScheme.outline,
             child: SizedBox(
-              height: 72, // Menggunakan shape dari finishedCardTheme
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 16,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Bagian Kiri: Level Name dan Description
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Level Name
-                        Text(
-                          '${level.name}:', // Nama level
-                          style: Theme.of(
-                            context,
-                          ).textTheme.headlineMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
+              width: 50,
+              height: 68, // Lebih tinggi dari lingkaran (50) + bintang (18)
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  // Lingkaran medali dengan angka level di tengah
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: backgroundColor,
+                        border: Border(
+                          top: BorderSide(
                             color:
-                                Theme.of(
-                                  context,
-                                ).colorScheme.primaryContainer, // Warna font
+                                isCurrentLevel
+                                    ? borderColorCurrent
+                                    : borderColor,
+                            width: 2,
+                          ),
+                          left: BorderSide(
+                            color:
+                                isCurrentLevel
+                                    ? borderColorCurrent
+                                    : borderColor,
+                            width: 2,
+                          ),
+                          right: BorderSide(
+                            color:
+                                isCurrentLevel
+                                    ? borderColorCurrent
+                                    : borderColor,
+                            width: 2,
+                          ),
+                          bottom: BorderSide(
+                            color:
+                                isCurrentLevel
+                                    ? borderColorCurrent
+                                    : borderColor,
+                            width: 6,
                           ),
                         ),
-
-                        // Level Description
-                        Text(
-                          level.description, // Deskripsi level
-                          style: Theme.of(
-                            context,
-                          ).textTheme.headlineSmall?.copyWith(
-                            color:
-                                Theme.of(
-                                  context,
-                                ).colorScheme.primaryContainer, // Warna font
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.08),
+                            blurRadius: 4,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          '${level.level}',
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Bintang tepat di bawah lingkaran
+                  Positioned(
+                    top: 48, // sedikit overlap agar menempel
+                    left: 0,
+                    right: 0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Transform.rotate(
+                          angle: 0.314,
+                          child: Transform.translate(
+                            offset: const Offset(0, -4),
+                            child: SvgPicture.asset(
+                              level.stars > 0
+                                  ? 'assets/star/star_active.svg'
+                                  : 'assets/star/star_inactive.svg',
+                              height: 18,
+                              width: 18,
+                            ),
+                          ),
+                        ),
+                        Transform.translate(
+                          offset: const Offset(0, 0),
+                          child: SvgPicture.asset(
+                            level.stars > 1
+                                ? 'assets/star/star_active.svg'
+                                : 'assets/star/star_inactive.svg',
+                            height: 18,
+                            width: 18,
+                          ),
+                        ),
+                        Transform.rotate(
+                          angle: -0.314,
+                          child: Transform.translate(
+                            offset: const Offset(0, -4),
+                            child: SvgPicture.asset(
+                              level.stars > 2
+                                  ? 'assets/star/star_active.svg'
+                                  : 'assets/star/star_inactive.svg',
+                              height: 18,
+                              width: 18,
+                            ),
                           ),
                         ),
                       ],
                     ),
-
-                    // Bagian Kanan: Ikon Bintang
-                    Row(
-                      children: List.generate(3, (index) {
-                        final isActive = level.stars > index;
-                        // Optional offset if you still want to shift the middle star
-                        final offset = index == 1 ? Offset(0, -8) : Offset.zero;
-
-                        return Transform.translate(
-                          offset: offset,
-                          child: SvgPicture.asset(
-                            isActive
-                                ? 'assets/star/star_active.svg'
-                                : 'assets/star/star_inactive.svg',
-                            height: 30,
-                            width: 30,
-                          ),
-                        );
-                      }),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
