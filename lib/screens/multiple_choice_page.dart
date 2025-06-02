@@ -38,7 +38,13 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
     ref.read(durationProvider.notifier).start();
   }
 
+<<<<<<< Updated upstream
   List<Challenge> get challenges => _currentLesson.challenges ?? [];
+=======
+  Lesson? get _currentLesson => ref.read(lessonGameProvider).currentLesson;
+  List<Challenge> get challenges => _currentLesson?.challenges ?? [];
+  Set<String> _correctlyAnsweredWords = {};
+>>>>>>> Stashed changes
 
   void _onOptionSelected(int index) {
     if (_isAnswered) return;
@@ -56,8 +62,27 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
         _showResult = true;
       });
 
+<<<<<<< Updated upstream
       final streakNotifier = ref.read(streakProvider.notifier);
       _isCorrect ? streakNotifier.increment() : streakNotifier.reset();
+=======
+      if (_isCorrect) {
+        userDataNotifier.incrementStreak();
+        _correctlyAnsweredWords.add(currentChallenge.question);
+      } else {
+        _currentLesson!.challenges?.add(currentChallenge);
+        userDataNotifier.resetStreak();
+      }
+
+      try {
+        await _audioPlayer.stop();
+        await _audioPlayer.play(
+          AssetSource(_isCorrect ? 'audio/success.mp3' : 'audio/failure.mp3'),
+        );
+      } catch (e) {
+        debugPrint('Audio error: $e');
+      }
+>>>>>>> Stashed changes
 
       _audioPlayer.play(
         AssetSource(_isCorrect ? 'audio/success.mp3' : 'audio/failure.mp3'),
@@ -82,13 +107,42 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
     _correctIndex = null;
   }
 
+  void addSeenWord(String word) {
+    final userDataNotifier = ref.read(userDataProvider.notifier);
+    userDataNotifier.addSeenWord(word);
+  }
+
   void _handleLevelCompletion() {
+<<<<<<< Updated upstream
     final durationNotifier = ref.read(durationProvider.notifier);
     durationNotifier.stop();
     final duration = ref.read(durationProvider);
 
     ref.read(starProvider.notifier).calculateStar(duration);
     Navigator.pushReplacementNamed(context, '/level_complete');
+=======
+    Future.microtask(() async {
+      final userDataNotifier = ref.read(userDataProvider.notifier);
+
+      // Get state BEFORE adding words
+      final beforeSeenWords = ref.read(userDataProvider).seenWords;
+
+      // Add words one by one
+      for (String word in _correctlyAnsweredWords) {
+        userDataNotifier.addSeenWord(word);
+      }
+
+      // Small delay
+      await Future.delayed(Duration(milliseconds: 300));
+
+      // Get state AFTER adding words
+      final afterSeenWords = ref.read(userDataProvider).seenWords;
+      final lessonGameNotifier = ref.read(lessonGameProvider.notifier);
+      lessonGameNotifier.calculateStars();
+      lessonGameNotifier.saveCompletionWithBestScore();
+      Navigator.pushReplacementNamed(context, '/level_complete');
+    });
+>>>>>>> Stashed changes
   }
 
   void _showExitDialogOverlay() {
