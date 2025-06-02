@@ -15,65 +15,48 @@ class LevelLocked extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 16, left: 16, bottom: 10),
       child: Material(
-        color: lockedCardTheme?.color,
+        color: Colors.transparent,
         elevation:
             0, // Hilangkan elevation karena kita menggunakan border custom
-        borderRadius: BorderRadius.circular(12),
-        child: Container(
-          decoration: BoxDecoration(
-            color: lockedCardTheme?.color,
-            borderRadius: BorderRadius.circular(12),
-            border: Border(
-              top: BorderSide(color: borderColor, width: 1),
-              left: BorderSide(color: borderColor, width: 1),
-              right: BorderSide(color: borderColor, width: 1),
-              bottom: BorderSide(
-                color: borderColor,
-                width: 3,
-              ), // Border bawah lebih tebal
-            ),
-          ),
+        child: Ink(
           child: InkWell(
-            borderRadius: BorderRadius.circular(12),
-            child: SizedBox(
-              height: 72, // Tinggi tetap untuk card yang terkunci
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 16,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Bagian Kiri: Level Name dan Description
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Level Name
-                        Text(
-                          '${level.name}:',
-                          style: Theme.of(
-                            context,
-                          ).textTheme.headlineMedium?.copyWith(
-                            color:
-                                Theme.of(context).colorScheme.surfaceContainer,
-                          ),
-                        ),
-                        // Level Description
-                        Text(
-                          level.description,
-                          style: Theme.of(
-                            context,
-                          ).textTheme.headlineSmall?.copyWith(
-                            color:
-                                Theme.of(context).colorScheme.surfaceContainer,
-                          ),
-                        ),
-                      ],
+            borderRadius: BorderRadius.circular(40),
+            splashColor: Theme.of(context).colorScheme.outline,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // Lingkaran medali dengan angka level di tengah
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border(
+                      top: BorderSide(color: borderColor, width: 2),
+                      left: BorderSide(color: borderColor, width: 2),
+                      right: BorderSide(color: borderColor, width: 2),
+                      bottom: BorderSide(color: borderColor, width: 6),
                     ),
-                  ],
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.08),
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${level.level}',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.surfaceContainer,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ),

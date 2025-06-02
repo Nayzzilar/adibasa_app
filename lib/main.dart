@@ -13,19 +13,25 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  // Get.put(BottomNavbarController()); // inject controller GetX
+  // 🧪 Connect to Firestore emulator (optional: only in debug mode)
+  const bool useEmulator = true; // 👈 change this to false in production
+  if (useEmulator) {
+    FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+  }
 
-  //proses menghidupkan cache dari firestore offline
+  // Set Firestore cache settings
   FirebaseFirestore.instance.settings = const Settings(
     persistenceEnabled: true,
-    cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED, // Opsional: unlimited cache
+    cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
   );
+
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   final prefs = await SharedPreferencesWithCache.create(
     cacheOptions: SharedPreferencesWithCacheOptions(),
   );
   final bool onboardingComplete = prefs.getBool('onboarding_complete') ?? false;
+
   runApp(ProviderScope(child: MyApp(onboardingComplete: onboardingComplete)));
 }
 

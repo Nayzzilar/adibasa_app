@@ -26,38 +26,6 @@ class LevelCompletePage extends ConsumerWidget {
     final stars = gameState.stars;
     final duration = gameState.duration;
 
-    // Tambahkan method untuk replay lesson
-    void _replayLesson(WidgetRef ref) {
-      // Gunakan Future.microtask untuk memastikan widget tree sudah selesai build
-      Future.microtask(() {
-        // Reset semua state terkait lesson dengan lessonGameProvider
-        final gameNotifier = ref.read(lessonGameProvider.notifier);
-
-        // Reset timer tapi tetap menggunakan lesson yang sama
-        gameNotifier.resetTimer();
-
-        // Navigasi ke halaman questions dengan state segar
-        Get.offAllNamed(RouteName.questions);
-      });
-    }
-
-    void _nextLesson(WidgetRef ref) {
-      Future.microtask(() {
-        final gameNotifier = ref.read(lessonGameProvider.notifier);
-        final nextLesson = gameNotifier.getNextLesson();
-
-        if (nextLesson != null) {
-          // Set lesson berikutnya dengan lessonGameProvider
-          gameNotifier.setLesson(nextLesson);
-          Get.offAllNamed(RouteName.questions);
-        } else {
-          // Tampilkan dialog atau navigasi ke level selection
-          Get.offAllNamed(RouteName.bottomNavbar);
-          Get.snackbar('Selamat!', 'Anda telah menyelesaikan semua level');
-        }
-      });
-    }
-
     return Scaffold(
       body: Center(
         child: Column(

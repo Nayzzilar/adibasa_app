@@ -1,1 +1,31 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"adibasa-d5f75","appId":"1:425011746697:android:b72050636f7763e36db358","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"adibasa-d5f75","configurations":{"android":"1:425011746697:android:b72050636f7763e36db358"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "adibasa-d5f75",
+          "appId": "1:425011746697:android:b72050636f7763e36db358",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "adibasa-d5f75",
+          "configurations": {
+            "android": "1:425011746697:android:b72050636f7763e36db358"
+          }
+        }
+      }
+    }
+  },
+  "emulators": {
+    "firestore": {
+      "port": 8080
+    },
+    "ui": {
+      "enabled": true,
+      "port": 3000
+    },
+    "singleProjectMode": true
+  }
+}
