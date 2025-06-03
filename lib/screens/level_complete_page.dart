@@ -68,12 +68,12 @@ class LevelCompletePage extends ConsumerWidget {
                 ],
               ),
             ),*/
-
             Container(
               margin: EdgeInsets.only(top: screenHeight * 0.00001),
               child: CardLevelComplete(
                 duration: duration, // Contoh waktu
-                correctPercentage: correctPercentage, // Contoh skor
+                correctPercentage:
+                    gameState.currentLesson!.challenges!.length, // Contoh skor
               ),
             ),
 

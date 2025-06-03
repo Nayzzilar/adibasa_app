@@ -208,7 +208,6 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
 
     // Then use in the button:
     return Scaffold(
-      backgroundColor: const Color(0xFFF6E7C1),
       appBar: null,
       body: SafeArea(
         child: Stack(
@@ -295,7 +294,7 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: buttonBackgroundColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
+                          borderRadius: BorderRadius.circular(10),
                           side: BorderSide.none,
                         ),
                         elevation: 0,

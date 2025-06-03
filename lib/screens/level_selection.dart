@@ -21,7 +21,11 @@ class LevelSelection extends ConsumerStatefulWidget {
 
 class _LevelSelectionState extends ConsumerState<LevelSelection> {
   int currentMapIndex = 0; // 0: peta_bagian1, 1: peta_bagian2, 2: peta_bagian3
-  static const List<int> levelsPerMap = [10, 10, 0]; // Total 20 level: 10, 10, 0
+  static const List<int> levelsPerMap = [
+    10,
+    10,
+    0,
+  ]; // Total 20 level: 10, 10, 0
 
   final List<String> mapAssets = [
     'assets/images/peta_bagian_1.jpg',
@@ -44,7 +48,9 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
               child: lessonsAsync.when(
                 loading: () => const Center(child: CircularProgressIndicator()),
                 error: (error, stack) => Center(child: Text('Error: $error')),
-                data: (lessons) => _buildMapLevels(context, ref, lessons, gameState),
+                data:
+                    (lessons) =>
+                        _buildMapLevels(context, ref, lessons, gameState),
               ),
             ),
           ],
@@ -53,22 +59,29 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
     );
   }
 
-  Widget _buildMapLevels(BuildContext context, WidgetRef ref, List<Lesson> lessons, LessonGameState gameState) {
+  Widget _buildMapLevels(
+    BuildContext context,
+    WidgetRef ref,
+    List<Lesson> lessons,
+    LessonGameState gameState,
+  ) {
     final userData = ref.watch(userDataProvider);
-    
+
     // Hitung range level untuk map saat ini
     int start = 0;
     for (int i = 0; i < currentMapIndex; i++) {
       start += levelsPerMap[i];
     }
     int end = start + levelsPerMap[currentMapIndex];
-    
+
     // Buat 20 level: yang ada di lessons pakai data asli, sisanya dummy locked
     List<Level> allLevels = List.generate(20, (i) {
       if (i < lessons.length) {
         final lesson = lessons[i];
         final isFirstLevel = lesson.order == 1 || i == 0;
-        final isLocked = !isFirstLevel && !userData.lessonStars.containsKey(lesson.order - 1);
+        final isLocked =
+            !isFirstLevel &&
+            !userData.lessonStars.containsKey(lesson.order - 1);
         final stars = userData.lessonStars[lesson.order] ?? 0;
         return Level(
           level: lesson.order,
@@ -88,17 +101,14 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
         );
       }
     });
-    
+
     final mapLevels = allLevels.sublist(start, end);
 
     return Stack(
       children: [
         // Background peta
         Positioned.fill(
-          child: Image.asset(
-            mapAssets[currentMapIndex],
-            fit: BoxFit.cover,
-          ),
+          child: Image.asset(mapAssets[currentMapIndex], fit: BoxFit.cover),
         ),
         // Level layout dengan snake pattern
         Positioned.fill(
@@ -108,7 +118,8 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Tombol navigasi atas (jika diperlukan)
-                if (currentMapIndex < mapAssets.length - 1 && levelsPerMap[currentMapIndex] > 0)
+                if (currentMapIndex < mapAssets.length - 1 &&
+                    levelsPerMap[currentMapIndex] > 0)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: Align(
@@ -173,30 +184,31 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
     List<Widget> rows = [];
     int levelIndex = 0;
     int rowIndex = 0;
-    
+
     while (levelIndex < levels.length) {
       // Ambil 3 level atau kurang untuk baris ini
       final rowLevels = levels.skip(levelIndex).take(3).toList();
       levelIndex += rowLevels.length;
-      
+
       // Tentukan apakah baris ini dibalik (snake pattern)
       final isReversed = rowIndex % 2 == 1;
-      final displayLevels = isReversed ? rowLevels.reversed.toList() : rowLevels;
-      
+      final displayLevels =
+          isReversed ? rowLevels.reversed.toList() : rowLevels;
+
       // Buat row dengan level saja (tanpa navigasi di dalam row)
       List<Widget> rowChildren = [];
-      
+
       // Tambahkan level-level
       for (int i = 0; i < displayLevels.length; i++) {
         final level = displayLevels[i];
-        
+
         if (i > 0) {
           rowChildren.add(SizedBox(width: _getSpacing(rowIndex, i)));
         }
-        
+
         rowChildren.add(_buildLevelWidget(level, lessons));
       }
-      
+
       // Buat row dengan posisi yang bervariasi
       rows.add(
         Padding(
@@ -210,21 +222,21 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
           ),
         ),
       );
-      
+
       rowIndex++;
     }
-    
+
     // Balik urutan rows agar level 1 di bawah (seperti snake pattern)
     return rows.reversed.toList();
   }
 
   Widget _buildLevelWidget(Level level, List<Lesson> lessons) {
     return level.isLocked
-        ? _MapLevelCircle(level: level, onTap: null)
-        : _MapLevelCircle(
-            level: level,
-            onTap: () => _navigateToLesson(ref, lessons[level.level - 1]),
-          );
+        ? LevelLocked(level: level)
+        : LevelUnlocked(
+          level: level,
+          onTap: () => _navigateToLesson(ref, lessons[level.level - 1]),
+        );
   }
 
   double _getSpacing(int rowIndex, int levelIndex) {
@@ -259,88 +271,9 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
       ref.read(lessonGameProvider.notifier).setLesson(lesson);
       Get.toNamed(RouteName.questions);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Error: $e')));
     }
-  }
-}
-
-class _MapLevelCircle extends StatelessWidget {
-  final Level level;
-  final VoidCallback? onTap;
-  const _MapLevelCircle({required this.level, this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    final double size = 60; // Ukuran button level
-    final Color buttonColor = level.isLocked 
-        ? Colors.white.withOpacity(0.9)
-        : const Color(0xFFF2E3C6); // Background untuk level terbuka
-    
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Button level dengan desain sesuai prototype
-          Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              color: buttonColor,
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: level.isLocked
-                    ? Colors.grey.shade400
-                    : const Color(0xFFC0A77E), // Border untuk level terbuka
-                width: 3.0,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.15),
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Center(
-              child: level.isLocked
-                  ? Icon(
-                      Icons.lock,
-                      color: Colors.grey.shade600,
-                      size: 28,
-                    )
-                  : Text(
-                      level.level.toString(),
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onSurface, // Foreground color
-                      ),
-                    ),
-            ),
-          ),
-          // Bintang lebih menempel ke lingkaran (overlap sedikit)
-          if (!level.isLocked)
-            Transform.translate(
-              offset: const Offset(0, -8), // Naikkan bintang agar nempel/overlap
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(3, (i) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 1),
-                  child: SvgPicture.asset(
-                    i < level.stars
-                        ? 'assets/star/star_active.svg'
-                        : 'assets/star/star_inactive.svg',
-                    width: 20, // Ukuran star sesuai prototype
-                    height: 20,
-                  ),
-                )),
-              ),
-            ),
-        ],
-      ),
-    );
   }
 }
