@@ -20,7 +20,7 @@ class MaterialTheme {
       onSecondaryContainer: Color(0xff6f6248),
       tertiary: Color(0xff7F833A), // primary border (outline finish card)
       onTertiary: Color(0xffffffff),
-      tertiaryContainer: Color(0xffa3a85e),
+      tertiaryContainer: Color(0xffa3a85e), // matsu primary
       onTertiaryContainer: Color(0xff383c00),
       error: Color(0xff66150e),
       onError: Color(0xffffffff),
@@ -51,9 +51,9 @@ class MaterialTheme {
       surfaceBright: Color(0xfffef8f4),
       surfaceContainerLowest: Color(0xffffffff),
       surfaceContainerLow: Color(0xfff8f3ee),
-      surfaceContainer: Color(0xff9B9B9B), // font
-      surfaceContainerHigh: Color(0xffD6D6D6), // card locked
-      surfaceContainerHighest: Color(0xffDEE3E5), //outline card locked
+      surfaceContainer: Color(0xff474747), // font
+      surfaceContainerHigh: Color(0xffA9A9A9), //outline card locked
+      surfaceContainerHighest: Color(0xffDEE3E5), // card locked
     );
   }
 
