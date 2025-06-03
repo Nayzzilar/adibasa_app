@@ -95,6 +95,7 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
   Future<void> _onContinue() async {
     final userDataNotifier = ref.read(userDataProvider.notifier);
 
+    final lessonGameNotifier = ref.read(lessonGameProvider.notifier);
     if (!_isAnswered) {
       setState(() {
         _isAnswered = true;
@@ -102,6 +103,7 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
         _showResult = true;
       });
 
+      lessonGameNotifier.recordChallengeResult(_isCorrect);
       if (_isCorrect) {
         userDataNotifier.incrementStreak();
       } else {

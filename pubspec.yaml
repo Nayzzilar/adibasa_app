@@ -37,11 +37,7 @@ flutter:
     - assets/images/
     - assets/
     - assets/star/
-    - data/kamus_jawa_indonesia.json
-    - assets/images/peta_bagian_1.jpg
-    - assets/images/peta_bagian_2.jpg
-    - assets/images/peta_bagian_3.jpg
-    - assets/images/lock.png
+    - data/kamus_jawa_indo.json
 
 
 flutter_launcher_icons:
