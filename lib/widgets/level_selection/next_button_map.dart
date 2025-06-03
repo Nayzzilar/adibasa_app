@@ -1,16 +1,13 @@
 import 'package:adibasa_app/models/level.dart';
-import 'package:adibasa_app/theme/theme.dart';
 import 'package:flutter/material.dart';
 
-class LevelLocked extends StatelessWidget {
-  final Level level;
-  const LevelLocked({super.key, required this.level});
+class NextButtonMap extends StatelessWidget {
+  final VoidCallback? onTap;
+  const NextButtonMap({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    final lockedCardTheme =
-        Theme.of(context).extension<CustomCardThemes>()?.lockedCardTheme;
-    final borderColor = Theme.of(context).colorScheme.outline;
+    final borderColor = Theme.of(context).colorScheme.tertiary;
 
     return Padding(
       padding: const EdgeInsets.only(right: 16, left: 16, bottom: 10),
@@ -21,36 +18,31 @@ class LevelLocked extends StatelessWidget {
         child: Ink(
           child: InkWell(
             borderRadius: BorderRadius.circular(40),
-            splashColor: Theme.of(context).colorScheme.outline,
+            splashColor: Theme.of(context).colorScheme.tertiary,
             child: Stack(
               alignment: Alignment.center,
               children: [
                 // Lingkaran medali dengan angka level di tengah
                 Container(
                   width: 50,
-                  height: 50,
+                  height: 40,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(20),
+                    color: Theme.of(context).colorScheme.tertiaryContainer,
                     border: Border(
                       top: BorderSide(color: borderColor, width: 2),
                       left: BorderSide(color: borderColor, width: 2),
                       right: BorderSide(color: borderColor, width: 2),
                       bottom: BorderSide(color: borderColor, width: 6),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
-                        blurRadius: 4,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
                   ),
                   child: Center(
                     child: Icon(
                       Icons
-                          .lock, // Use the lock icon from Flutter's material icons
-                      size: 24,
-                      color: Theme.of(context).colorScheme.outline,
+                          .keyboard_double_arrow_right_rounded, // Use the lock icon from Flutter's material icons
+                      size: 30,
+                      color: Theme.of(context).colorScheme.secondaryContainer,
                     ),
                   ),
                 ),
