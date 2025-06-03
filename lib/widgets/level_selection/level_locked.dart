@@ -31,6 +31,7 @@ class LevelLocked extends StatelessWidget {
                   height: 50,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
+                    color: Theme.of(context).colorScheme.surface,
                     border: Border(
                       top: BorderSide(color: borderColor, width: 2),
                       left: BorderSide(color: borderColor, width: 2),
