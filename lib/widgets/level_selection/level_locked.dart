@@ -36,7 +36,7 @@ class LevelLocked extends StatelessWidget {
                       top: BorderSide(color: borderColor, width: 2),
                       left: BorderSide(color: borderColor, width: 2),
                       right: BorderSide(color: borderColor, width: 2),
-                      bottom: BorderSide(color: borderColor, width: 6),
+                      bottom: BorderSide(color: borderColor, width: 4),
                     ),
                     boxShadow: [
                       BoxShadow(

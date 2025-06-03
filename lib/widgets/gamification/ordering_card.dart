@@ -93,7 +93,6 @@ class _OrderingCardState extends State<OrderingCard>
   }
 
   void _onWordTap(int wordIndex) {
-    // CHANGED: Use word index
     if (widget.isAnswered) return;
 
     List<int> newSelectedIndices = List.from(widget.selectedWordIndices);
@@ -108,12 +107,43 @@ class _OrderingCardState extends State<OrderingCard>
   }
 
   void _onSelectedWordTap(int wordIndex) {
-    // CHANGED: Use word index
     if (widget.isAnswered) return;
 
     List<int> newSelectedIndices = List.from(widget.selectedWordIndices);
     newSelectedIndices.remove(wordIndex);
     widget.onWordIndicesChanged(newSelectedIndices);
+  }
+
+  // Calculate the height needed for the word areas
+  double _calculateWordsAreaHeight(BuildContext context) {
+    // Estimate button height (you may need to adjust based on your WordButton)
+    const double buttonHeight = 48.0;
+    const double runSpacing = 12.0;
+    const double containerPadding = 32.0; // 16 top + 16 bottom
+
+    // Get screen width and calculate available width for buttons
+    final screenWidth = MediaQuery.of(context).size.width;
+    const double horizontalPadding =
+        40.0; // 20 left + 20 right from main padding
+    const double wordSpacing = 8.0;
+    final availableWidth = screenWidth - horizontalPadding - containerPadding;
+
+    // Estimate average word width (you may need to adjust this)
+    const double averageWordWidth = 80.0;
+    final wordsPerRow = (availableWidth / (averageWordWidth + wordSpacing))
+        .floor()
+        .clamp(1, 10);
+
+    // Calculate number of rows needed
+    final totalRows = (_availableWords.length / wordsPerRow).ceil();
+
+    // Calculate total height
+    final totalHeight =
+        (totalRows * buttonHeight) +
+        ((totalRows - 1) * runSpacing) +
+        containerPadding;
+
+    return totalHeight;
   }
 
   @override
@@ -128,10 +158,12 @@ class _OrderingCardState extends State<OrderingCard>
             const SizedBox(height: 16),
             _buildQuestionText(context),
             const SizedBox(height: 24),
-            _buildSelectedWordsArea(),
+            _buildSelectedWordsArea(context),
             const SizedBox(height: 24),
             Expanded(
-              child: SingleChildScrollView(child: _buildAvailableWords()),
+              child: SingleChildScrollView(
+                child: _buildAvailableWords(context),
+              ),
             ),
           ],
         ),
@@ -157,7 +189,7 @@ class _OrderingCardState extends State<OrderingCard>
     );
   }
 
-  Widget _buildSelectedWordsArea() {
+  Widget _buildSelectedWordsArea(BuildContext context) {
     final theme = Theme.of(context);
     final feedbackColors = theme.extension<FeedbackColors>();
 
@@ -178,8 +210,11 @@ class _OrderingCardState extends State<OrderingCard>
       }
     }
 
+    final areaHeight = _calculateWordsAreaHeight(context);
+
     return Container(
       width: double.infinity,
+      height: areaHeight + 3,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: backgroundColor,
@@ -191,39 +226,40 @@ class _OrderingCardState extends State<OrderingCard>
       ),
       child:
           widget.selectedWordIndices.isEmpty
-              ? SizedBox(
-                height: 48,
-                child: Center(
-                  child: Text(
-                    'Tap kata dengan urutan yang benar disini',
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                      fontStyle: FontStyle.italic,
-                    ),
+              ? Center(
+                child: Text(
+                  'Tap kata dengan urutan yang benar!',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                    fontStyle: FontStyle.italic,
                   ),
                 ),
               )
-              : Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children:
-                    widget.selectedWordIndices.asMap().entries.map((entry) {
-                      final orderIndex = entry.key;
-                      final wordIndex = entry.value;
-                      final word = _availableWords[wordIndex];
-                      return WordButton(
-                        word: word,
-                        isSelected: true,
-                        isAnswered: widget.isAnswered,
-                        orderNumber: orderIndex + 1,
-                        onTap: () => _onSelectedWordTap(wordIndex),
-                      );
-                    }).toList(),
+              : SingleChildScrollView(
+                child: Wrap(
+                  spacing: 8,
+                  runSpacing: 12,
+                  children:
+                      widget.selectedWordIndices.asMap().entries.map((entry) {
+                        final orderIndex = entry.key;
+                        final wordIndex = entry.value;
+                        final word = _availableWords[wordIndex];
+                        return Container(
+                          child: WordButton(
+                            word: word,
+                            isSelected: true,
+                            isAnswered: widget.isAnswered,
+                            orderNumber: orderIndex + 1,
+                            onTap: () => _onSelectedWordTap(wordIndex),
+                          ),
+                        );
+                      }).toList(),
+                ),
               ),
     );
   }
 
-  Widget _buildAvailableWords() {
+  Widget _buildAvailableWords(BuildContext context) {
     final availableIndices =
         _shuffledIndices
             .where(
@@ -231,36 +267,41 @@ class _OrderingCardState extends State<OrderingCard>
             )
             .toList();
 
-    return Wrap(
-      spacing: 8,
-      runSpacing: 12,
-      children:
-          availableIndices.map((wordIndex) {
-            final animationIndex = _shuffledIndices.indexOf(wordIndex);
-            final word = _availableWords[wordIndex];
+    return Container(
+      height: _calculateWordsAreaHeight(context),
+      child: SingleChildScrollView(
+        child: Wrap(
+          spacing: 8,
+          runSpacing: 12,
+          children:
+              availableIndices.map((wordIndex) {
+                final animationIndex = _shuffledIndices.indexOf(wordIndex);
+                final word = _availableWords[wordIndex];
 
-            return AnimatedBuilder(
-              animation: _wordAnimations[animationIndex],
-              builder: (context, child) {
-                return Opacity(
-                  opacity: _wordAnimations[animationIndex].value,
-                  child: Transform.translate(
-                    offset: Offset(
-                      0,
-                      20 * (1 - _wordAnimations[animationIndex].value),
-                    ),
-                    child: child,
+                return AnimatedBuilder(
+                  animation: _wordAnimations[animationIndex],
+                  builder: (context, child) {
+                    return Opacity(
+                      opacity: _wordAnimations[animationIndex].value,
+                      child: Transform.translate(
+                        offset: Offset(
+                          0,
+                          20 * (1 - _wordAnimations[animationIndex].value),
+                        ),
+                        child: child,
+                      ),
+                    );
+                  },
+                  child: WordButton(
+                    word: word,
+                    isSelected: false,
+                    isAnswered: widget.isAnswered,
+                    onTap: () => _onWordTap(wordIndex),
                   ),
                 );
-              },
-              child: WordButton(
-                word: word,
-                isSelected: false,
-                isAnswered: widget.isAnswered,
-                onTap: () => _onWordTap(wordIndex),
-              ),
-            );
-          }).toList(),
+              }).toList(),
+        ),
+      ),
     );
   }
 }

@@ -116,12 +116,12 @@ class LevelCompletePage extends ConsumerWidget {
             Container(
               margin: EdgeInsets.only(top: screenHeight * 0.05),
               decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: CustomColors.buttonColor.withOpacity(1.0),
-                    offset: Offset(0, 6), // arah dan jarak bayangan
-                  ),
-                ],
+                border: Border(
+                  top: BorderSide(color: CustomColors.buttonColor, width: 2),
+                  right: BorderSide(color: CustomColors.buttonColor, width: 2),
+                  bottom: BorderSide(color: CustomColors.buttonColor, width: 4),
+                  left: BorderSide(color: CustomColors.buttonColor, width: 2),
+                ),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: ElevatedButton(
@@ -130,17 +130,12 @@ class LevelCompletePage extends ConsumerWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(
-                      color: Theme.of(context).colorScheme.tertiary,
-                      width: 2.0,
-                    ),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   minimumSize: Size(330, 48),
-                  backgroundColor: CustomColors.borderButton,
                   foregroundColor: Colors.white,
-                  elevation: 0, // penting agar tidak dobel shadow
+                  backgroundColor: CustomColors.borderButton,
                 ),
                 child: Text(
                   'Lanjutkan',

@@ -34,17 +34,9 @@ class WordButton extends StatelessWidget {
     Color textColor;
 
     if (isSelected) {
-      if (isAnswered) {
-        // Use feedback colors when answered
-        backgroundColor = feedbackColors.correctBackground;
-        borderColor = feedbackColors.correctForeground;
-        textColor = colorScheme.onSurface;
-      } else {
-        // Use tertiary colors when not answered
-        backgroundColor = colorScheme.tertiaryContainer;
-        borderColor = colorScheme.tertiary;
-        textColor = colorScheme.onPrimary;
-      }
+      backgroundColor = colorScheme.tertiaryContainer;
+      borderColor = colorScheme.tertiary;
+      textColor = colorScheme.onPrimary;
     } else {
       backgroundColor = colorScheme.surface;
       borderColor = colorScheme.outline;
