@@ -6,7 +6,14 @@ import 'package:adibasa_app/models/user_data_model.dart';
 import 'package:adibasa_app/providers/user_data_provider.dart';
 
 class SeenWordsDictionary extends ConsumerStatefulWidget {
-  const SeenWordsDictionary({super.key});
+  final Function(List<Word>) onWordsLoaded;
+  final String searchQuery;
+
+  const SeenWordsDictionary({
+    super.key,
+    required this.onWordsLoaded,
+    required this.searchQuery,
+  });
 
   @override
   ConsumerState<SeenWordsDictionary> createState() =>
@@ -15,7 +22,6 @@ class SeenWordsDictionary extends ConsumerStatefulWidget {
 
 class _SeenWordsDictionaryState extends ConsumerState<SeenWordsDictionary> {
   final DictionaryService _dictionaryService = DictionaryService();
-  final TextEditingController _searchController = TextEditingController();
   List<Word> _allWords = [];
   List<Word> _seenWords = [];
   List<Word> _filteredWords = [];
@@ -28,9 +34,11 @@ class _SeenWordsDictionaryState extends ConsumerState<SeenWordsDictionary> {
   }
 
   @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
+  void didUpdateWidget(SeenWordsDictionary oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.searchQuery != widget.searchQuery) {
+      _searchWords(widget.searchQuery);
+    }
   }
 
   Future<void> _loadSeenWordsDictionary() async {
@@ -54,22 +62,18 @@ class _SeenWordsDictionaryState extends ConsumerState<SeenWordsDictionary> {
     final userData = ref.read(userDataProvider);
     final seenWordsSet = userData.seenWords;
 
-    // Create a map for faster lookup - normalize dictionary words
     final Map<String, Word> dictionaryMap = {};
     for (Word word in _allWords) {
-      // Store both original and lowercase versions
       dictionaryMap[word.word.toLowerCase().trim()] = word;
       dictionaryMap[word.word.trim()] = word;
     }
 
     setState(() {
       _seenWords = [];
-      List<String> notFoundWords = [];
 
       for (String seenWord in seenWordsSet) {
         String normalizedSeenWord = seenWord.toLowerCase().trim();
 
-        // Try multiple matching strategies
         Word? foundWord =
             dictionaryMap[normalizedSeenWord] ??
             dictionaryMap[seenWord.trim()] ??
@@ -78,30 +82,28 @@ class _SeenWordsDictionaryState extends ConsumerState<SeenWordsDictionary> {
         if (foundWord != null) {
           _seenWords.add(foundWord);
         } else {
-          // FIXED: Create a dummy Word object with proper labels parameter
           _seenWords.add(
-            Word(
-              word: seenWord,
-              definition: "",
-              labels: [
-                seenWord,
-              ], // FIXED: Pass as List<String> instead of String
-            ),
+            Word(word: seenWord, definition: "", labels: [seenWord]),
           );
-          notFoundWords.add(seenWord);
         }
       }
 
-      _filteredWords = List.from(_seenWords); // FIXED: Create a proper copy
-
+      // Sort alphabetically
+      _seenWords.sort(
+        (a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()),
+      );
+      _filteredWords = List.from(_seenWords);
       _isLoading = false;
+
+      // Notify parent with the loaded words
+      widget.onWordsLoaded(_filteredWords);
     });
   }
 
   void _searchWords(String query) {
     setState(() {
       if (query.isEmpty) {
-        _filteredWords = List.from(_seenWords); // FIXED: Create proper copy
+        _filteredWords = List.from(_seenWords);
       } else {
         _filteredWords =
             _seenWords
@@ -114,6 +116,9 @@ class _SeenWordsDictionaryState extends ConsumerState<SeenWordsDictionary> {
                 )
                 .toList();
       }
+
+      // Notify parent with filtered words
+      widget.onWordsLoaded(_filteredWords);
     });
   }
 
@@ -121,93 +126,39 @@ class _SeenWordsDictionaryState extends ConsumerState<SeenWordsDictionary> {
   Widget build(BuildContext context) {
     final userData = ref.watch(userDataProvider);
 
-    // Auto refresh ketika seenWords berubah
+    // Auto refresh when seenWords changes
     ref.listen<UserData>(userDataProvider, (previous, next) {
       if (previous?.seenWords != next.seenWords) {
         _filterSeenWords();
       }
     });
 
-    return Column(
-      children: [
-        // Search bar (hanya tampil kalau ada kata)
-        if (userData.seenWords.isNotEmpty) const SizedBox(height: 16),
+    if (_isLoading) {
+      return const Center(
+        child: CircularProgressIndicator(color: Color(0xFF6B4C23)),
+      );
+    }
 
-        // Content area
-        Expanded(
-          child:
-              _isLoading
-                  ? const Center(
-                    child: CircularProgressIndicator(color: Color(0xFF6B4C23)),
-                  )
-                  : userData.seenWords.isEmpty
-                  ? Center(
-                    child: Text(
-                      'Belum ada kata yang dijumpai\nMulai belajar untuk mengumpulkan kata!',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                      textAlign: TextAlign.center,
-                    ),
-                  )
-                  : _filteredWords.isEmpty
-                  ? Center(
-                    child: Text(
-                      'Tidak ada kata yang ditemukan',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  )
-                  : ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: _filteredWords.length,
-                    itemBuilder: (context, index) {
-                      final word = _filteredWords[index];
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 12),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.outline,
-                            width: 1,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Theme.of(context).colorScheme.outline,
-                              offset: const Offset(0, 2),
-                              blurRadius: 0,
-                              spreadRadius: 0,
-                            ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                word.word,
-                                style: Theme.of(
-                                  context,
-                                ).textTheme.headlineSmall!.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                word.definition,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall!
-                                    .copyWith(fontSize: 12),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+    if (userData.seenWords.isEmpty) {
+      return Center(
+        child: Text(
+          'Belum ada kata yang dijumpai\nMulai belajar untuk mengumpulkan kata!',
+          style: Theme.of(context).textTheme.headlineSmall,
+          textAlign: TextAlign.center,
         ),
-      ],
-    );
+      );
+    }
+
+    if (_filteredWords.isEmpty) {
+      return Center(
+        child: Text(
+          'Tidak ada kata yang ditemukan',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+      );
+    }
+
+    // Return the filtered words list without scrollable
+    return Container(); // This will be handled by parent
   }
 }

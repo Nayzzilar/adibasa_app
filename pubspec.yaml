@@ -29,7 +29,6 @@ dev_dependencies:
   flutter_launcher_icons: "^0.14.3"
   change_app_package_name: ^1.4.0
 
-
 flutter:
   uses-material-design: true
   assets:
@@ -37,12 +36,11 @@ flutter:
     - assets/images/
     - assets/
     - assets/star/
-    - data/kamus_jawa_indonesia.json
+    - data/kamus_jawa_indo.json
     - assets/images/peta_bagian_1.jpg
     - assets/images/peta_bagian_2.jpg
     - assets/images/peta_bagian_3.jpg
     - assets/images/lock.png
-
 
 flutter_launcher_icons:
   android: true

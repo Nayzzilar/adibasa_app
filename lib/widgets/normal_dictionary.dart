@@ -3,7 +3,14 @@ import 'package:adibasa_app/services/dictionary_service.dart';
 import 'package:adibasa_app/models/word.dart';
 
 class NormalDictionary extends StatefulWidget {
-  const NormalDictionary({super.key});
+  final Function(List<Word>) onWordsLoaded;
+  final String searchQuery;
+
+  const NormalDictionary({
+    super.key,
+    required this.onWordsLoaded,
+    required this.searchQuery,
+  });
 
   @override
   State<NormalDictionary> createState() => _NormalDictionaryState();
@@ -11,7 +18,6 @@ class NormalDictionary extends StatefulWidget {
 
 class _NormalDictionaryState extends State<NormalDictionary> {
   final DictionaryService _dictionaryService = DictionaryService();
-  final TextEditingController _searchController = TextEditingController();
   List<Word> _wordList = [];
   List<Word> _filteredWords = [];
   bool _isLoading = true;
@@ -23,9 +29,11 @@ class _NormalDictionaryState extends State<NormalDictionary> {
   }
 
   @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
+  void didUpdateWidget(NormalDictionary oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.searchQuery != widget.searchQuery) {
+      _searchWords(widget.searchQuery);
+    }
   }
 
   Future<void> _loadDictionary() async {
@@ -37,8 +45,15 @@ class _NormalDictionaryState extends State<NormalDictionary> {
       final dictionary = await _dictionaryService.loadDictionaryFromAssets();
       setState(() {
         _wordList = dictionary.listWords;
-        _filteredWords = _wordList;
+        // Sort alphabetically
+        _wordList.sort(
+          (a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()),
+        );
+        _filteredWords = List.from(_wordList);
         _isLoading = false;
+
+        // Notify parent with loaded words
+        widget.onWordsLoaded(_filteredWords);
       });
     } catch (e) {
       setState(() {
@@ -51,74 +66,39 @@ class _NormalDictionaryState extends State<NormalDictionary> {
   void _searchWords(String query) async {
     if (query.isEmpty) {
       setState(() {
-        _filteredWords = _wordList;
+        _filteredWords = List.from(_wordList);
+        widget.onWordsLoaded(_filteredWords);
       });
     } else {
       final searchResults = await _dictionaryService.searchWord(query);
       setState(() {
         _filteredWords = searchResults;
+        _filteredWords.sort(
+          (a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()),
+        );
+        widget.onWordsLoaded(_filteredWords);
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return _isLoading
-        ? const Center(
-          child: CircularProgressIndicator(color: Color(0xFF6B4C23)),
-        )
-        : _filteredWords.isEmpty
-        ? Center(
-          child: Text(
-            'Tidak ada kata yang ditemukan',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-        )
-        : ListView.builder(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          itemCount: _filteredWords.length,
-          itemBuilder: (context, index) {
-            final word = _filteredWords[index];
-            return Container(
-              margin: const EdgeInsets.only(bottom: 12),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.outline,
-                  width: 1,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Theme.of(context).colorScheme.outline,
-                    offset: const Offset(0, 2),
-                    blurRadius: 0,
-                    spreadRadius: 0,
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      word.word,
-                      style: Theme.of(context).textTheme.headlineSmall!
-                          .copyWith(fontSize: 16, fontWeight: FontWeight.w800),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      word.definition,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.headlineSmall!.copyWith(fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
+    if (_isLoading) {
+      return const Center(
+        child: CircularProgressIndicator(color: Color(0xFF6B4C23)),
+      );
+    }
+
+    if (_filteredWords.isEmpty) {
+      return Center(
+        child: Text(
+          'Tidak ada kata yang ditemukan',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+      );
+    }
+
+    // Return empty container, actual list will be handled by parent
+    return Container();
   }
 }
