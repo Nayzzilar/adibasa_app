@@ -46,13 +46,11 @@ class LevelLocked extends StatelessWidget {
                     ],
                   ),
                   child: Center(
-                    child: Text(
-                      '${level.level}',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.headlineMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.surfaceContainer,
-                      ),
+                    child: Icon(
+                      Icons
+                          .lock, // Use the lock icon from Flutter's material icons
+                      size: 24,
+                      color: Theme.of(context).colorScheme.outline,
                     ),
                   ),
                 ),
