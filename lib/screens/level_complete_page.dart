@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/lesson_game_provider.dart'; // Ganti import provider
+import '../providers/lesson_game_provider.dart';
 import '../widgets/star_rating.dart';
+import '../widgets/gamification/card_level_complete.dart';
 import '../navigation/route_name.dart';
 import 'package:get/get.dart';
 import 'package:adibasa_app/theme/theme.dart';
@@ -9,12 +10,12 @@ import 'package:adibasa_app/theme/theme.dart';
 class LevelCompletePage extends ConsumerWidget {
   const LevelCompletePage({Key? key}) : super(key: key);
 
-  String formatDuration(Duration duration) {
+  /*String formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final minutes = twoDigits(duration.inMinutes.remainder(60));
     final seconds = twoDigits(duration.inSeconds.remainder(60));
     return "$minutes:$seconds";
-  }
+  }*/
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,13 +26,14 @@ class LevelCompletePage extends ConsumerWidget {
     final gameState = ref.read(lessonGameProvider);
     final stars = gameState.stars;
     final duration = gameState.duration;
+    final correctPercentage = gameState.percentage;
 
     return Scaffold(
       body: Center(
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: screenHeight * 0.16),
+              margin: EdgeInsets.only(top: screenHeight * 0.1),
               height: 345.5,
               width: 258.5,
               child: Image.asset(
@@ -47,7 +49,7 @@ class LevelCompletePage extends ConsumerWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),*/
-            Container(
+            /*Container(
               margin: EdgeInsets.only(top: screenHeight * 0.02),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -64,6 +66,14 @@ class LevelCompletePage extends ConsumerWidget {
                     ),
                   ),
                 ],
+              ),
+            ),*/
+            Container(
+              margin: EdgeInsets.only(top: screenHeight * 0.00001),
+              child: CardLevelComplete(
+                duration: duration, // Contoh waktu
+                correctPercentage:
+                    gameState.currentLesson!.challenges!.length, // Contoh skor
               ),
             ),
 
@@ -104,14 +114,14 @@ class LevelCompletePage extends ConsumerWidget {
             ),
             */
             Container(
-              margin: EdgeInsets.only(top: screenHeight * 0.06),
+              margin: EdgeInsets.only(top: screenHeight * 0.05),
               decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: CustomColors.buttonColor.withOpacity(1.0),
-                    offset: Offset(0, 6), // arah dan jarak bayangan
-                  ),
-                ],
+                border: Border(
+                  top: BorderSide(color: CustomColors.buttonColor, width: 2),
+                  right: BorderSide(color: CustomColors.buttonColor, width: 2),
+                  bottom: BorderSide(color: CustomColors.buttonColor, width: 4),
+                  left: BorderSide(color: CustomColors.buttonColor, width: 2),
+                ),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: ElevatedButton(
@@ -120,17 +130,12 @@ class LevelCompletePage extends ConsumerWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(
-                      color: Theme.of(context).colorScheme.tertiary,
-                      width: 2.0,
-                    ),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   minimumSize: Size(330, 48),
-                  backgroundColor: CustomColors.borderButton,
                   foregroundColor: Colors.white,
-                  elevation: 0, // penting agar tidak dobel shadow
+                  backgroundColor: CustomColors.borderButton,
                 ),
                 child: Text(
                   'Lanjutkan',

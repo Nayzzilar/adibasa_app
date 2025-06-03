@@ -1,3 +1,4 @@
+// screens/multiple_choice_page.dart
 import 'package:adibasa_app/providers/user_data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,25 +9,32 @@ import '../models/challenge_model.dart';
 import '../providers/lesson_game_provider.dart';
 import '../widgets/gamification/progress_bar.dart';
 import '../widgets/gamification/question_card.dart';
+import '../widgets/gamification/ordering_card.dart';
 import '../widgets/gamification/result_dialog.dart';
 import '../widgets/gamification/exit_dialog.dart';
 
-class MultipleChoicePage extends ConsumerStatefulWidget {
-  const MultipleChoicePage({super.key});
+class ChallengeScreen extends ConsumerStatefulWidget {
+  const ChallengeScreen({super.key});
 
   @override
-  ConsumerState<MultipleChoicePage> createState() => _MultipleChoicePageState();
+  ConsumerState<ChallengeScreen> createState() => _ChallengeScreenState();
 }
 
-class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
+class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
   int _currentIndex = 0;
+
+  // Multiple choice state
   int? _selectedIndex;
+
+  // Ordering state
+  List<int> _selectedWordIndices = [];
+
+  // Common state
   int? _correctIndex;
   bool _isAnswered = false;
   bool _showResult = false;
   bool _isCorrect = false;
   late AudioPlayer _audioPlayer;
-  bool _isInitialized = false;
 
   @override
   void initState() {
@@ -35,30 +43,62 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
 
     Future.microtask(() {
       ref.read(lessonGameProvider.notifier).startTimer();
-      setState(() {
-        _isInitialized = true;
-      });
+      setState(() {});
     });
   }
 
   Lesson? get _currentLesson => ref.read(lessonGameProvider).currentLesson;
   List<Challenge> get challenges => _currentLesson?.challenges ?? [];
+  Challenge get currentChallenge => challenges[_currentIndex];
 
   void _onOptionSelected(int index) {
     if (_isAnswered) return;
     setState(() => _selectedIndex = index);
   }
 
+  void _onWordIndicesChanged(List<int> indices) {
+    if (_isAnswered) return;
+    setState(() => _selectedWordIndices = indices);
+  }
+
+  bool get _canContinue {
+    if (currentChallenge.challengeType == ChallengeType.multipleChoice) {
+      return _selectedIndex != null;
+    } else {
+      return _selectedWordIndices.length > 0;
+    }
+  }
+
+  bool _checkAnswer() {
+    if (currentChallenge.challengeType == ChallengeType.multipleChoice) {
+      _correctIndex =
+          currentChallenge.options?.indexWhere((o) => o.correct) ?? -1;
+      return _selectedIndex == _correctIndex;
+    } else {
+      // Check if the selected word indices match the correct sentence
+      final correctOption = currentChallenge.options!.firstWhere(
+        (o) => o.correct,
+      );
+      final correctWords =
+          correctOption.text.split(' ').where((w) => w.isNotEmpty).toList();
+
+      // Convert selected indices back to words and join
+      final selectedWords =
+          _selectedWordIndices.map((index) => correctWords[index]).toList();
+      final userSentence = selectedWords.join(' ');
+      final correctSentence = correctOption.text;
+
+      return userSentence == correctSentence;
+    }
+  }
+
   Future<void> _onContinue() async {
     final userDataNotifier = ref.read(userDataProvider.notifier);
-    final currentChallenge = challenges[_currentIndex];
 
     if (!_isAnswered) {
       setState(() {
         _isAnswered = true;
-        _correctIndex =
-            currentChallenge.options?.indexWhere((o) => o.correct) ?? -1;
-        _isCorrect = _selectedIndex == _correctIndex;
+        _isCorrect = _checkAnswer();
         _showResult = true;
       });
 
@@ -70,9 +110,9 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
       }
 
       try {
-        await _audioPlayer.stop(); // stop dulu agar siap play ulang
+        await _audioPlayer.stop();
         await _audioPlayer.play(
-          AssetSource(_isCorrect ? 'audio/success.mp3' : 'audio/failure.mp3'),
+          AssetSource(_isCorrect ? 'audio/benar.mp3' : 'audio/salah.mp3'),
         );
       } catch (e) {
         debugPrint('Audio error: $e');
@@ -99,6 +139,7 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
     _showResult = false;
     _isAnswered = false;
     _selectedIndex = null;
+    _selectedWordIndices = [];
     _correctIndex = null;
   }
 
@@ -106,10 +147,7 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
     Future.microtask(() {
       final lessonGameNotifier = ref.read(lessonGameProvider.notifier);
       lessonGameNotifier.calculateStars();
-
-      // Use the new method that respects previous scores
       lessonGameNotifier.saveCompletionWithBestScore();
-
       Navigator.pushReplacementNamed(context, '/level_complete');
     });
   }
@@ -130,21 +168,46 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
     );
   }
 
+  String get _correctAnswerText {
+    if (currentChallenge.challengeType == ChallengeType.multipleChoice) {
+      return _correctIndex != null &&
+              _correctIndex! < currentChallenge.options!.length
+          ? currentChallenge.options![_correctIndex!].text
+          : '';
+    } else {
+      // For ordering, show the correct sentence
+      return currentChallenge.options!.firstWhere((o) => o.correct).text;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorTheme = Theme.of(context).colorScheme;
 
-    final currentChallenge = challenges[_currentIndex];
     final isNewWord =
         !ref
             .watch(userDataProvider)
             .seenWords
             .contains(currentChallenge.question);
     final streak = ref.watch(userDataProvider).currentStreak;
+    // At the top of your build method, add:
+    final buttonBackgroundColor =
+        _isAnswered
+            ? colorTheme.tertiary
+            : (_canContinue
+                ? colorTheme.tertiaryContainer
+                : colorTheme.surface);
 
+    final buttonBorderColor =
+        _isAnswered
+            ? colorTheme.tertiary
+            : (_canContinue ? colorTheme.tertiary : colorTheme.outline);
+
+    final buttonTextColor = colorTheme.onPrimary;
+
+    // Then use in the button:
     return Scaffold(
-      backgroundColor: const Color(0xFFF6E7C1),
       appBar: null,
       body: SafeArea(
         child: Stack(
@@ -204,18 +267,7 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: QuestionCard(
-                    key: ValueKey(_currentIndex),
-                    options: currentChallenge.options!,
-                    question: currentChallenge.question,
-                    isNewWord: isNewWord,
-                    selectedIndex: _selectedIndex,
-                    onOptionSelected: _onOptionSelected,
-                    isAnswered: _isAnswered,
-                    correctIndex: _correctIndex,
-                  ),
-                ),
+                Expanded(child: _buildChallengeCard(isNewWord)),
               ],
             ),
             if (!_showResult)
@@ -226,28 +278,34 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                 child: SizedBox(
                   width: double.infinity,
                   height: 48,
-                  child: ElevatedButton(
-                    onPressed:
-                        (_selectedIndex != null && !_isAnswered)
-                            ? _onContinue
-                            : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          _isAnswered
-                              ? const Color(0xFF4B6B2D)
-                              : (_selectedIndex != null
-                                  ? const Color(0xFFB6B96C)
-                                  : const Color(0xFFD6D6C2)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        top: BorderSide(color: buttonBorderColor, width: 1),
+                        left: BorderSide(color: buttonBorderColor, width: 1),
+                        right: BorderSide(color: buttonBorderColor, width: 1),
+                        bottom: BorderSide(color: buttonBorderColor, width: 3),
                       ),
+                      borderRadius: BorderRadius.circular(14),
                     ),
-                    child: Text(
-                      _isAnswered ? 'Lanjutkan' : 'Periksa',
-                      style: textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Colors.white,
+                    child: ElevatedButton(
+                      onPressed:
+                          (_canContinue && !_isAnswered) ? _onContinue : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: buttonBackgroundColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: BorderSide.none,
+                        ),
+                        elevation: 0,
+                      ),
+                      child: Text(
+                        _isAnswered ? 'Lanjutkan' : 'Periksa',
+                        style: textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: buttonTextColor,
+                        ),
                       ),
                     ),
                   ),
@@ -260,11 +318,7 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
                 bottom: 0,
                 child: ResultDialog(
                   isCorrect: _isCorrect,
-                  correctAnswer:
-                      _correctIndex != null &&
-                              _correctIndex! < currentChallenge.options!.length
-                          ? currentChallenge.options![_correctIndex!].text
-                          : '',
+                  correctAnswer: _correctAnswerText,
                   onContinue: _onContinue,
                 ),
               ),
@@ -272,6 +326,32 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
         ),
       ),
     );
+  }
+
+  Widget _buildChallengeCard(bool isNewWord) {
+    if (currentChallenge.challengeType == ChallengeType.multipleChoice) {
+      return QuestionCard(
+        key: ValueKey(_currentIndex),
+        options: currentChallenge.options!,
+        question: currentChallenge.question,
+        isNewWord: isNewWord,
+        selectedIndex: _selectedIndex,
+        onOptionSelected: _onOptionSelected,
+        isAnswered: _isAnswered,
+        correctIndex: _correctIndex,
+      );
+    } else {
+      return OrderingCard(
+        key: ValueKey(_currentIndex),
+        options: currentChallenge.options!,
+        question: currentChallenge.question,
+        isNewWord: isNewWord,
+        selectedWordIndices: _selectedWordIndices,
+        onWordIndicesChanged: _onWordIndicesChanged,
+        isAnswered: _isAnswered,
+        isCorrect: _isCorrect,
+      );
+    }
   }
 }
 //asdasdas

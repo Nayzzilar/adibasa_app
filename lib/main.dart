@@ -13,13 +13,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  // 🧪 Connect to Firestore emulator (optional: only in debug mode)
-  const bool useEmulator = true; // 👈 change this to false in production
+  const bool useEmulator = true;
   if (useEmulator) {
     FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
   }
 
-  // Set Firestore cache settings
   FirebaseFirestore.instance.settings = const Settings(
     persistenceEnabled: true,
     cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
