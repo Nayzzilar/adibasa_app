@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/lesson_game_provider.dart'; // Ganti import provider
-
+import 'package:adibasa_app/theme/theme.dart';
 
 class CardLevelComplete extends ConsumerWidget {
   final Duration duration;
@@ -29,14 +29,18 @@ class CardLevelComplete extends ConsumerWidget {
     final gameState = ref.read(lessonGameProvider);
 
     return Container(
-      width: screenWidth * 0.9,
+      width: screenWidth * 1.3,
       margin: EdgeInsets.symmetric(
-        horizontal: screenWidth * 0.15,
-        vertical: screenHeight * 0.01,
+        horizontal: screenWidth * 0.1,
+        vertical: screenHeight * 0.0008,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline, // Warna border
+          width: 4, // Ketebalan border
+        ),
       ),
       child: Column(
         children: [
@@ -44,11 +48,11 @@ class CardLevelComplete extends ConsumerWidget {
           Container(
             width: double.infinity,
             padding: EdgeInsets.symmetric(
-              vertical: screenHeight * 0.02,
-              horizontal: screenWidth * 0.04,
+              vertical: screenHeight * 0.004,
+              horizontal: screenWidth * 0.004,
             ),
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 0, 0, 0),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.outline,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
@@ -58,7 +62,7 @@ class CardLevelComplete extends ConsumerWidget {
               'Level ${gameState.currentLesson?.order ?? ""} Telah Diselesaikan!',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surface,
                 fontSize: screenWidth * 0.055,
                 fontWeight: FontWeight.bold,
               ),
@@ -80,17 +84,17 @@ class CardLevelComplete extends ConsumerWidget {
               ),
 
               // Garis pemisah (divider vertikal)
-              Container(
+              /*Container(
                 width: 1,
                 height: screenWidth * 0.2, // sesuaikan tinggi
                 color: Colors.grey.withOpacity(0.3),
-              ),
+              ),*/
 
               // Score Section
               Expanded(
                 child: _buildInfoColumn(
                   context,
-                  Icons.check_circle,
+                  Icons.check,
                   'Score',
                   '${correctPercentage.toStringAsFixed(0)}%',
                 ),
@@ -119,12 +123,12 @@ class CardLevelComplete extends ConsumerWidget {
             Container(
               padding: EdgeInsets.all(screenWidth * 0.015),
               decoration: BoxDecoration(
-                color: const Color(0xFF9BA85B).withOpacity(0.1),
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
                 icon,
-                color: const Color(0xFF9BA85B),
+                color: Theme.of(context).colorScheme.primary,
                 size: screenWidth * 0.05,
               ),
             ),
@@ -136,7 +140,7 @@ class CardLevelComplete extends ConsumerWidget {
               style: TextStyle(
                 fontSize: screenWidth * 0.035,
                 fontWeight: FontWeight.w500,
-                color: Colors.grey[700],
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ],
@@ -150,7 +154,7 @@ class CardLevelComplete extends ConsumerWidget {
           style: TextStyle(
             fontSize: screenWidth * 0.045,
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
       ],

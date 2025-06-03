@@ -72,7 +72,7 @@ class _MultipleChoicePageState extends ConsumerState<MultipleChoicePage> {
       try {
         await _audioPlayer.stop(); // stop dulu agar siap play ulang
         await _audioPlayer.play(
-          AssetSource(_isCorrect ? 'audio/success.mp3' : 'audio/failure.mp3'),
+          AssetSource(_isCorrect ? 'audio/benar.mp3' : 'audio/salah.mp3'),
         );
       } catch (e) {
         debugPrint('Audio error: $e');
