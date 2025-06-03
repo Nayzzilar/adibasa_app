@@ -21,76 +21,11 @@ class LevelSelection extends ConsumerStatefulWidget {
 
 class _LevelSelectionState extends ConsumerState<LevelSelection> {
   int currentMapIndex = 0; // 0: peta_bagian1, 1: peta_bagian2, 2: peta_bagian3
-  static const List<int> levelsPerMap = [12, 11, 7]; // Total 30 level: 12, 11, 7
-
-  // Posisi level dengan distribusi yang lebih merata dan tidak overlapping
-  final List<List<Offset>> levelPositionsPercent = [
-    // peta_bagian1 (12 level) - Distribusi merata di seluruh area peta
-    [
-      // Row 1 (bottom) - 3 levels
-      Offset(0.15, 0.85), // 1 - Bottom left
-      Offset(0.50, 0.88), // 2 - Bottom center
-      Offset(0.85, 0.85), // 3 - Bottom right
-      
-      // Row 2 (middle-bottom) - 3 levels
-      Offset(0.25, 0.68), // 4 - Left middle-bottom
-      Offset(0.60, 0.70), // 5 - Right middle-bottom
-      Offset(0.80, 0.65), // 6 - Far right middle-bottom
-      
-      // Row 3 (center) - 3 levels
-      Offset(0.20, 0.50), // 7 - Left center
-      Offset(0.50, 0.52), // 8 - Center
-      Offset(0.75, 0.48), // 9 - Right center
-      
-      // Row 4 (top) - 3 levels
-      Offset(0.30, 0.32), // 10 - Left top
-      Offset(0.55, 0.30), // 11 - Center top
-      Offset(0.80, 0.35), // 12 - Right top
-    ],
-    
-    // peta_bagian2 (11 level) - Distribusi zigzag untuk mengisi area kosong
-    [
-      // Bottom row - 3 levels
-      Offset(0.20, 0.82), // 13 - Bottom left
-      Offset(0.50, 0.85), // 14 - Bottom center
-      Offset(0.80, 0.80), // 15 - Bottom right
-      
-      // Middle-bottom row - 3 levels
-      Offset(0.15, 0.65), // 16 - Left middle-bottom
-      Offset(0.45, 0.68), // 17 - Center middle-bottom
-      Offset(0.75, 0.63), // 18 - Right middle-bottom
-      
-      // Center row - 3 levels
-      Offset(0.25, 0.48), // 19 - Left center
-      Offset(0.60, 0.50), // 20 - Right center
-      Offset(0.85, 0.45), // 21 - Far right center
-      
-      // Top row - 2 levels
-      Offset(0.35, 0.30), // 22 - Left top
-      Offset(0.70, 0.32), // 23 - Right top
-    ],
-    
-    // peta_bagian3 (7 level) - Distribusi diamond pattern
-    [
-      // Bottom - 2 levels
-      Offset(0.25, 0.78), // 24 - Bottom left
-      Offset(0.75, 0.78), // 25 - Bottom right
-      
-      // Middle - 3 levels
-      Offset(0.15, 0.55), // 26 - Left middle
-      Offset(0.50, 0.58), // 27 - Center middle
-      Offset(0.85, 0.55), // 28 - Right middle
-      
-      // Top - 2 levels
-      Offset(0.35, 0.35), // 29 - Left top
-      Offset(0.65, 0.35), // 30 - Right top
-    ],
-  ];
+  static const List<int> levelsPerMap = [10, 10, 0]; // Total 20 level: 10, 10, 0
 
   final List<String> mapAssets = [
     'assets/images/peta_bagian_1.jpg',
     'assets/images/peta_bagian_2.jpg',
-    'assets/images/peta_bagian_3.jpg',
   ];
 
   @override
@@ -120,19 +55,16 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
 
   Widget _buildMapLevels(BuildContext context, WidgetRef ref, List<Lesson> lessons, LessonGameState gameState) {
     final userData = ref.watch(userDataProvider);
-    // Gabungkan data lessons asli dan dummy
+    
+    // Hitung range level untuk map saat ini
     int start = 0;
     for (int i = 0; i < currentMapIndex; i++) {
       start += levelsPerMap[i];
     }
     int end = start + levelsPerMap[currentMapIndex];
-    final mapLessonCount = (end - start);
-    final positionsPercent = levelPositionsPercent[currentMapIndex].take(mapLessonCount).toList();
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height - 180; // kurangi statusbar & bottomnav
-
-    // Buat 30 level: yang ada di lessons pakai data asli, sisanya dummy locked
-    List<Level> allLevels = List.generate(30, (i) {
+    
+    // Buat 20 level: yang ada di lessons pakai data asli, sisanya dummy locked
+    List<Level> allLevels = List.generate(20, (i) {
       if (i < lessons.length) {
         final lesson = lessons[i];
         final isFirstLevel = lesson.order == 1 || i == 0;
@@ -156,7 +88,8 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
         );
       }
     });
-    final levels = allLevels.sublist(start, end);
+    
+    final mapLevels = allLevels.sublist(start, end);
 
     return Stack(
       children: [
@@ -167,54 +100,158 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
             fit: BoxFit.cover,
           ),
         ),
-        // Level/lock di posisi
-        ...levels.asMap().entries.map((entry) {
-          final idx = entry.key;
-          final level = entry.value;
-          final percent = positionsPercent[idx];
-          // Pastikan posisi tidak keluar layar dengan margin yang lebih besar
-          final safeX = (percent.dx * (screenWidth - 100)).clamp(50.0, screenWidth - 100);
-          final safeY = (percent.dy * (screenHeight - 100)).clamp(50.0, screenHeight - 100);
-          final pos = Offset(safeX, safeY);
-          return Positioned(
-            left: pos.dx,
-            top: pos.dy,
-            child: _MapLevelCircle(
-              level: level,
-              onTap: (!level.isLocked && (level.level <= lessons.length)) ? () => _navigateToLesson(ref, lessons[level.level - 1]) : null,
-            ),
-          );
-        }).toList(),
-        // Tombol prev
-        if (currentMapIndex > 0)
-          Positioned(
-            left: 16,
-            top: MediaQuery.of(context).size.height * 0.4,
-            child: _MapNavButton(
-              assetPath: 'assets/images/prev_peta.png',
-              onTap: () {
-                setState(() {
-                  currentMapIndex--;
-                });
-              },
+        // Level layout dengan snake pattern
+        Positioned.fill(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Tombol navigasi atas (jika diperlukan)
+                if (currentMapIndex < mapAssets.length - 1 && levelsPerMap[currentMapIndex] > 0)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            currentMapIndex++;
+                          });
+                        },
+                        child: Image.asset(
+                          'assets/images/next_peta.png',
+                          width: 60,
+                          height: 60,
+                        ),
+                      ),
+                    ),
+                  ),
+                // Level rows
+                ...(_buildLevelRows(mapLevels, lessons)),
+                // Tombol navigasi bawah (jika diperlukan)
+                if (currentMapIndex > 0)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            currentMapIndex--;
+                          });
+                        },
+                        child: Image.asset(
+                          'assets/images/prev_peta.png',
+                          width: 60,
+                          height: 60,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ),
-        // Tombol next
-        if (currentMapIndex < mapAssets.length - 1)
-          Positioned(
-            right: 16,
-            top: MediaQuery.of(context).size.height * 0.4,
-            child: _MapNavButton(
-              assetPath: 'assets/images/next_peta.png',
-              onTap: () {
-                setState(() {
-                  currentMapIndex++;
-                });
-              },
-            ),
-          ),
+        ),
       ],
     );
+  }
+
+  List<Widget> _buildLevelRows(List<Level> levels, List<Lesson> lessons) {
+    // Jika tidak ada level, return empty
+    if (levels.isEmpty) {
+      return [
+        Center(
+          child: Text(
+            'Peta ini belum tersedia',
+            style: TextStyle(fontSize: 18, color: Colors.brown),
+          ),
+        ),
+      ];
+    }
+
+    List<Widget> rows = [];
+    int levelIndex = 0;
+    int rowIndex = 0;
+    
+    while (levelIndex < levels.length) {
+      // Ambil 3 level atau kurang untuk baris ini
+      final rowLevels = levels.skip(levelIndex).take(3).toList();
+      levelIndex += rowLevels.length;
+      
+      // Tentukan apakah baris ini dibalik (snake pattern)
+      final isReversed = rowIndex % 2 == 1;
+      final displayLevels = isReversed ? rowLevels.reversed.toList() : rowLevels;
+      
+      // Buat row dengan level saja (tanpa navigasi di dalam row)
+      List<Widget> rowChildren = [];
+      
+      // Tambahkan level-level
+      for (int i = 0; i < displayLevels.length; i++) {
+        final level = displayLevels[i];
+        
+        if (i > 0) {
+          rowChildren.add(SizedBox(width: _getSpacing(rowIndex, i)));
+        }
+        
+        rowChildren.add(_buildLevelWidget(level, lessons));
+      }
+      
+      // Buat row dengan posisi yang bervariasi
+      rows.add(
+        Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 8.0,
+            horizontal: _getRowHorizontalPadding(rowIndex),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: rowChildren,
+          ),
+        ),
+      );
+      
+      rowIndex++;
+    }
+    
+    // Balik urutan rows agar level 1 di bawah (seperti snake pattern)
+    return rows.reversed.toList();
+  }
+
+  Widget _buildLevelWidget(Level level, List<Lesson> lessons) {
+    return level.isLocked
+        ? _MapLevelCircle(level: level, onTap: null)
+        : _MapLevelCircle(
+            level: level,
+            onTap: () => _navigateToLesson(ref, lessons[level.level - 1]),
+          );
+  }
+
+  double _getSpacing(int rowIndex, int levelIndex) {
+    // Variasi spacing berdasarkan pola snake dan posisi
+    if (rowIndex % 2 == 0) {
+      // Baris normal
+      return 20.0 + (levelIndex * 5.0);
+    } else {
+      // Baris terbalik
+      return 25.0 + (levelIndex * 3.0);
+    }
+  }
+
+  double _getRowHorizontalPadding(int rowIndex) {
+    // Variasi posisi horizontal untuk memberikan efek organic
+    switch (rowIndex % 4) {
+      case 0:
+        return 0.0;
+      case 1:
+        return 20.0;
+      case 2:
+        return 10.0;
+      case 3:
+        return 30.0;
+      default:
+        return 0.0;
+    }
   }
 
   void _navigateToLesson(WidgetRef ref, Lesson lesson) {
@@ -226,32 +263,6 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
         SnackBar(content: Text('Error: $e')),
       );
     }
-  }
-
-  Widget _buildBottomNavBar(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-      selectedItemColor: Theme.of(context).colorScheme.primary,
-      unselectedItemColor: Theme.of(context).colorScheme.onSecondaryContainer,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Beranda',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.menu_book),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: '',
-        ),
-      ],
-      currentIndex: 1,
-      onTap: (index) {
-        // TODO: Implementasi navigasi bottom nav jika diperlukan
-      },
-    );
   }
 }
 
@@ -329,25 +340,6 @@ class _MapLevelCircle extends StatelessWidget {
               ),
             ),
         ],
-      ),
-    );
-  }
-}
-
-// Tombol navigasi peta menggunakan asset gambar
-class _MapNavButton extends StatelessWidget {
-  final String assetPath;
-  final VoidCallback onTap;
-  const _MapNavButton({required this.assetPath, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Image.asset(
-        assetPath,
-        width: 60, // Sesuaikan ukuran dengan kebutuhan
-        height: 60,
       ),
     );
   }
