@@ -6,7 +6,9 @@ import '../models/word.dart';
 class DictionaryService {
   // Fungsi utama buat load JSON dari assets
   Future<Dictionary> loadDictionaryFromAssets() async {
-    final String response = await rootBundle.loadString('data/kamus_jawa_indonesia.json');
+    final String response = await rootBundle.loadString(
+      'data/kamus_jawa_indo.json',
+    );
     final List<dynamic> data = json.decode(response);
 
     return Dictionary.fromJsonList(data);

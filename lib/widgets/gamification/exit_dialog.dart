@@ -1,3 +1,4 @@
+import 'package:adibasa_app/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class ExitDialog extends StatelessWidget {
@@ -5,11 +6,15 @@ class ExitDialog extends StatelessWidget {
   final VoidCallback onExit;
 
   const ExitDialog({Key? key, required this.onContinue, required this.onExit})
-      : super(key: key);
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final textTheme = Theme.of(context).textTheme;
+    final colorTheme = Theme.of(context).colorScheme;
+
+    final feedbackColors = theme.extension<FeedbackColors>();
 
     return Align(
       alignment: Alignment.bottomCenter,
@@ -40,7 +45,7 @@ class ExitDialog extends StatelessWidget {
                         'Apakah Anda yakin ingin keluar?',
                         style: textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: const Color(0xFF61450F),
+                          color: colorTheme.primary,
                           fontSize: 20,
                           decoration: TextDecoration.none,
                         ),
@@ -56,7 +61,7 @@ class ExitDialog extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: onContinue,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4B6B2D),
+                      backgroundColor: feedbackColors!.correctButton,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
@@ -80,7 +85,7 @@ class ExitDialog extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: onExit,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFA13A2C),
+                      backgroundColor: feedbackColors.wrongButton,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),

@@ -62,26 +62,26 @@ class LevelPopup extends StatelessWidget {
                     }),
                   ),
 
-                  /// Right side: Start button with custom border
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        top: BorderSide(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          width: 1.0,
-                        ),
-                        left: BorderSide(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          width: 1.0,
-                        ),
-                        right: BorderSide(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          width: 1.0,
-                        ),
-                        bottom: BorderSide(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          width: 3.0,
-                        ),
+
+                /// Right side: Start button with custom border
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: Theme.of(context).colorScheme.tertiary,
+                        width: 1.0,
+                      ),
+                      left: BorderSide(
+                        color: Theme.of(context).colorScheme.tertiary,
+                        width: 1.0,
+                      ),
+                      right: BorderSide(
+                        color: Theme.of(context).colorScheme.tertiary,
+                        width: 1.0,
+                      ),
+                      bottom: BorderSide(
+                        color: Theme.of(context).colorScheme.tertiary,
+                        width: 3.0,
                       ),
                       borderRadius: BorderRadius.circular(16),
                     ),

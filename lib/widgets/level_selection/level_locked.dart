@@ -1,5 +1,4 @@
 import 'package:adibasa_app/models/level.dart';
-import 'package:adibasa_app/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class LevelLocked extends StatelessWidget {
@@ -8,8 +7,6 @@ class LevelLocked extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lockedCardTheme =
-        Theme.of(context).extension<CustomCardThemes>()?.lockedCardTheme;
     final borderColor = Theme.of(context).colorScheme.outline;
 
     return Padding(
@@ -31,11 +28,12 @@ class LevelLocked extends StatelessWidget {
                   height: 50,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
+                    color: Theme.of(context).colorScheme.surface,
                     border: Border(
                       top: BorderSide(color: borderColor, width: 2),
                       left: BorderSide(color: borderColor, width: 2),
                       right: BorderSide(color: borderColor, width: 2),
-                      bottom: BorderSide(color: borderColor, width: 6),
+                      bottom: BorderSide(color: borderColor, width: 4),
                     ),
                     boxShadow: [
                       BoxShadow(
