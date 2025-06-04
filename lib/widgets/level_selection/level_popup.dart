@@ -85,19 +85,19 @@ class LevelPopup extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border(
                       top: BorderSide(
-                        color: Theme.of(context).colorScheme.outline,
+                        color: Theme.of(context).colorScheme.tertiary,
                         width: 1.0,
                       ),
                       left: BorderSide(
-                        color: Theme.of(context).colorScheme.outline,
+                        color: Theme.of(context).colorScheme.tertiary,
                         width: 1.0,
                       ),
                       right: BorderSide(
-                        color: Theme.of(context).colorScheme.outline,
+                        color: Theme.of(context).colorScheme.tertiary,
                         width: 1.0,
                       ),
                       bottom: BorderSide(
-                        color: Theme.of(context).colorScheme.outline,
+                        color: Theme.of(context).colorScheme.tertiary,
                         width: 3.0,
                       ),
                     ),
