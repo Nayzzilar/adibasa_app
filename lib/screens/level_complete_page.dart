@@ -69,6 +69,9 @@ class _LevelCompletePageState extends ConsumerState<LevelCompletePage> {
                       Color(0xFF498C4C),
                       Color(0xFF49758C),
                       Color(0xFFE0900F),
+                      Color(0xFFE47B2A),
+                      Color(0xFfEEBB5F),
+                      Color(0xFF8BC733),
                     ],
                   ),
                   Image.asset(
