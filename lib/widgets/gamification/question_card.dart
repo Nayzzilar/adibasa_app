@@ -177,7 +177,6 @@ class _QuestionCardState extends State<QuestionCard>
           ),
         );
       },
-
       child: QuizOption(
         option: option,
         isSelected: isSelected,

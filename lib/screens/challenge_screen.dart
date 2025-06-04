@@ -123,8 +123,10 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
       return;
     } else {
       if (_isCorrect) {
+        print("wot to len ${currentChallenge.wordToLearn}");
         if (currentChallenge.wordToLearn != null &&
             currentChallenge.wordToLearn!.isNotEmpty) {
+          print("wot to len ${currentChallenge.wordToLearn}");
           userDataNotifier.addSeenWord(currentChallenge.wordToLearn!);
         }
       }
