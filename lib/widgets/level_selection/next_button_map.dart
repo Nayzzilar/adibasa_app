@@ -1,4 +1,3 @@
-import 'package:adibasa_app/models/level.dart';
 import 'package:flutter/material.dart';
 
 class NextButtonMap extends StatefulWidget {
@@ -9,7 +8,8 @@ class NextButtonMap extends StatefulWidget {
   State<NextButtonMap> createState() => _NextButtonMapState();
 }
 
-class _NextButtonMapState extends State<NextButtonMap> with SingleTickerProviderStateMixin {
+class _NextButtonMapState extends State<NextButtonMap>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
 
@@ -61,10 +61,11 @@ class _NextButtonMapState extends State<NextButtonMap> with SingleTickerProvider
             onTap: widget.onTap,
             child: AnimatedBuilder(
               animation: _scaleAnimation,
-              builder: (context, child) => Transform.scale(
-                scale: _scaleAnimation.value,
-                child: child,
-              ),
+              builder:
+                  (context, child) => Transform.scale(
+                    scale: _scaleAnimation.value,
+                    child: child,
+                  ),
               child: Stack(
                 alignment: Alignment.center,
                 children: [

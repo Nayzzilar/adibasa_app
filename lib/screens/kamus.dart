@@ -5,6 +5,7 @@ import 'package:adibasa_app/theme/theme.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../widgets/normal_dictionary.dart';
 import '../widgets/seen_words_dictionary.dart';
+import 'dart:async';
 
 void main() {
   runApp(const ProviderScope(child: Kamus()));
@@ -40,6 +41,8 @@ class _KamusPageState extends State<KamusPage>
 
   List<Word> _currentWords = [];
   String _currentSearchQuery = '';
+  bool _isScrolling = false;
+  Timer? _searchDebounce;
 
   final List<String> alphabets = List.generate(
     26,
@@ -66,31 +69,58 @@ class _KamusPageState extends State<KamusPage>
   }
 
   void _onSearchChanged(String query) {
-    setState(() {
-      _currentSearchQuery = query;
+    if (_searchDebounce?.isActive ?? false) _searchDebounce!.cancel();
+    _searchDebounce = Timer(const Duration(milliseconds: 300), () {
+      setState(() {
+        _currentSearchQuery = query;
+        _isScrolling = false;
+      });
     });
   }
 
-  void _scrollToAlphabet(String alphabet) {
-    if (itemScrollController.isAttached && _currentWords.isNotEmpty) {
+  void _scrollToAlphabet(String alphabet) async {
+    // Add safety checks and prevent multiple scroll operations
+    if (_isScrolling ||
+        !itemScrollController.isAttached ||
+        _currentWords.isEmpty ||
+        _currentSearchQuery.isNotEmpty) {
+      // Don't scroll during search
+      return;
+    }
+
+    setState(() {
+      _isScrolling = true;
+    });
+
+    try {
       final int indexToScroll = _currentWords.indexWhere(
         (word) =>
             word.word.isNotEmpty &&
             word.word.toUpperCase().startsWith(alphabet),
       );
 
-      if (indexToScroll != -1) {
-        itemScrollController.scrollTo(
+      if (indexToScroll != -1 && indexToScroll < _currentWords.length) {
+        await itemScrollController.scrollTo(
           index: indexToScroll,
           duration: const Duration(milliseconds: 500),
           curve: Curves.easeInOutCubic,
         );
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Tidak ada kata yang dimulai dengan "$alphabet"'),
-          ),
-        );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Tidak ada kata yang dimulai dengan "$alphabet"'),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      print('Error scrolling to alphabet: $e');
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isScrolling = false;
+        });
       }
     }
   }
@@ -106,6 +136,9 @@ class _KamusPageState extends State<KamusPage>
       itemCount: _currentWords.length,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       itemBuilder: (context, index) {
+        if (index >= _currentWords.length) {
+          return const SizedBox.shrink();
+        }
         final word = _currentWords[index];
         return Container(
           margin: const EdgeInsets.only(bottom: 12),
@@ -153,7 +186,7 @@ class _KamusPageState extends State<KamusPage>
   }
 
   Widget _buildAlphabetSidebar() {
-    if (_currentWords.isEmpty) {
+    if (_currentWords.isEmpty || _currentSearchQuery.isNotEmpty) {
       return const SizedBox.shrink();
     }
 

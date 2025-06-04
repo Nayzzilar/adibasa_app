@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:adibasa_app/theme/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:adibasa_app/models/level.dart';
 
@@ -12,9 +11,6 @@ class LevelPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final finishedCardTheme =
-        Theme.of(context).extension<CustomCardThemes>()?.finishedCardTheme;
-
     return Container(
       child: Container(
         width: 250,
@@ -89,19 +85,19 @@ class LevelPopup extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border(
                       top: BorderSide(
-                        color: Theme.of(context).colorScheme.outline,
+                        color: Theme.of(context).colorScheme.tertiary,
                         width: 1.0,
                       ),
                       left: BorderSide(
-                        color: Theme.of(context).colorScheme.outline,
+                        color: Theme.of(context).colorScheme.tertiary,
                         width: 1.0,
                       ),
                       right: BorderSide(
-                        color: Theme.of(context).colorScheme.outline,
+                        color: Theme.of(context).colorScheme.tertiary,
                         width: 1.0,
                       ),
                       bottom: BorderSide(
-                        color: Theme.of(context).colorScheme.outline,
+                        color: Theme.of(context).colorScheme.tertiary,
                         width: 3.0,
                       ),
                     ),

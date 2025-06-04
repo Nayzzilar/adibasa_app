@@ -178,15 +178,8 @@ class _OrderingCardState extends State<OrderingCard>
       color: Theme.of(context).colorScheme.primaryContainer,
     );
 
-    if (!widget.isNewWord) {
-      return Text(widget.question, style: defaultStyle);
-    }
-
-    return NewWordText(
-      question: widget.question,
-      correctMeaning: widget.options.first.text,
-      textStyle: textTheme.titleLarge,
-    );
+    // For ordering challenges, always display the question as plain text without hints.
+    return Text(widget.question, style: defaultStyle);
   }
 
   Widget _buildSelectedWordsArea(BuildContext context) {

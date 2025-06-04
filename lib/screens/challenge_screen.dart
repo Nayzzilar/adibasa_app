@@ -192,13 +192,14 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
     final textTheme = Theme.of(context).textTheme;
     final colorTheme = Theme.of(context).colorScheme;
 
+    final String wordForHintCheck =
+        currentChallenge.wordToLearn?.isNotEmpty == true
+            ? currentChallenge.wordToLearn!
+            : currentChallenge.question;
     final isNewWord =
-        !ref
-            .watch(userDataProvider)
-            .seenWords
-            .contains(currentChallenge.question);
+        !ref.watch(userDataProvider).seenWords.contains(wordForHintCheck);
     final streak = ref.watch(userDataProvider).currentStreak;
-    // At the top of your build method, add:
+
     final buttonBackgroundColor =
         _isAnswered
             ? colorTheme.tertiary
