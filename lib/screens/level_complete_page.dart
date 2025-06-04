@@ -42,7 +42,8 @@ class _LevelCompletePageState extends ConsumerState<LevelCompletePage> {
     final gameState = ref.read(lessonGameProvider);
     final stars = gameState.stars;
     final duration = gameState.duration;
-    final correctPercentage = gameState.percentage;
+    final correct = gameState.challengesCorrect;
+    final wrong = gameState.challengesWrong;
 
     return Scaffold(
       body: Center(
@@ -81,7 +82,6 @@ class _LevelCompletePageState extends ConsumerState<LevelCompletePage> {
                 ],
               ),
             ),
-
             Container(
               margin: EdgeInsets.only(top: screenHeight * 0.00005),
               child: CardLevelComplete(
@@ -103,12 +103,12 @@ class _LevelCompletePageState extends ConsumerState<LevelCompletePage> {
             Container(
               margin: EdgeInsets.only(top: screenHeight * 0.05),
               decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: CustomColors.buttonColor.withOpacity(1.0),
-                    offset: const Offset(0, 4),
-                  ),
-                ],
+                border: Border(
+                  top: BorderSide(color: CustomColors.buttonColor, width: 2),
+                  right: BorderSide(color: CustomColors.buttonColor, width: 2),
+                  bottom: BorderSide(color: CustomColors.buttonColor, width: 4),
+                  left: BorderSide(color: CustomColors.buttonColor, width: 2),
+                ),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: ElevatedButton(
@@ -117,20 +117,12 @@ class _LevelCompletePageState extends ConsumerState<LevelCompletePage> {
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(
-                      color: Theme.of(context).colorScheme.tertiary,
-                      width: 2.0,
-                    ),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 12,
-                  ),
-                  minimumSize: const Size(330, 48),
-                  backgroundColor: CustomColors.borderButton,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  minimumSize: Size(330, 48),
                   foregroundColor: Colors.white,
-                  elevation: 0,
+                  backgroundColor: CustomColors.borderButton,
                 ),
                 child: const Text(
                   'Lanjutkan',
