@@ -37,10 +37,6 @@ flutter:
     - assets/
     - assets/star/
     - data/kamus_jawa_indo.json
-    - assets/images/peta_bagian_1.jpg
-    - assets/images/peta_bagian_2.jpg
-    - assets/images/peta_bagian_3.jpg
-    - assets/images/lock.png
 
 flutter_launcher_icons:
   android: true
