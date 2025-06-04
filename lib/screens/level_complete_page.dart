@@ -26,7 +26,8 @@ class LevelCompletePage extends ConsumerWidget {
     final gameState = ref.read(lessonGameProvider);
     final stars = gameState.stars;
     final duration = gameState.duration;
-    final correctPercentage = gameState.percentage;
+    final correct = gameState.challengesCorrect;
+    final wrong = gameState.challengesWrong;
 
     return Scaffold(
       body: Center(
@@ -73,7 +74,8 @@ class LevelCompletePage extends ConsumerWidget {
               child: CardLevelComplete(
                 duration: duration, // Contoh waktu
                 correctPercentage:
-                    gameState.currentLesson!.challenges!.length, // Contoh skor
+                    (correct / gameState.currentLesson!.challenges!.length)
+                        .toInt(), // Contoh skor
               ),
             ),
 
