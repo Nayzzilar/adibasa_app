@@ -123,7 +123,10 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
       return;
     } else {
       if (_isCorrect) {
-        userDataNotifier.addSeenWord(currentChallenge.question);
+        if (currentChallenge.wordToLearn != null &&
+            currentChallenge.wordToLearn!.isNotEmpty) {
+          userDataNotifier.addSeenWord(currentChallenge.wordToLearn!);
+        }
       }
     }
 
@@ -356,4 +359,5 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
     }
   }
 }
+
 //asdasdas

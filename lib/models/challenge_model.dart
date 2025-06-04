@@ -28,6 +28,7 @@ class Challenge {
   final String instruction;
   final ChallengeType challengeType;
   final List<ChallengeOption>? options;
+  final String? wordToLearn;
 
   Challenge({
     required this.question,
@@ -35,6 +36,7 @@ class Challenge {
     required this.instruction,
     required this.challengeType,
     this.options,
+    this.wordToLearn,
   });
 
   factory Challenge.fromJson(Map<String, dynamic> json) => Challenge(
@@ -48,6 +50,7 @@ class Challenge {
             .map((e) => ChallengeOption.fromJson(e))
             .toList() ??
         [],
+    wordToLearn: json['wordToLearn'] as String?,
   );
 
   Map<String, dynamic> toJson() => {
@@ -56,5 +59,6 @@ class Challenge {
     'instruction': instruction,
     'challenge_type': challengeTypeToString(challengeType),
     if (options != null) 'options': options!.map((o) => o.toJson()).toList(),
+    'wordToLearn': wordToLearn,
   };
 }
