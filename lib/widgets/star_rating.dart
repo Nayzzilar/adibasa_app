@@ -15,8 +15,7 @@ class StarRating extends StatelessWidget {
     this.size = 30.0,
     this.spacing = 8.0,
     this.alignment = MainAxisAlignment.center,
-  }) : assert(starCount >= 0 && starCount <= totalStars),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,8 @@ class StarRating extends StatelessWidget {
         return Padding(
           padding: EdgeInsets.only(right: index < totalStars - 1 ? spacing : 0),
           child: Transform.translate(
-            offset: isMiddle ? const Offset(0, -10) : Offset.zero, // Naikkan tengah
+            offset:
+                isMiddle ? const Offset(0, -10) : Offset.zero, // Naikkan tengah
             child: SvgPicture.asset(
               isActive
                   ? 'assets/star/star_active.svg'
