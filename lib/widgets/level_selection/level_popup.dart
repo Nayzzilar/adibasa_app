@@ -1,3 +1,5 @@
+import 'package:adibasa_app/utils/enums.dart';
+import 'package:adibasa_app/widgets/custom_main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:adibasa_app/models/level.dart';
@@ -19,7 +21,12 @@ class LevelPopup extends StatelessWidget {
         child: Container(
           width: 250,
           height: 152, // Increased to accommodate triangle
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 28), // Extra bottom padding for triangle
+          padding: const EdgeInsets.fromLTRB(
+            16,
+            16,
+            16,
+            28,
+          ), // Extra bottom padding for triangle
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -62,63 +69,22 @@ class LevelPopup extends StatelessWidget {
                     }),
                   ),
 
-
-                /// Right side: Start button with custom border
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      top: BorderSide(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        width: 1.0,
-                      ),
-                      left: BorderSide(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        width: 1.0,
-                      ),
-                      right: BorderSide(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        width: 1.0,
-                      ),
-                      bottom: BorderSide(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        width: 3.0,
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Tutup popup terlebih dahulu
-
-                        // Kemudian navigasi ke soal jika onTap tersedia
-                        if (onTap != null) {
-                          onTap!();
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.tertiaryContainer,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 15,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        // Remove default elevation and border
-                        elevation: 10,
-                        shadowColor: Colors.transparent,
-                        side: BorderSide.none,
-                      ),
-                      child: Text(
-                        'Start',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.headlineMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
-                      ),
-                    ),
+                  /// Right side: Start button with custom border
+                  CustomMainButton(
+                    label: 'Start',
+                    onPressed: () {
+                      Navigator.pop(context);
+                      if (onTap != null) {
+                        onTap!();
+                      }
+                    },
+                    variant:
+                        ButtonVariant
+                            .primary, // Or a more specific variant if you define one
+                    buttonWidth: 80, // Adjust size as needed for this context
+                    buttonHeight: null,
                   ),
+                  // ...                ),
                 ],
               ),
 
@@ -134,47 +100,51 @@ class LevelPopup extends StatelessWidget {
 class PopupWithTrianglePainter extends CustomPainter {
   final Color backgroundColor;
 
-  PopupWithTrianglePainter({
-    required this.backgroundColor,
-  });
+  PopupWithTrianglePainter({required this.backgroundColor});
 
   @override
   void paint(Canvas canvas, Size size) {
     // Create the main path for the popup with triangle
     final path = Path();
-    
+
     // Start from top-left corner with rounded corner
     path.moveTo(6, 0);
-    
+
     // Top edge
     path.lineTo(size.width - 6, 0);
     path.quadraticBezierTo(size.width, 0, size.width, 6);
-    
+
     // Right edge
     path.lineTo(size.width, size.height - 18 - 6);
-    path.quadraticBezierTo(size.width, size.height - 18, size.width - 6, size.height - 18);
-    
+    path.quadraticBezierTo(
+      size.width,
+      size.height - 18,
+      size.width - 6,
+      size.height - 18,
+    );
+
     // Bottom right to triangle start
     path.lineTo(size.width / 2 + 12, size.height - 18);
-    
+
     // Triangle pointer
     path.lineTo(size.width / 2, size.height);
     path.lineTo(size.width / 2 - 12, size.height - 18);
-    
+
     // Bottom left to corner
     path.lineTo(6, size.height - 18);
     path.quadraticBezierTo(0, size.height - 18, 0, size.height - 18 - 6);
-    
+
     // Left edge
     path.lineTo(0, 6);
     path.quadraticBezierTo(0, 0, 6, 0);
-    
+
     path.close();
 
     // Fill the shape
-    final fillPaint = Paint()
-      ..color = backgroundColor
-      ..style = PaintingStyle.fill;
+    final fillPaint =
+        Paint()
+          ..color = backgroundColor
+          ..style = PaintingStyle.fill;
 
     canvas.drawPath(path, fillPaint);
   }
@@ -182,3 +152,4 @@ class PopupWithTrianglePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
+

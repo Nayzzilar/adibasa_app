@@ -1,8 +1,8 @@
 // widgets/card_level_complete.dart
+import 'package:adibasa_app/widgets/info_badge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/lesson_game_provider.dart'; // Ganti import provider
-import 'package:adibasa_app/theme/theme.dart';
 
 class CardLevelComplete extends ConsumerWidget {
   final Duration duration;
@@ -63,7 +63,7 @@ class CardLevelComplete extends ConsumerWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.surface,
-                fontSize: screenWidth * 0.055,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -82,14 +82,6 @@ class CardLevelComplete extends ConsumerWidget {
                   formatDuration(duration),
                 ),
               ),
-
-              // Garis pemisah (divider vertikal)
-              /*Container(
-                width: 1,
-                height: screenWidth * 0.2, // sesuaikan tinggi
-                color: Colors.grey.withOpacity(0.3),
-              ),*/
-
               // Score Section
               Expanded(
                 child: _buildInfoColumn(
@@ -114,50 +106,48 @@ class CardLevelComplete extends ConsumerWidget {
   ) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Column(
-      children: [
-        // Icon dan Title dalam Row
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: EdgeInsets.all(screenWidth * 0.015),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.circular(8),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        spacing: 5,
+        children: [
+          // Icon dan Title dalam Row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: EdgeInsets.all(screenWidth * 0.015),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surface,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(
+                  icon,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 26,
+                ),
               ),
-              child: Icon(
-                icon,
-                color: Theme.of(context).colorScheme.primary,
-                size: screenWidth * 0.05,
+
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
-            ),
-
-            SizedBox(width: screenWidth * 0.02),
-
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: screenWidth * 0.035,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-          ],
-        ),
-
-        SizedBox(height: screenWidth * 0.02),
-
-        // Value di bawah
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: screenWidth * 0.045,
-            fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.primary,
+            ],
           ),
-        ),
-      ],
+
+          // Value di bawah
+          InfoBadge(
+            value: value,
+            fontSize: 16,
+            // fontSize can be omitted to use default, or specified:
+            // fontSize: screenWidth * 0.045,
+          ),
+        ],
+      ),
     );
   }
 }

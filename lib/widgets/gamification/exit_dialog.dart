@@ -1,4 +1,6 @@
 import 'package:adibasa_app/theme/theme.dart';
+import 'package:adibasa_app/utils/enums.dart';
+import 'package:adibasa_app/widgets/custom_main_button.dart';
 import 'package:flutter/material.dart';
 
 class ExitDialog extends StatelessWidget {
@@ -58,48 +60,22 @@ class ExitDialog extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   height: 48,
-                  child: ElevatedButton(
+                  child: CustomMainButton(
+                    label: 'Lanjutkan',
                     onPressed: onContinue,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: feedbackColors!.correctButton,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      'Lanjutkan',
-                      style: textTheme.labelLarge?.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
+                    variant:
+                        ButtonVariant
+                            .success, // Using success for positive continuation
                   ),
                 ),
                 const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
                   height: 48,
-                  child: ElevatedButton(
+                  child: CustomMainButton(
+                    label: 'Keluar',
                     onPressed: onExit,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: feedbackColors.wrongButton,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      'Keluar',
-                      style: textTheme.labelLarge?.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
+                    variant: ButtonVariant.danger,
                   ),
                 ),
               ],

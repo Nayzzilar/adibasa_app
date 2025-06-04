@@ -1,7 +1,6 @@
 // widgets/gamification/ordering_card.dart
 import 'package:flutter/material.dart';
 import 'package:adibasa_app/models/challenge_option_model.dart';
-import 'package:adibasa_app/widgets/gamification/new_word_text.dart';
 import 'package:adibasa_app/theme/theme.dart';
 import 'word_button.dart';
 

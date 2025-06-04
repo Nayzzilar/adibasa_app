@@ -1,3 +1,4 @@
+import 'package:adibasa_app/utils/enums.dart';
 import 'package:adibasa_app/widgets/custom_main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,7 +7,6 @@ import '../widgets/star_rating.dart';
 import '../widgets/gamification/card_level_complete.dart';
 import '../navigation/route_name.dart';
 import 'package:get/get.dart';
-import 'package:adibasa_app/theme/theme.dart';
 import 'package:confetti/confetti.dart';
 
 class LevelCompletePage extends ConsumerStatefulWidget {
@@ -51,8 +51,7 @@ class _LevelCompletePageState extends ConsumerState<LevelCompletePage> {
           children: [
             Container(
               margin: EdgeInsets.only(top: screenHeight * 0.1),
-              height: 250.5,
-              width: 150.5,
+              width: 200,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -86,7 +85,7 @@ class _LevelCompletePageState extends ConsumerState<LevelCompletePage> {
               height: screenHeight * 0.2,
               child: StarRating(
                 starCount: stars,
-                size: screenWidth * 0.3,
+                size: screenWidth * 0.2,
                 spacing: screenWidth * 0.02,
               ),
             ),
@@ -109,6 +108,7 @@ class _LevelCompletePageState extends ConsumerState<LevelCompletePage> {
           onPressed: () {
             Get.offAllNamed(RouteName.bottomNavbar);
           },
+          variant: ButtonVariant.primary,
         ),
       ),
     );

@@ -1,5 +1,7 @@
 // screens/multiple_choice_page.dart
 import 'package:adibasa_app/providers/user_data_provider.dart';
+import 'package:adibasa_app/utils/enums.dart';
+import 'package:adibasa_app/widgets/custom_main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -197,22 +199,9 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
             ? currentChallenge.wordToLearn!
             : currentChallenge.question;
     final isNewWord =
-        !ref.watch(userDataProvider).seenWords.contains(wordForHintCheck);
+        !ref.watch(userDataProvider).seenWords.contains(wordForHintCheck) &&
+        currentChallenge.challengeType != ChallengeType.ordering;
     final streak = ref.watch(userDataProvider).currentStreak;
-
-    final buttonBackgroundColor =
-        _isAnswered
-            ? colorTheme.tertiary
-            : (_canContinue
-                ? colorTheme.tertiaryContainer
-                : colorTheme.surface);
-
-    final buttonBorderColor =
-        _isAnswered
-            ? colorTheme.tertiary
-            : (_canContinue ? colorTheme.tertiary : colorTheme.outline);
-
-    final buttonTextColor = colorTheme.onPrimary;
 
     // Then use in the button:
     return Scaffold(
@@ -286,36 +275,13 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
                 child: SizedBox(
                   width: double.infinity,
                   height: 48,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        top: BorderSide(color: buttonBorderColor, width: 1),
-                        left: BorderSide(color: buttonBorderColor, width: 1),
-                        right: BorderSide(color: buttonBorderColor, width: 1),
-                        bottom: BorderSide(color: buttonBorderColor, width: 3),
-                      ),
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    child: ElevatedButton(
-                      onPressed:
-                          (_canContinue && !_isAnswered) ? _onContinue : null,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: buttonBackgroundColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide.none,
-                        ),
-                        elevation: 0,
-                      ),
-                      child: Text(
-                        _isAnswered ? 'Lanjutkan' : 'Periksa',
-                        style: textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: buttonTextColor,
-                        ),
-                      ),
-                    ),
+                  // onPressed:
+                  //     (_canContinue && !_isAnswered) ? _onContinue : null,
+                  child: CustomMainButton(
+                    label: 'Periksa',
+                    onPressed:
+                        (_canContinue && !_isAnswered) ? _onContinue : null,
+                    variant: ButtonVariant.periksa,
                   ),
                 ),
               ),
@@ -362,5 +328,3 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
     }
   }
 }
-
-//asdasdas

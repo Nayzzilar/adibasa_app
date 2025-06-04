@@ -1,3 +1,5 @@
+import 'package:adibasa_app/utils/enums.dart';
+import 'package:adibasa_app/widgets/custom_main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:adibasa_app/theme/theme.dart';
 
@@ -31,9 +33,6 @@ class ResultDialog extends StatelessWidget {
         isCorrect
             ? feedbackColors.correctForeground
             : feedbackColors.wrongForeground;
-
-    final buttonColor =
-        isCorrect ? feedbackColors.correctButton : feedbackColors.wrongButton;
 
     return Container(
       width: double.infinity,
@@ -82,27 +81,12 @@ class ResultDialog extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 22),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: onContinue,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: buttonColor,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-              ),
-              child: Text(
-                'Lanjutkan',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
+          CustomMainButton(
+            label: 'Lanjutkan',
+            onPressed: onContinue,
+            variant: isCorrect ? ButtonVariant.success : ButtonVariant.danger,
+            buttonWidth: double.infinity,
+            buttonHeight: 48,
           ),
         ],
       ),
