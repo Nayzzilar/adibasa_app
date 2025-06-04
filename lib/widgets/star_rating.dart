@@ -15,8 +15,7 @@ class StarRating extends StatelessWidget {
     this.size = 30.0,
     this.spacing = 8.0,
     this.alignment = MainAxisAlignment.center,
-  }) : assert(starCount >= 0 && starCount <= totalStars),
-        super(key: key);
+  }) :super(key: key);
 
   @override
   Widget build(BuildContext context) {

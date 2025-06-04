@@ -1,3 +1,4 @@
+import 'package:adibasa_app/widgets/custom_main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/lesson_game_provider.dart';
@@ -45,7 +46,7 @@ class _LevelCompletePageState extends ConsumerState<LevelCompletePage> {
     final wrong = gameState.challengesWrong;
 
     return Scaffold(
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
@@ -63,7 +64,6 @@ class _LevelCompletePageState extends ConsumerState<LevelCompletePage> {
                     gravity: 0.3,
                     maxBlastForce: 10,
                     minBlastForce: 5,
-
                     colors: const [
                       Color(0xFF59471D),
                       Color(0xFF498C4C),
@@ -82,57 +82,33 @@ class _LevelCompletePageState extends ConsumerState<LevelCompletePage> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: screenHeight * 0.00005),
-              child: CardLevelComplete(
-                duration: duration,
-                correctPercentage:
-                    wrong == 0
-                        ? 100
-                        : (correct / (correct + wrong) * 100).toInt(),
-              ),
-            ),
-
-            Container(
               margin: EdgeInsets.only(top: screenHeight * 0.02),
-              height: screenHeight * 0.15,
+              height: screenHeight * 0.2,
               child: StarRating(
                 starCount: stars,
-                size: screenWidth * 0.2,
+                size: screenWidth * 0.3,
                 spacing: screenWidth * 0.02,
               ),
             ),
 
-            Container(
-              margin: EdgeInsets.only(top: screenHeight * 0.05),
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: CustomColors.buttonColor, width: 2),
-                  right: BorderSide(color: CustomColors.buttonColor, width: 2),
-                  bottom: BorderSide(color: CustomColors.buttonColor, width: 4),
-                  left: BorderSide(color: CustomColors.buttonColor, width: 2),
-                ),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: ElevatedButton(
-                onPressed: () {
-                  Get.offAllNamed(RouteName.bottomNavbar);
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  minimumSize: Size(330, 48),
-                  foregroundColor: Colors.white,
-                  backgroundColor: CustomColors.borderButton,
-                ),
-                child: const Text(
-                  'Lanjutkan',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
+            CardLevelComplete(
+              duration: duration,
+              correctPercentage:
+                  wrong == 0
+                      ? 100
+                      : (correct / (correct + wrong) * 100).toInt(),
             ),
+            const SizedBox(height: 80), // Supaya tidak ketutup tombol di bawah
           ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+        child: CustomMainButton(
+          label: 'Lanjutkan',
+          onPressed: () {
+            Get.offAllNamed(RouteName.bottomNavbar);
+          },
         ),
       ),
     );
