@@ -39,9 +39,3 @@ flutter:
     - assets/star/
     - data/kamus_jawa_indo.json
 
-flutter_launcher_icons:
-  android: true
-  image_path: "assets/images/launcher_icon.png"
-  adaptive_icon_foreground: "assets/images/launcher_icon.png"
-  adaptive_icon_background: "#F1DFBE"
-  adaptive_icon_foreground_inset: 20

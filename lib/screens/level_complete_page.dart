@@ -7,7 +7,6 @@ import '../navigation/route_name.dart';
 import 'package:get/get.dart';
 import 'package:adibasa_app/theme/theme.dart';
 import 'package:confetti/confetti.dart';
-import 'dart:math';
 
 class LevelCompletePage extends ConsumerStatefulWidget {
   const LevelCompletePage({Key? key}) : super(key: key);
@@ -86,7 +85,10 @@ class _LevelCompletePageState extends ConsumerState<LevelCompletePage> {
               margin: EdgeInsets.only(top: screenHeight * 0.00005),
               child: CardLevelComplete(
                 duration: duration,
-                correctPercentage: correctPercentage,
+                correctPercentage:
+                    wrong == 0
+                        ? 100
+                        : (correct / (correct + wrong) * 100).toInt(),
               ),
             ),
 
