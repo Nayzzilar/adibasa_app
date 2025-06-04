@@ -11,6 +11,8 @@ import 'package:get/get.dart';
 import 'package:adibasa_app/navigation/route_name.dart';
 import 'package:adibasa_app/providers/lesson_game_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:adibasa_app/widgets/level_selection/next_button_map.dart';
+import 'package:adibasa_app/widgets/level_selection/previous_button_map.dart';
 
 class LevelSelection extends ConsumerStatefulWidget {
   const LevelSelection({super.key});
@@ -41,16 +43,16 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
       backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       body: SafeArea(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            // Status bar tetap
+            // Baris 1: Status info (sama seperti app bar Kamus)
             const StatusBarLevelSelection(),
+            // Konten utama
             Expanded(
               child: lessonsAsync.when(
                 loading: () => const Center(child: CircularProgressIndicator()),
                 error: (error, stack) => Center(child: Text('Error: $error')),
-                data:
-                    (lessons) =>
-                        _buildMapLevels(context, ref, lessons, gameState),
+                data: (lessons) => _buildMapLevels(context, ref, lessons, gameState),
               ),
             ),
           ],
@@ -104,67 +106,83 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
 
     final mapLevels = allLevels.sublist(start, end);
 
-    return Stack(
-      children: [
-        // Background peta
-        Positioned.fill(
-          child: Image.asset(mapAssets[currentMapIndex], fit: BoxFit.cover),
-        ),
-        // Level layout dengan snake pattern
-        Positioned.fill(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Tombol navigasi atas (jika diperlukan)
-                if (currentMapIndex < mapAssets.length - 1 &&
-                    levelsPerMap[currentMapIndex] > 0)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            currentMapIndex++;
-                          });
-                        },
-                        child: Image.asset(
-                          'assets/images/next_peta.png',
-                          width: 60,
-                          height: 60,
-                        ),
-                      ),
-                    ),
-                  ),
-                // Level rows
-                ...(_buildLevelRows(mapLevels, lessons)),
-                // Tombol navigasi bawah (jika diperlukan)
-                if (currentMapIndex > 0)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            currentMapIndex--;
-                          });
-                        },
-                        child: Image.asset(
-                          'assets/images/prev_peta.png',
-                          width: 60,
-                          height: 60,
-                        ),
-                      ),
-                    ),
-                  ),
-              ],
+    return GestureDetector(
+      onHorizontalDragEnd: (details) {
+        if (details.primaryVelocity != null) {
+          if (details.primaryVelocity! < -200 && currentMapIndex < mapAssets.length - 1) {
+            // Swipe kiri (next)
+            setState(() {
+              currentMapIndex++;
+            });
+          } else if (details.primaryVelocity! > 200 && currentMapIndex > 0) {
+            // Swipe kanan (prev)
+            setState(() {
+              currentMapIndex--;
+            });
+          }
+        }
+      },
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 350),
+        transitionBuilder: (child, animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        child: Stack(
+          key: ValueKey(currentMapIndex),
+          children: [
+            // Background peta
+            Positioned.fill(
+              child: Image.asset(mapAssets[currentMapIndex], fit: BoxFit.cover),
             ),
-          ),
+            // Level layout dengan snake pattern
+            Positioned.fill(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Tombol next (kanan atas)
+                    if (currentMapIndex < mapAssets.length - 1 && levelsPerMap[currentMapIndex] > 0)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: NextButtonMap(
+                            onTap: () {
+                              setState(() {
+                                currentMapIndex++;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    // Level rows
+                    ...(_buildLevelRows(mapLevels, lessons)),
+                    // Tombol prev (kiri bawah)
+                    if (currentMapIndex > 0)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: PreviousButtonMap(
+                            onTap: () {
+                              setState(() {
+                                currentMapIndex--;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
