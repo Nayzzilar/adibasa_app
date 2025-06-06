@@ -204,99 +204,104 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
     final streak = ref.watch(userDataProvider).currentStreak;
 
     // Then use in the button:
-    return Scaffold(
-      appBar: null,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                ProgressBar(
-                  currentQuestion: _currentIndex + 1,
-                  totalQuestions: challenges.length,
-                  streak: streak,
-                  onClose: _showExitDialogOverlay,
-                ),
-                if (isNewWord)
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        top: 8,
-                        bottom: 8,
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/KataBaru.svg',
-                            width: 20,
-                            height: 20,
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            'Kata Baru',
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: colorTheme.tertiary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, dynamic result) {
+        if (didPop) {
+          return;
+        }
+        _showExitDialogOverlay();
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  ProgressBar(
+                    currentQuestion: _currentIndex + 1,
+                    totalQuestions: challenges.length,
+                    streak: streak,
+                    onClose: _showExitDialogOverlay,
+                  ),
+                  if (isNewWord)
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 16,
+                          top: 8,
+                          bottom: 8,
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/images/KataBaru.svg',
+                              width: 20,
+                              height: 20,
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: 6),
+                            Text(
+                              'Kata Baru',
+                              style: textTheme.bodyMedium?.copyWith(
+                                color: colorTheme.tertiary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 4,
+                    ),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        currentChallenge.instruction,
+                        style: textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: const Color(0xFF61450F),
+                        ),
                       ),
                     ),
                   ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 4,
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      currentChallenge.instruction,
-                      style: textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: const Color(0xFF61450F),
-                      ),
+                  Expanded(child: _buildChallengeCard(isNewWord)),
+                ],
+              ),
+              if (!_showResult)
+                Positioned(
+                  left: 20,
+                  right: 20,
+                  bottom: 12,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: CustomMainButton(
+                      label: 'Periksa',
+                      onPressed:
+                          (_canContinue && !_isAnswered) ? _onContinue : null,
+                      variant: ButtonVariant.periksa,
                     ),
                   ),
                 ),
-                Expanded(child: _buildChallengeCard(isNewWord)),
-              ],
-            ),
-            if (!_showResult)
-              Positioned(
-                left: 20,
-                right: 20,
-                bottom: 12,
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  // onPressed:
-                  //     (_canContinue && !_isAnswered) ? _onContinue : null,
-                  child: CustomMainButton(
-                    label: 'Periksa',
-                    onPressed:
-                        (_canContinue && !_isAnswered) ? _onContinue : null,
-                    variant: ButtonVariant.periksa,
+              if (_showResult)
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: ResultDialog(
+                    isCorrect: _isCorrect,
+                    correctAnswer: _correctAnswerText,
+                    onContinue: _onContinue,
                   ),
                 ),
-              ),
-            if (_showResult)
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: ResultDialog(
-                  isCorrect: _isCorrect,
-                  correctAnswer: _correctAnswerText,
-                  onContinue: _onContinue,
-                ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );

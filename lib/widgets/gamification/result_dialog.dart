@@ -86,7 +86,6 @@ class ResultDialog extends StatelessWidget {
             onPressed: onContinue,
             variant: isCorrect ? ButtonVariant.success : ButtonVariant.danger,
             buttonWidth: double.infinity,
-            buttonHeight: 48,
           ),
         ],
       ),

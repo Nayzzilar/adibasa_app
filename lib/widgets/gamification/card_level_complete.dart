@@ -1,10 +1,10 @@
-// widgets/card_level_complete.dart
+// lib/widgets/gamification/card_level_complete.dart
 import 'package:adibasa_app/widgets/info_badge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/lesson_game_provider.dart'; // Ganti import provider
 
-class CardLevelComplete extends ConsumerWidget {
+class CardLevelComplete extends ConsumerStatefulWidget {
   final Duration duration;
   final int correctPercentage;
 
@@ -14,6 +14,43 @@ class CardLevelComplete extends ConsumerWidget {
     required this.correctPercentage,
   }) : super(key: key);
 
+  @override
+  ConsumerState<CardLevelComplete> createState() => _CardLevelCompleteState();
+}
+
+class _CardLevelCompleteState extends ConsumerState<CardLevelComplete>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<int> _scoreAnimation;
+  late Animation<double> _durationAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+
+    _scoreAnimation = IntTween(
+      begin: 0,
+      end: widget.correctPercentage,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+
+    _durationAnimation = Tween<double>(
+      begin: 0,
+      end: widget.duration.inSeconds.toDouble(),
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   String formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final minutes = twoDigits(duration.inMinutes.remainder(60));
@@ -22,7 +59,7 @@ class CardLevelComplete extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -53,7 +90,7 @@ class CardLevelComplete extends ConsumerWidget {
             ),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.outline,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
               ),
@@ -70,28 +107,35 @@ class CardLevelComplete extends ConsumerWidget {
           ),
 
           // Content
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              // Waktu Section
-              Expanded(
-                child: _buildInfoColumn(
-                  context,
-                  Icons.access_time,
-                  'Waktu',
-                  formatDuration(duration),
-                ),
-              ),
-              // Score Section
-              Expanded(
-                child: _buildInfoColumn(
-                  context,
-                  Icons.check,
-                  'Score',
-                  '${correctPercentage.toStringAsFixed(0)}%',
-                ),
-              ),
-            ],
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Waktu Section
+                  Expanded(
+                    child: _buildInfoColumn(
+                      context,
+                      Icons.access_time,
+                      'Waktu',
+                      formatDuration(
+                        Duration(seconds: _durationAnimation.value.toInt()),
+                      ),
+                    ),
+                  ),
+                  // Score Section
+                  Expanded(
+                    child: _buildInfoColumn(
+                      context,
+                      Icons.check,
+                      'Score',
+                      '${_scoreAnimation.value}%',
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),
@@ -109,7 +153,6 @@ class CardLevelComplete extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
-        spacing: 5,
         children: [
           // Icon dan Title dalam Row
           Row(
@@ -127,7 +170,7 @@ class CardLevelComplete extends ConsumerWidget {
                   size: 26,
                 ),
               ),
-
+              const SizedBox(width: 5),
               Text(
                 title,
                 style: TextStyle(
@@ -138,14 +181,9 @@ class CardLevelComplete extends ConsumerWidget {
               ),
             ],
           ),
-
+          const SizedBox(height: 5),
           // Value di bawah
-          InfoBadge(
-            value: value,
-            fontSize: 16,
-            // fontSize can be omitted to use default, or specified:
-            // fontSize: screenWidth * 0.045,
-          ),
+          InfoBadge(value: value, fontSize: 16),
         ],
       ),
     );

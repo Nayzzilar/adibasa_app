@@ -59,7 +59,6 @@ class ExitDialog extends StatelessWidget {
                 const SizedBox(height: 32),
                 SizedBox(
                   width: double.infinity,
-                  height: 48,
                   child: CustomMainButton(
                     label: 'Lanjutkan',
                     onPressed: onContinue,
@@ -71,7 +70,6 @@ class ExitDialog extends StatelessWidget {
                 const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
-                  height: 48,
                   child: CustomMainButton(
                     label: 'Keluar',
                     onPressed: onExit,

@@ -97,7 +97,6 @@ class _LevelCompletePageState extends ConsumerState<LevelCompletePage> {
                       ? 100
                       : (correct / (correct + wrong) * 100).toInt(),
             ),
-            const SizedBox(height: 80), // Supaya tidak ketutup tombol di bawah
           ],
         ),
       ),

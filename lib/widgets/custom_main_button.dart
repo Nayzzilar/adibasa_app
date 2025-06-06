@@ -91,10 +91,10 @@ class CustomMainButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border(
-          top: BorderSide(color: currentBorderColor, width: 1),
-          left: BorderSide(color: currentBorderColor, width: 1),
-          right: BorderSide(color: currentBorderColor, width: 1),
-          bottom: BorderSide(color: currentBorderShadowColor, width: 3),
+          top: BorderSide(color: currentBorderColor, width: 2),
+          left: BorderSide(color: currentBorderColor, width: 2),
+          right: BorderSide(color: currentBorderColor, width: 2),
+          bottom: BorderSide(color: currentBorderShadowColor, width: 4),
         ),
         borderRadius: BorderRadius.circular(12),
       ),
@@ -102,7 +102,7 @@ class CustomMainButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          padding: const EdgeInsets.only(top: 2),
           minimumSize: Size(buttonWidth ?? 330, buttonHeight ?? 48),
           backgroundColor: currentBackgroundColor,
           foregroundColor: currentTextColor,

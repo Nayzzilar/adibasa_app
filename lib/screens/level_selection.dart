@@ -10,7 +10,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:adibasa_app/navigation/route_name.dart';
 import 'package:adibasa_app/providers/lesson_game_provider.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:adibasa_app/widgets/level_selection/next_button_map.dart';
 import 'package:adibasa_app/widgets/level_selection/previous_button_map.dart';
 
@@ -39,23 +38,29 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
     final lessonsAsync = ref.watch(lessonsProvider);
     final gameState = ref.watch(lessonGameProvider);
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-      body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Baris 1: Status info (sama seperti app bar Kamus)
-            const StatusBarLevelSelection(),
-            // Konten utama
-            Expanded(
-              child: lessonsAsync.when(
-                loading: () => const Center(child: CircularProgressIndicator()),
-                error: (error, stack) => Center(child: Text('Error: $error')),
-                data: (lessons) => _buildMapLevels(context, ref, lessons, gameState),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        body: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Baris 1: Status info (sama seperti app bar Kamus)
+              const StatusBarLevelSelection(),
+              // Konten utama
+              Expanded(
+                child: lessonsAsync.when(
+                  loading:
+                      () => const Center(child: CircularProgressIndicator()),
+                  error: (error, stack) => Center(child: Text('Error: $error')),
+                  data:
+                      (lessons) =>
+                          _buildMapLevels(context, ref, lessons, gameState),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -109,7 +114,8 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
     return GestureDetector(
       onHorizontalDragEnd: (details) {
         if (details.primaryVelocity != null) {
-          if (details.primaryVelocity! < -200 && currentMapIndex < mapAssets.length - 1) {
+          if (details.primaryVelocity! < -200 &&
+              currentMapIndex < mapAssets.length - 1) {
             // Swipe kiri (next)
             setState(() {
               currentMapIndex++;
@@ -125,10 +131,7 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 350),
         transitionBuilder: (child, animation) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
+          return FadeTransition(opacity: animation, child: child);
         },
         child: Stack(
           key: ValueKey(currentMapIndex),
@@ -145,7 +148,8 @@ class _LevelSelectionState extends ConsumerState<LevelSelection> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Tombol next (kanan atas)
-                    if (currentMapIndex < mapAssets.length - 1 && levelsPerMap[currentMapIndex] > 0)
+                    if (currentMapIndex < mapAssets.length - 1 &&
+                        levelsPerMap[currentMapIndex] > 0)
                       Padding(
                         padding: const EdgeInsets.only(bottom: 20),
                         child: Align(
