@@ -1,3 +1,6 @@
+import 'package:adibasa_app/theme/theme.dart';
+import 'package:adibasa_app/utils/enums.dart';
+import 'package:adibasa_app/widgets/custom_main_button.dart';
 import 'package:flutter/material.dart';
 
 class ExitDialog extends StatelessWidget {
@@ -5,11 +8,15 @@ class ExitDialog extends StatelessWidget {
   final VoidCallback onExit;
 
   const ExitDialog({Key? key, required this.onContinue, required this.onExit})
-      : super(key: key);
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final textTheme = Theme.of(context).textTheme;
+    final colorTheme = Theme.of(context).colorScheme;
+
+    final feedbackColors = theme.extension<FeedbackColors>();
 
     return Align(
       alignment: Alignment.bottomCenter,
@@ -40,7 +47,7 @@ class ExitDialog extends StatelessWidget {
                         'Apakah Anda yakin ingin keluar?',
                         style: textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: const Color(0xFF61450F),
+                          color: colorTheme.primary,
                           fontSize: 20,
                           decoration: TextDecoration.none,
                         ),
@@ -52,49 +59,21 @@ class ExitDialog extends StatelessWidget {
                 const SizedBox(height: 32),
                 SizedBox(
                   width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
+                  child: CustomMainButton(
+                    label: 'Lanjutkan',
                     onPressed: onContinue,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4B6B2D),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      'Lanjutkan',
-                      style: textTheme.labelLarge?.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
+                    variant:
+                        ButtonVariant
+                            .success, // Using success for positive continuation
                   ),
                 ),
                 const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
+                  child: CustomMainButton(
+                    label: 'Keluar',
                     onPressed: onExit,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFA13A2C),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      'Keluar',
-                      style: textTheme.labelLarge?.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
+                    variant: ButtonVariant.danger,
                   ),
                 ),
               ],

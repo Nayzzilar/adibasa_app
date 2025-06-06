@@ -13,21 +13,23 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
-  // Get.put(BottomNavbarController()); // inject controller GetX
+  const bool useEmulator = false;
+  if (useEmulator) {
+    FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+  }
 
-  //proses menghidupkan cache dari firestore offline
   FirebaseFirestore.instance.settings = const Settings(
     persistenceEnabled: true,
-    cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED, // Opsional: unlimited cache
+    cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
   );
+
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   final prefs = await SharedPreferencesWithCache.create(
     cacheOptions: SharedPreferencesWithCacheOptions(),
   );
   final bool onboardingComplete = prefs.getBool('onboarding_complete') ?? false;
+
   runApp(ProviderScope(child: MyApp(onboardingComplete: onboardingComplete)));
 }
 
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       // <--- WAJIB GetMaterialApp
       debugShowCheckedModeBanner: false,
-      title: 'Adibasa App',
+      title: 'Adibasa',
       theme: theme.light(),
       initialRoute:
           onboardingComplete

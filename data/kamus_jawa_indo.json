@@ -1,5 +1,12 @@
 [
   {
+    "word": "tandang",
+    "definition": "bekerja",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
     "word": "aba-aba",
     "definition": "aba-aba",
     "labels": [
@@ -127,13 +134,6 @@
     ]
   },
   {
-    "word": "ngadhang",
-    "definition": "menghadang",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
     "word": "adhem",
     "definition": "dingin",
     "labels": [
@@ -145,13 +145,6 @@
     "definition": "hadap ngadhep : menghadap",
     "labels": [
       "kata kerja"
-    ]
-  },
-  {
-    "word": "ngadhep",
-    "definition": "menghadap",
-    "labels": [
-      "tidak diketahui"
     ]
   },
   {
@@ -190,20 +183,6 @@
     ]
   },
   {
-    "word": "ngedol",
-    "definition": "menjual",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
-    "word": "dodolan",
-    "definition": "berjualan",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
     "word": "adreng",
     "definition": "bernafsu, antusias",
     "labels": [
@@ -211,15 +190,15 @@
     ]
   },
   {
-    "word": "adu-adu",
-    "definition": "mengadu domba",
+    "word": "adu",
+    "definition": "adu, dipertarungkan",
     "labels": [
       "kata kerja"
     ]
   },
   {
-    "word": "adu",
-    "definition": "adu, dipertarungkan",
+    "word": "adu-adu",
+    "definition": "mengadu domba",
     "labels": [
       "kata kerja"
     ]
@@ -310,13 +289,6 @@
     ]
   },
   {
-    "word": "ngajak",
-    "definition": "mengajak",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
     "word": "ajang",
     "definition": "wadah, tempat makan (piring)",
     "labels": [
@@ -328,13 +300,6 @@
     "definition": "ajar ngajar : mengajar",
     "labels": [
       "tidak diketahui"
-    ]
-  },
-  {
-    "word": "ngajar",
-    "definition": "mengajar",
-    "labels": [
-      "kata kerja"
     ]
   },
   {
@@ -356,13 +321,6 @@
     "definition": "nilai; harga, berharga ngajeni : menghormati, menghargai",
     "labels": [
       "kata benda"
-    ]
-  },
-  {
-    "word": "ngajeni",
-    "definition": "menghormati, menghargai",
-    "labels": [
-      "kata kerja"
     ]
   },
   {
@@ -619,13 +577,6 @@
     ]
   },
   {
-    "word": "ambyar",
-    "definition": "buyar",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
     "word": "ambeg",
     "definition": "berwatak",
     "labels": [
@@ -637,14 +588,6 @@
     "definition": "bernafas",
     "labels": [
       "kata kerja"
-    ]
-  },
-  {
-    "word": "amburat",
-    "definition": "bersinar",
-    "labels": [
-      "kata kerja",
-      "krama"
     ]
   },
   {
@@ -705,8 +648,23 @@
     ]
   },
   {
+    "word": "amburat",
+    "definition": "bersinar",
+    "labels": [
+      "kata kerja",
+      "krama"
+    ]
+  },
+  {
     "word": "ambus",
     "definition": "endus",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "ambyar",
+    "definition": "buyar",
     "labels": [
       "kata kerja"
     ]
@@ -789,13 +747,6 @@
     ]
   },
   {
-    "word": "ngemot",
-    "definition": "memuat, mengandung",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "ampak-ampak",
     "definition": "kepulan debu",
     "labels": [
@@ -845,13 +796,6 @@
     ]
   },
   {
-    "word": "ngampung",
-    "definition": "menumpang",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
     "word": "amrih",
     "definition": "agar, supaya",
     "labels": [
@@ -866,13 +810,6 @@
     ]
   },
   {
-    "word": "namung",
-    "definition": "hanya",
-    "labels": [
-      "krama"
-    ]
-  },
-  {
     "word": "amèk",
     "definition": "mencari",
     "labels": [
@@ -882,20 +819,6 @@
   {
     "word": "ana",
     "definition": "ada, terdapat anane : adanya nganak-nganaké : berusaha dengan keras agar ada",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "anane",
-    "definition": "adanya",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "nganak-nganaké",
-    "definition": "berusaha dengan keras agar ada",
     "labels": [
       "tidak diketahui"
     ]
@@ -915,17 +838,17 @@
     ]
   },
   {
-    "word": "nganakké",
-    "definition": "riba",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "anakan",
     "definition": "anakan; bunga (uang)",
     "labels": [
       "kata benda"
+    ]
+  },
+  {
+    "word": "anane",
+    "definition": "adanya",
+    "labels": [
+      "tidak diketahui"
     ]
   },
   {
@@ -1105,10 +1028,10 @@
     ]
   },
   {
-    "word": "nganggep",
-    "definition": "menganggap",
+    "word": "angger",
+    "definition": "asal, asalkan",
     "labels": [
-      "kata kerja"
+      "tidak diketahui"
     ]
   },
   {
@@ -1116,13 +1039,6 @@
     "definition": "peraturan",
     "labels": [
       "kata benda"
-    ]
-  },
-  {
-    "word": "angger",
-    "definition": "asal, asalkan",
-    "labels": [
-      "tidak diketahui"
     ]
   },
   {
@@ -1135,13 +1051,6 @@
   {
     "word": "anggon",
     "definition": "tempat",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
-    "word": "manggon",
-    "definition": "bertempat tinggal",
     "labels": [
       "kata kerja"
     ]
@@ -1278,13 +1187,6 @@
     "definition": "sukar, sulit, tidak mudah kangèlan : kesulitan",
     "labels": [
       "kata sifat"
-    ]
-  },
-  {
-    "word": "kangèlan",
-    "definition": "kesulitan",
-    "labels": [
-      "kata benda"
     ]
   },
   {
@@ -1502,6 +1404,13 @@
     ]
   },
   {
+    "word": "awan",
+    "definition": "Siang",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
     "word": "awu  abu; awu-awu",
     "definition": "berpura-pura",
     "labels": [
@@ -1541,6 +1450,13 @@
     "definition": "babak-belur",
     "labels": [
       "kata sifat"
+    ]
+  },
+  {
+    "word": "babak-bundhas",
+    "definition": "babak-belur, penuh luka",
+    "labels": [
+      "tidak diketahui"
     ]
   },
   {
@@ -1597,13 +1513,6 @@
     "definition": "terus, lewat",
     "labels": [
       "tidak diketahui"
-    ]
-  },
-  {
-    "word": "kebablasen",
-    "definition": "kelewatan, keterusan",
-    "labels": [
-      "kata sifat"
     ]
   },
   {
@@ -1664,13 +1573,6 @@
     ]
   },
   {
-    "word": "kebacut",
-    "definition": "kebablasan",
-    "labels": [
-      "kata sifat"
-    ]
-  },
-  {
     "word": "badan",
     "definition": "diri",
     "labels": [
@@ -1678,10 +1580,17 @@
     ]
   },
   {
-    "word": "badhé",
-    "definition": "akan",
+    "word": "badheg",
+    "definition": "bau busuk",
     "labels": [
-      "krama"
+      "kata sifat"
+    ]
+  },
+  {
+    "word": "badhug",
+    "definition": "tembok rendah untuk meletakkan sesuatu",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -1699,17 +1608,10 @@
     ]
   },
   {
-    "word": "badheg",
-    "definition": "bau busuk",
+    "word": "badhé",
+    "definition": "akan",
     "labels": [
-      "kata sifat"
-    ]
-  },
-  {
-    "word": "badhug",
-    "definition": "tembok rendah untuk meletakkan sesuatu",
-    "labels": [
-      "kata benda"
+      "krama"
     ]
   },
   {
@@ -1925,13 +1827,6 @@
   {
     "word": "bandan",
     "definition": "tawanan bebandan : tawanan",
-    "labels": [
-      "kata benda"
-    ]
-  },
-  {
-    "word": "bebandan",
-    "definition": "tawanan",
     "labels": [
       "kata benda"
     ]
@@ -2308,13 +2203,6 @@
     ]
   },
   {
-    "word": "mbathi",
-    "definition": "memperoleh keuntungan (konotasi negatif)",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "bathok",
     "definition": "tempurung (kelapa)",
     "labels": [
@@ -2455,6 +2343,13 @@
     ]
   },
   {
+    "word": "bebandan",
+    "definition": "tawanan",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
     "word": "bebasan",
     "definition": "seperti; layaknya",
     "labels": [
@@ -2494,6 +2389,13 @@
     "definition": "hukuman",
     "labels": [
       "kata benda"
+    ]
+  },
+  {
+    "word": "bebener",
+    "definition": "kebenaran",
+    "labels": [
+      "tidak diketahui"
     ]
   },
   {
@@ -2732,20 +2634,6 @@
     "definition": "benar bebener : kebenaran kebeneran : kebetulan",
     "labels": [
       "kata sifat"
-    ]
-  },
-  {
-    "word": "bebener",
-    "definition": "kebenaran",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "kebeneran",
-    "definition": "kebetulan",
-    "labels": [
-      "tidak diketahui"
     ]
   },
   {
@@ -2995,15 +2883,22 @@
     ]
   },
   {
-    "word": "biyèn",
-    "definition": "dahulu",
+    "word": "biru",
+    "definition": "Biru",
     "labels": [
-      "kata keterangan"
+      "kata benda"
     ]
   },
   {
     "word": "biyung",
     "definition": "ibu",
+    "labels": [
+      "kata keterangan"
+    ]
+  },
+  {
+    "word": "biyèn",
+    "definition": "dahulu",
     "labels": [
       "kata keterangan"
     ]
@@ -3149,15 +3044,15 @@
     ]
   },
   {
-    "word": "blusuk",
-    "definition": "nyungsep blusak-blusuk / blusukan : keluar masuk (kampung)",
+    "word": "blusak-blusuk / blusukan",
+    "definition": "keluar masuk (kampung)",
     "labels": [
       "tidak diketahui"
     ]
   },
   {
-    "word": "blusak-blusuk / blusukan",
-    "definition": "keluar masuk (kampung)",
+    "word": "blusuk",
+    "definition": "nyungsep blusak-blusuk / blusukan : keluar masuk (kampung)",
     "labels": [
       "tidak diketahui"
     ]
@@ -3254,13 +3149,6 @@
     ]
   },
   {
-    "word": "mbolot",
-    "definition": "membersihkan daki",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "bonang",
     "definition": "alat musik pukul, bagian dari gamelan",
     "labels": [
@@ -3296,22 +3184,8 @@
     ]
   },
   {
-    "word": "mborok",
-    "definition": "menjadi borok",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "bosen",
     "definition": "bosan; mboseni : membosankan",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "mboseni",
-    "definition": "membosankan",
     "labels": [
       "tidak diketahui"
     ]
@@ -3527,17 +3401,17 @@
     ]
   },
   {
-    "word": "bubuk (",
-    "definition": "bubuk",
-    "labels": [
-      "kata benda"
-    ]
-  },
-  {
     "word": "bubuk",
     "definition": "tidur",
     "labels": [
       "kata kerja"
+    ]
+  },
+  {
+    "word": "bubuk (",
+    "definition": "bubuk",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -3646,6 +3520,13 @@
     ]
   },
   {
+    "word": "bulik",
+    "definition": "tante",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
     "word": "buluken",
     "definition": "berjamur, kotor sekali",
     "labels": [
@@ -3688,13 +3569,6 @@
     ]
   },
   {
-    "word": "babak-bundhas",
-    "definition": "babak-belur, penuh luka",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "bundhel",
     "definition": "ujungnya membulat",
     "labels": [
@@ -3720,13 +3594,6 @@
     "definition": "bahagia, senang hati, gembira mbungahi : gembira berlebihan",
     "labels": [
       "kata sifat"
-    ]
-  },
-  {
-    "word": "mbungahi",
-    "definition": "gembira berlebihan",
-    "labels": [
-      "tidak diketahui"
     ]
   },
   {
@@ -4336,13 +4203,6 @@
     ]
   },
   {
-    "word": "cethèk",
-    "definition": "dangkal",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
     "word": "cethil",
     "definition": "pelit",
     "labels": [
@@ -4357,52 +4217,10 @@
     ]
   },
   {
-    "word": "cèkèr",
-    "definition": "kaki unggas; ceker",
+    "word": "cethèk",
+    "definition": "dangkal",
     "labels": [
       "kata kerja"
-    ]
-  },
-  {
-    "word": "cèrèt",
-    "definition": "cerek",
-    "labels": [
-      "kata benda"
-    ]
-  },
-  {
-    "word": "cédhal",
-    "definition": "cadel; tidak bisa mengucapkan bunyi tertentu dengan benar; tidak bisa menucapkan huruf 'R'",
-    "labels": [
-      "kata sifat"
-    ]
-  },
-  {
-    "word": "cékat-cèket",
-    "definition": "segera, sepat",
-    "labels": [
-      "kata sifat"
-    ]
-  },
-  {
-    "word": "céngkok",
-    "definition": "dialek, lagu",
-    "labels": [
-      "kata benda"
-    ]
-  },
-  {
-    "word": "céthul",
-    "definition": "nama ikan kecil",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "cèthok",
-    "definition": "sendok untuk campuran semen",
-    "labels": [
-      "kata benda"
     ]
   },
   {
@@ -4438,13 +4256,6 @@
     "definition": "gayung nyiduk : mengambil air dengan gayung",
     "labels": [
       "kata benda"
-    ]
-  },
-  {
-    "word": "nyiduk",
-    "definition": "mengambil air dengan gayung",
-    "labels": [
-      "kata kerja"
     ]
   },
   {
@@ -4532,13 +4343,6 @@
     ]
   },
   {
-    "word": "nyiprat",
-    "definition": "memercik",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "clandhakan",
     "definition": "suka memegang barang (biasanya milik orang lain) tanpa ijin",
     "labels": [
@@ -4550,13 +4354,6 @@
     "definition": "perasaan sakit seperti dicubit atau digigit semut nyelekit : memberikan sensasi seperti dicubit/digigit semut; menusuk hati",
     "labels": [
       "kata benda"
-    ]
-  },
-  {
-    "word": "nyelekit",
-    "definition": "memberikan sensasi seperti dicubit/digigit semut; menusuk hati",
-    "labels": [
-      "kata kerja"
     ]
   },
   {
@@ -4623,31 +4420,10 @@
     ]
   },
   {
-    "word": "nyokot",
-    "definition": "menggigit",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
     "word": "colong",
     "definition": "curi nyolong : mencuri nyolongan : sering mencuri; suka mencuri; panjang tangan",
     "labels": [
       "tidak diketahui"
-    ]
-  },
-  {
-    "word": "nyolong",
-    "definition": "mencuri",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
-    "word": "nyolongan",
-    "definition": "sering mencuri; suka mencuri; panjang tangan",
-    "labels": [
-      "kata sifat"
     ]
   },
   {
@@ -4686,25 +4462,11 @@
     ]
   },
   {
-    "word": "nyoplok",
-    "definition": "mencabut, mencopot, melepas, menanggalkan",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "copot  tanggal, cabut, lepas nyopot",
     "definition": "mencabut, menanggalkan, melepas",
     "labels": [
       "kata kerja",
       "kata sifat"
-    ]
-  },
-  {
-    "word": "nyopot",
-    "definition": "mencabut, menanggalkan, melepas",
-    "labels": [
-      "kata kerja"
     ]
   },
   {
@@ -4743,21 +4505,6 @@
     ]
   },
   {
-    "word": "nyritakake",
-    "definition": "bercerita, menceritakan",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
-    "word": "nyrita'aken",
-    "definition": "menceritakan; bercerita",
-    "labels": [
-      "kata kerja",
-      "krama"
-    ]
-  },
-  {
     "word": "criwis",
     "definition": "banyak omong, cerewet",
     "labels": [
@@ -4790,13 +4537,6 @@
     "definition": "paruh nyucuk : mematuk",
     "labels": [
       "kata benda"
-    ]
-  },
-  {
-    "word": "nyucuk",
-    "definition": "mematuk",
-    "labels": [
-      "kata kerja"
     ]
   },
   {
@@ -4954,6 +4694,55 @@
     ]
   },
   {
+    "word": "cèkèr",
+    "definition": "kaki unggas; ceker",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "cèrèt",
+    "definition": "cerek",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "cèthok",
+    "definition": "sendok untuk campuran semen",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "cédhal",
+    "definition": "cadel; tidak bisa mengucapkan bunyi tertentu dengan benar; tidak bisa menucapkan huruf 'R'",
+    "labels": [
+      "kata sifat"
+    ]
+  },
+  {
+    "word": "cékat-cèket",
+    "definition": "segera, sepat",
+    "labels": [
+      "kata sifat"
+    ]
+  },
+  {
+    "word": "céngkok",
+    "definition": "dialek, lagu",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "céthul",
+    "definition": "nama ikan kecil",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "dadak",
     "definition": "harus, terpaksa dadakan : pemicu timbulnya permasalahan dadakan : tanpa rencana",
     "labels": [
@@ -4989,17 +4778,11 @@
     ]
   },
   {
-    "word": "ndadi",
-    "definition": "menjadi-jadi",
+    "word": "dados",
+    "definition": "jadi",
     "labels": [
-      "kata sifat"
-    ]
-  },
-  {
-    "word": "ndadi (}})",
-    "definition": "kerasukan, kesurupan",
-    "labels": [
-      "kata sifat"
+      "kata sifat",
+      "krama"
     ]
   },
   {
@@ -5007,14 +4790,6 @@
     "definition": "jadi-jadian",
     "labels": [
       "kata sifat"
-    ]
-  },
-  {
-    "word": "dados",
-    "definition": "jadi",
-    "labels": [
-      "kata sifat",
-      "krama"
     ]
   },
   {
@@ -5131,15 +4906,15 @@
     ]
   },
   {
-    "word": "dandan-dandan",
-    "definition": "memperbaiki bangunan (rumah dsb.)",
+    "word": "dandan",
+    "definition": "bersolek, merias diri",
     "labels": [
       "kata kerja"
     ]
   },
   {
-    "word": "dandan",
-    "definition": "bersolek, merias diri",
+    "word": "dandan-dandan",
+    "definition": "memperbaiki bangunan (rumah dsb.)",
     "labels": [
       "kata kerja"
     ]
@@ -5236,113 +5011,6 @@
     ]
   },
   {
-    "word": "dika (kowe)",
-    "definition": "kamu",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "dingkik",
-    "definition": "intip",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "dipun-",
-    "definition": "di- (awalan)",
-    "labels": [
-      "krama"
-    ]
-  },
-  {
-    "word": "dodol",
-    "definition": "berjualan",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "donya",
-    "definition": "dunia",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "doso",
-    "definition": "sepuluh",
-    "labels": [
-      "kata sifat",
-      "krama"
-    ]
-  },
-  {
-    "word": "doyan",
-    "definition": "senang makan",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "dudu",
-    "definition": "bukan",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "duku",
-    "definition": "buah duku",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "dumèh",
-    "definition": "mentang-mentang",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "dungarèn",
-    "definition": "tumben",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "dungkap",
-    "definition": "hampir",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "duwé",
-    "definition": "punya",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "dédé",
-    "definition": "bukan",
-    "labels": [
-      "kata keterangan",
-      "krama"
-    ]
-  },
-  {
-    "word": "déning",
-    "definition": "oleh",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "dhahar",
     "definition": "makan",
     "labels": [
@@ -5357,8 +5025,8 @@
     ]
   },
   {
-    "word": "dhalu",
-    "definition": "malam",
+    "word": "dhalang",
+    "definition": "yang menjalankan wayang",
     "labels": [
       "tidak diketahui"
     ]
@@ -5371,8 +5039,8 @@
     ]
   },
   {
-    "word": "dhalang",
-    "definition": "yang menjalankan wayang",
+    "word": "dhalu",
+    "definition": "malam",
     "labels": [
       "tidak diketahui"
     ]
@@ -5490,10 +5158,173 @@
     ]
   },
   {
+    "word": "dika (kowe)",
+    "definition": "kamu",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "dina",
+    "definition": "Hari",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "dingkik",
+    "definition": "intip",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "dipaido",
+    "definition": "dihina, dicerca",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "diparoh",
+    "definition": "dibagi",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "dipun-",
+    "definition": "di- (awalan)",
+    "labels": [
+      "krama"
+    ]
+  },
+  {
+    "word": "dodol",
+    "definition": "berjualan",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "dodolan",
+    "definition": "berjualan",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "dolanan",
+    "definition": "Bermain",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "donya",
+    "definition": "dunia",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "doso",
+    "definition": "sepuluh",
+    "labels": [
+      "kata sifat",
+      "krama"
+    ]
+  },
+  {
+    "word": "doyan",
+    "definition": "senang makan",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "dudu",
+    "definition": "bukan",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "duku",
+    "definition": "buah duku",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "dulur",
+    "definition": "saudara",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "dumèh",
+    "definition": "mentang-mentang",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "dungarèn",
+    "definition": "tumben",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "dungkap",
+    "definition": "hampir",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "durung",
+    "definition": "belum",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "duwé",
+    "definition": "punya",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "dédé",
+    "definition": "bukan",
+    "labels": [
+      "kata keterangan",
+      "krama"
+    ]
+  },
+  {
+    "word": "déning",
+    "definition": "oleh",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "epek-epek",
     "definition": "telapak tangan",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "esuk",
+    "definition": "Pagi",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -5518,18 +5349,18 @@
     ]
   },
   {
+    "word": "gampar",
+    "definition": "sandal dari kayu, pukul",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "gampil",
     "definition": "gampang, mudah",
     "labels": [
       "kata sifat",
       "krama"
-    ]
-  },
-  {
-    "word": "gampar",
-    "definition": "sandal dari kayu, pukul",
-    "labels": [
-      "tidak diketahui"
     ]
   },
   {
@@ -5671,6 +5502,13 @@
     "definition": "bendera",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "geni",
+    "definition": "Api",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -6220,13 +6058,6 @@
     ]
   },
   {
-    "word": "mili",
-    "definition": "mengalir",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
     "word": "ilir",
     "definition": "kipas",
     "labels": [
@@ -6280,13 +6111,6 @@
     "definition": "incar ngincer : mengincar",
     "labels": [
       "tidak diketahui"
-    ]
-  },
-  {
-    "word": "ngincer",
-    "definition": "mengincar",
-    "labels": [
-      "kata kerja"
     ]
   },
   {
@@ -6425,20 +6249,6 @@
   {
     "word": "isin",
     "definition": "malu ngisin-ngisini : membuat malu, malu-maluin kisinan : malu (yang teramat sangat)",
-    "labels": [
-      "kata sifat"
-    ]
-  },
-  {
-    "word": "ngisin-ngisini",
-    "definition": "membuat malu, malu-maluin",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
-    "word": "kisinan",
-    "definition": "malu (yang teramat sangat)",
     "labels": [
       "kata sifat"
     ]
@@ -6710,13 +6520,6 @@
     ]
   },
   {
-    "word": "njangan",
-    "definition": "menyayur, memasak sayur",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
     "word": "jangar",
     "definition": "rasa sakit dan panas di kepala",
     "labels": [
@@ -6934,6 +6737,13 @@
     ]
   },
   {
+    "word": "jedhing",
+    "definition": "Kamar mandi",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
     "word": "jegog",
     "definition": "salak (anjing)",
     "labels": [
@@ -7069,6 +6879,20 @@
   {
     "word": "jenengan",
     "definition": "amda",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "jenengku",
+    "definition": "namaku",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "jenengmu",
+    "definition": "namamu",
     "labels": [
       "kata benda"
     ]
@@ -7453,17 +7277,17 @@
     ]
   },
   {
-    "word": "kabèh",
-    "definition": "semua",
-    "labels": [
-      "kata bilangan"
-    ]
-  },
-  {
     "word": "kabul",
     "definition": "terkabul/terwujud",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "kabèh",
+    "definition": "semua",
+    "labels": [
+      "kata bilangan"
     ]
   },
   {
@@ -7502,13 +7326,6 @@
     ]
   },
   {
-    "word": "kadhung",
-    "definition": "terlanjur",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "kademen",
     "definition": "kedinginan",
     "labels": [
@@ -7518,6 +7335,13 @@
   {
     "word": "kadhang",
     "definition": "sesekali",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "kadhung",
+    "definition": "terlanjur",
     "labels": [
       "tidak diketahui"
     ]
@@ -7558,6 +7382,13 @@
     ]
   },
   {
+    "word": "kajeng (k)",
+    "definition": "ingin",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "kakang",
     "definition": "kakak (laki-laki)",
     "labels": [
@@ -7569,6 +7400,13 @@
     "definition": "kebanyakan",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "kali",
+    "definition": "Sungai",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -7663,6 +7501,20 @@
     ]
   },
   {
+    "word": "kangèlan",
+    "definition": "kesulitan",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "kaplok",
+    "definition": "tabok / tampar",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "kapok",
     "definition": "kapok/tidak mau mengulangi",
     "labels": [
@@ -7677,8 +7529,8 @@
     ]
   },
   {
-    "word": "kasèp",
-    "definition": "terlambat",
+    "word": "karso",
+    "definition": "ingin",
     "labels": [
       "tidak diketahui"
     ]
@@ -7686,6 +7538,13 @@
   {
     "word": "kasur",
     "definition": "k.a. ): kasur",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "kasèp",
+    "definition": "terlambat",
     "labels": [
       "tidak diketahui"
     ]
@@ -7712,10 +7571,38 @@
     ]
   },
   {
+    "word": "kebablasen",
+    "definition": "kelewatan, keterusan",
+    "labels": [
+      "kata sifat"
+    ]
+  },
+  {
+    "word": "kebacut",
+    "definition": "kebablasan",
+    "labels": [
+      "kata sifat"
+    ]
+  },
+  {
     "word": "kebak",
     "definition": "penuh",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "kebeneran",
+    "definition": "kebetulan",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "kebon",
+    "definition": "Kebun",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -7740,17 +7627,17 @@
     ]
   },
   {
-    "word": "kajeng (k)",
-    "definition": "ingin",
+    "word": "kekep",
+    "definition": "alat untuk memasak",
     "labels": [
       "tidak diketahui"
     ]
   },
   {
-    "word": "kekep",
-    "definition": "alat untuk memasak",
+    "word": "keluwen",
+    "definition": "kelaparan",
     "labels": [
-      "tidak diketahui"
+      "kata sifat"
     ]
   },
   {
@@ -7803,13 +7690,6 @@
     ]
   },
   {
-    "word": "kempès",
-    "definition": "kempes",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "kemplu",
     "definition": "agak gila/sinthing",
     "labels": [
@@ -7819,6 +7699,13 @@
   {
     "word": "kemproh",
     "definition": "jorok",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "kempès",
+    "definition": "kempes",
     "labels": [
       "tidak diketahui"
     ]
@@ -7901,13 +7788,6 @@
     ]
   },
   {
-    "word": "kaplok",
-    "definition": "tabok / tampar",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "keplok",
     "definition": "tepuk tangan",
     "labels": [
@@ -7922,17 +7802,10 @@
     ]
   },
   {
-    "word": "karso",
-    "definition": "ingin",
+    "word": "kepriye kabarmu",
+    "definition": "bagaimana kabarmu",
     "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "kerso",
-    "definition": "mau",
-    "labels": [
-      "tidak diketahui"
+      "kata benda"
     ]
   },
   {
@@ -7964,6 +7837,13 @@
     ]
   },
   {
+    "word": "kerso",
+    "definition": "mau",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "kesel",
     "definition": "capek",
     "labels": [
@@ -7982,13 +7862,6 @@
     "definition": "terpesona",
     "labels": [
       "tidak diketahui"
-    ]
-  },
-  {
-    "word": "kètèk",
-    "definition": "kotoran mata; belek",
-    "labels": [
-      "kata benda"
     ]
   },
   {
@@ -8020,10 +7893,24 @@
     ]
   },
   {
+    "word": "kimpul",
+    "definition": "ubi talas",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "kirik",
     "definition": "anak anjing",
     "labels": [
       "kata benda"
+    ]
+  },
+  {
+    "word": "kisinan",
+    "definition": "malu (yang teramat sangat)",
+    "labels": [
+      "kata sifat"
     ]
   },
   {
@@ -8043,13 +7930,6 @@
   {
     "word": "kiwa",
     "definition": "kiri",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "kimpul",
-    "definition": "ubi talas",
     "labels": [
       "tidak diketahui"
     ]
@@ -8146,13 +8026,6 @@
     ]
   },
   {
-    "word": "klèntang",
-    "definition": "buah kelor",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "klentheng",
     "definition": "biji kapok randu",
     "labels": [
@@ -8239,6 +8112,13 @@
   {
     "word": "kluwih",
     "definition": "nangka sayur",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "klèntang",
+    "definition": "buah kelor",
     "labels": [
       "tidak diketahui"
     ]
@@ -8552,6 +8432,13 @@
     ]
   },
   {
+    "word": "kuning",
+    "definition": "Kuning",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
     "word": "kura (",
     "definition": "kura-kura",
     "labels": [
@@ -8591,6 +8478,13 @@
     "definition": "kotoran di mata ketika bangun tidur (lihat lodhok)",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "kètèk",
+    "definition": "kotoran mata; belek",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -8643,13 +8537,6 @@
     ]
   },
   {
-    "word": "lalèn",
-    "definition": "pelupa/gampang lupa",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "laler",
     "definition": "lalat",
     "labels": [
@@ -8671,6 +8558,13 @@
     ]
   },
   {
+    "word": "lalèn",
+    "definition": "pelupa/gampang lupa",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "lamat",
     "definition": "isyarat, tidak terlalu jelas, sayup-sayup",
     "labels": [
@@ -8682,6 +8576,13 @@
     "definition": "dasar/alas",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "lambe",
+    "definition": "Mulut",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -8888,6 +8789,13 @@
     ]
   },
   {
+    "word": "lemari",
+    "definition": "Lemari",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
     "word": "lembah (manah)",
     "definition": "sopan",
     "labels": [
@@ -8974,20 +8882,6 @@
   {
     "word": "lethek",
     "definition": "ampas cairan (misal pada minyak goreng atau kopi)",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "lèsehan",
-    "definition": "lesehan",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "lésus",
-    "definition": "angin lesus",
     "labels": [
       "tidak diketahui"
     ]
@@ -9245,13 +9139,6 @@
     ]
   },
   {
-    "word": "lumèr",
-    "definition": "mencair",
-    "labels": [
-      "kata sifat"
-    ]
-  },
-  {
     "word": "lumrah",
     "definition": "umum, wajar, biasa",
     "labels": [
@@ -9261,6 +9148,13 @@
   {
     "word": "lumuh",
     "definition": "malas",
+    "labels": [
+      "kata sifat"
+    ]
+  },
+  {
+    "word": "lumèr",
+    "definition": "mencair",
     "labels": [
       "kata sifat"
     ]
@@ -9343,13 +9237,6 @@
     ]
   },
   {
-    "word": "keluwen",
-    "definition": "kelaparan",
-    "labels": [
-      "kata sifat"
-    ]
-  },
-  {
     "word": "luwih",
     "definition": "lebih",
     "labels": [
@@ -9364,8 +9251,22 @@
     ]
   },
   {
+    "word": "lèsehan",
+    "definition": "lesehan",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "léndhéyan",
     "definition": "sandaran",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "lésus",
+    "definition": "angin lesus",
     "labels": [
       "tidak diketahui"
     ]
@@ -9382,6 +9283,13 @@
     "definition": "berbenah; merias",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "madhang",
+    "definition": "makan",
+    "labels": [
+      "kata kerja"
     ]
   },
   {
@@ -9403,6 +9311,13 @@
     "definition": "kenyal",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "maido",
+    "definition": "menghina, mencerca",
+    "labels": [
+      "kata kerja"
     ]
   },
   {
@@ -9434,24 +9349,10 @@
     ]
   },
   {
-    "word": "mas",
-    "definition": "saudara laki-laki yang lebih tua",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "manah",
     "definition": "hati / perasaan",
     "labels": [
       "tidak diketahui"
-    ]
-  },
-  {
-    "word": "madhang",
-    "definition": "makan",
-    "labels": [
-      "kata kerja"
     ]
   },
   {
@@ -9485,6 +9386,13 @@
   {
     "word": "mangap",
     "definition": "membuka mulut",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "manggon",
+    "definition": "bertempat tinggal",
     "labels": [
       "kata kerja"
     ]
@@ -9532,15 +9440,15 @@
     ]
   },
   {
-    "word": "mari",
-    "definition": "sembuh; sudah; selesai",
+    "word": "margo (k)",
+    "definition": "jalan",
     "labels": [
       "tidak diketahui"
     ]
   },
   {
-    "word": "margo (k)",
-    "definition": "jalan",
+    "word": "mari",
+    "definition": "sembuh; sudah; selesai",
     "labels": [
       "tidak diketahui"
     ]
@@ -9560,10 +9468,24 @@
     ]
   },
   {
+    "word": "mas",
+    "definition": "saudara laki-laki yang lebih tua",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "matur",
     "definition": "minta",
     "labels": [
       "kata kerja"
+    ]
+  },
+  {
+    "word": "matur suwun",
+    "definition": "terimakasih",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -9588,6 +9510,20 @@
     ]
   },
   {
+    "word": "mbakyu",
+    "definition": "kakak perempuan",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "mbathi",
+    "definition": "memperoleh keuntungan (konotasi negatif)",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "mboh",
     "definition": "entah",
     "labels": [
@@ -9600,6 +9536,34 @@
     "labels": [
       "kata benda",
       "krama"
+    ]
+  },
+  {
+    "word": "mbolot",
+    "definition": "membersihkan daki",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mborok",
+    "definition": "menjadi borok",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mboseni",
+    "definition": "membosankan",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mbungahi",
+    "definition": "gembira berlebihan",
+    "labels": [
+      "tidak diketahui"
     ]
   },
   {
@@ -9652,24 +9616,10 @@
     ]
   },
   {
-    "word": "mèlih",
-    "definition": "lagi",
+    "word": "mili",
+    "definition": "mengalir",
     "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "mèlu",
-    "definition": "ikut",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "mènclok",
-    "definition": "hinggap",
-    "labels": [
-      "tidak diketahui"
+      "kata kerja"
     ]
   },
   {
@@ -9717,6 +9667,13 @@
   {
     "word": "miris",
     "definition": "takut",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "misuh",
+    "definition": "mengumpat",
     "labels": [
       "tidak diketahui"
     ]
@@ -9796,48 +9753,6 @@
     "definition": "hiperaktif",
     "labels": [
       "kata sifat"
-    ]
-  },
-  {
-    "word": "mlèrok",
-    "definition": "mengalihkan pandangan/ melirik",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "mlèsèt",
-    "definition": "tidak tepat sasaran / melenceng",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "mlémbang",
-    "definition": "berpindah dari saru pohon ke pohon yang lain tanpa turun dari pohon",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "mléngak",
-    "definition": "lengah/ menengok",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "mléngos",
-    "definition": "membuang muka/ memalingkan wajah",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "mléngsé",
-    "definition": "berubah posisi/ tergelincir",
-    "labels": [
-      "tidak diketahui"
     ]
   },
   {
@@ -9925,92 +9840,43 @@
     ]
   },
   {
-    "word": "mrambat",
-    "definition": "bergerak dengan pelan (hewan melata); merambat",
+    "word": "mlèrok",
+    "definition": "mengalihkan pandangan/ melirik",
     "labels": [
       "tidak diketahui"
     ]
   },
   {
-    "word": "mrantak / mratak",
-    "definition": "merata",
+    "word": "mlèsèt",
+    "definition": "tidak tepat sasaran / melenceng",
     "labels": [
       "tidak diketahui"
     ]
   },
   {
-    "word": "mrèmbèt",
-    "definition": "menjalar",
+    "word": "mlémbang",
+    "definition": "berpindah dari saru pohon ke pohon yang lain tanpa turun dari pohon",
     "labels": [
       "tidak diketahui"
     ]
   },
   {
-    "word": "mréné",
-    "definition": "kemari; ke sini",
+    "word": "mléngak",
+    "definition": "lengah/ menengok",
     "labels": [
       "tidak diketahui"
     ]
   },
   {
-    "word": "mriki (k)",
-    "definition": "kemari; ke sini",
+    "word": "mléngos",
+    "definition": "membuang muka/ memalingkan wajah",
     "labels": [
       "tidak diketahui"
     ]
   },
   {
-    "word": "mriku (k)",
-    "definition": "di situ",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "mringis",
-    "definition": "meringis",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "mripat",
-    "definition": "mata",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "mriko (k)",
-    "definition": "di sana",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "mriku",
-    "definition": "di sana",
-    "labels": [
-      "krama"
-    ]
-  },
-  {
-    "word": "mrônô",
-    "definition": "ke sana",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "mrutu",
-    "definition": "serangga kecil yang beterbangan saat senja",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "mruntus",
-    "definition": "berkeringat banyak / peluh bercucuran",
+    "word": "mléngsé",
+    "definition": "berubah posisi/ tergelincir",
     "labels": [
       "tidak diketahui"
     ]
@@ -10051,6 +9917,97 @@
     ]
   },
   {
+    "word": "mrambat",
+    "definition": "bergerak dengan pelan (hewan melata); merambat",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mrantak / mratak",
+    "definition": "merata",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mriki (k)",
+    "definition": "kemari; ke sini",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mriko (k)",
+    "definition": "di sana",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mriku",
+    "definition": "di sana",
+    "labels": [
+      "krama"
+    ]
+  },
+  {
+    "word": "mriku (k)",
+    "definition": "di situ",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mringis",
+    "definition": "meringis",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mripat",
+    "definition": "mata",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mruntus",
+    "definition": "berkeringat banyak / peluh bercucuran",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mrutu",
+    "definition": "serangga kecil yang beterbangan saat senja",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mrèmbèt",
+    "definition": "menjalar",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mréné",
+    "definition": "kemari; ke sini",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mrônô",
+    "definition": "ke sana",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "mulat",
     "definition": "melihat",
     "labels": [
@@ -10058,15 +10015,15 @@
     ]
   },
   {
-    "word": "muléh",
-    "definition": "pulang",
+    "word": "mulur",
+    "definition": "bertambahnya panjang",
     "labels": [
       "tidak diketahui"
     ]
   },
   {
-    "word": "mulur",
-    "definition": "bertambahnya panjang",
+    "word": "muléh",
+    "definition": "pulang",
     "labels": [
       "tidak diketahui"
     ]
@@ -10107,6 +10064,27 @@
     ]
   },
   {
+    "word": "mèlih",
+    "definition": "lagi",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mèlu",
+    "definition": "ikut",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "mènclok",
+    "definition": "hinggap",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "nadyan",
     "definition": "sanajan, meskipun",
     "labels": [
@@ -10134,6 +10112,13 @@
     "definition": "ketika",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "namung",
+    "definition": "hanya",
+    "labels": [
+      "krama"
     ]
   },
   {
@@ -10202,10 +10187,17 @@
     ]
   },
   {
-    "word": "ndhèngèr",
-    "definition": "tau / ngerti",
+    "word": "ndadi",
+    "definition": "menjadi-jadi",
     "labels": [
-      "tidak diketahui"
+      "kata sifat"
+    ]
+  },
+  {
+    "word": "ndadi (}})",
+    "definition": "kerasukan, kesurupan",
+    "labels": [
+      "kata sifat"
     ]
   },
   {
@@ -10220,6 +10212,13 @@
     "definition": "tuan",
     "labels": [
       "krama"
+    ]
+  },
+  {
+    "word": "ndhèngèr",
+    "definition": "tau / ngerti",
+    "labels": [
+      "tidak diketahui"
     ]
   },
   {
@@ -10268,105 +10267,10 @@
     ]
   },
   {
-    "word": "nèk ngono",
-    "definition": "kalau begitu / berarti",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "nétra",
-    "definition": "mata",
+    "word": "nesu",
+    "definition": "Marah",
     "labels": [
       "kata benda"
-    ]
-  },
-  {
-    "word": "niki (k)",
-    "definition": "ini",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "niku (k)",
-    "definition": "itu",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "ning",
-    "definition": "panggilan untuk kakak perempuan",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "ninggal'aken (k)",
-    "definition": "meninggalkan",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "ninggali",
-    "definition": "meninggalkan",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
-    "word": "nodhi",
-    "definition": "mencoba",
-    "labels": [
-      "kata sifat",
-      "krama"
-    ]
-  },
-  {
-    "word": "nolo",
-    "definition": "pikiran",
-    "labels": [
-      "kata benda"
-    ]
-  },
-  {
-    "word": "nopo",
-    "definition": "apa",
-    "labels": [
-      "kata sifat",
-      "krama"
-    ]
-  },
-  {
-    "word": "noto",
-    "definition": "raja",
-    "labels": [
-      "kata sifat",
-      "krama"
-    ]
-  },
-  {
-    "word": "nowo",
-    "definition": "sembilan",
-    "labels": [
-      "kata sifat",
-      "krama"
-    ]
-  },
-  {
-    "word": "nuku",
-    "definition": " membeli",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "nurut  )",
-    "definition": "nurut; penurut",
-    "labels": [
-      "kata sifat"
     ]
   },
   {
@@ -10377,11 +10281,46 @@
     ]
   },
   {
+    "word": "ngadhang",
+    "definition": "menghadang",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "ngadhep",
+    "definition": "menghadap",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "ngajak",
+    "definition": "mengajak",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "ngajar",
+    "definition": "mengajar",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
     "word": "ngajeng",
     "definition": "depan",
     "labels": [
       "kata keterangan",
       "krama"
+    ]
+  },
+  {
+    "word": "ngajeni",
+    "definition": "menghormati, menghargai",
+    "labels": [
+      "kata kerja"
     ]
   },
   {
@@ -10407,8 +10346,36 @@
     ]
   },
   {
+    "word": "ngampung",
+    "definition": "menumpang",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
     "word": "ngamuk",
     "definition": "marah",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "nganak-nganaké",
+    "definition": "berusaha dengan keras agar ada",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "nganakké",
+    "definition": "riba",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "nganggep",
+    "definition": "menganggap",
     "labels": [
       "kata kerja"
     ]
@@ -10493,6 +10460,13 @@
     ]
   },
   {
+    "word": "ngedol",
+    "definition": "menjual",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
     "word": "ngemat",
     "definition": "membaca mantra/berdoa",
     "labels": [
@@ -10500,8 +10474,22 @@
     ]
   },
   {
+    "word": "ngemik'i",
+    "definition": "menyusui",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "ngemit",
     "definition": "berjaga/menjaga sesuatu",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "ngemot",
+    "definition": "memuat, mengandung",
     "labels": [
       "tidak diketahui"
     ]
@@ -10521,13 +10509,6 @@
     ]
   },
   {
-    "word": "ngemik'i",
-    "definition": "menyusui",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "ngewohi",
     "definition": "merecoki",
     "labels": [
@@ -10535,10 +10516,24 @@
     ]
   },
   {
+    "word": "ngincer",
+    "definition": "mengincar",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
     "word": "ngintik",
     "definition": "mengintip",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "ngisin-ngisini",
+    "definition": "membuat malu, malu-maluin",
+    "labels": [
+      "kata kerja"
     ]
   },
   {
@@ -10612,13 +10607,6 @@
     ]
   },
   {
-    "word": "ngrebyong",
-    "definition": "rindang",
-    "labels": [
-      "kata sifat"
-    ]
-  },
-  {
     "word": "ngobati",
     "definition": "mengobati",
     "labels": [
@@ -10647,6 +10635,13 @@
     ]
   },
   {
+    "word": "ngowoh",
+    "definition": "melongo",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
     "word": "ngowéh",
     "definition": "melongo",
     "labels": [
@@ -10654,10 +10649,10 @@
     ]
   },
   {
-    "word": "ngowoh",
-    "definition": "melongo",
+    "word": "ngrebyong",
+    "definition": "rindang",
     "labels": [
-      "kata kerja"
+      "kata sifat"
     ]
   },
   {
@@ -10693,6 +10688,115 @@
     "definition": "minum",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "ngusapi",
+    "definition": "mengusapi",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "niki (k)",
+    "definition": "ini",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "niku (k)",
+    "definition": "itu",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "ning",
+    "definition": "panggilan untuk kakak perempuan",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "ninggal'aken (k)",
+    "definition": "meninggalkan",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "ninggali",
+    "definition": "meninggalkan",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "njangan",
+    "definition": "menyayur, memasak sayur",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "nodhi",
+    "definition": "mencoba",
+    "labels": [
+      "kata sifat",
+      "krama"
+    ]
+  },
+  {
+    "word": "nolo",
+    "definition": "pikiran",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "nopo",
+    "definition": "apa",
+    "labels": [
+      "kata sifat",
+      "krama"
+    ]
+  },
+  {
+    "word": "noto",
+    "definition": "raja",
+    "labels": [
+      "kata sifat",
+      "krama"
+    ]
+  },
+  {
+    "word": "nowo",
+    "definition": "sembilan",
+    "labels": [
+      "kata sifat",
+      "krama"
+    ]
+  },
+  {
+    "word": "nuku",
+    "definition": " membeli",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "nurut  )",
+    "definition": "nurut; penurut",
+    "labels": [
+      "kata sifat"
+    ]
+  },
+  {
+    "word": "nuwun sewu",
+    "definition": "permisi",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -10801,10 +10905,17 @@
     ]
   },
   {
-    "word": "nyemak",
-    "definition": "menyimak, mengikuti, mencermati",
+    "word": "nyelehke",
+    "definition": "meletakan sesuatu yang bukan milik sendiri",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "nyelekit",
+    "definition": "memberikan sensasi seperti dicubit/digigit semut; menusuk hati",
+    "labels": [
+      "kata kerja"
     ]
   },
   {
@@ -10815,10 +10926,17 @@
     ]
   },
   {
-    "word": "nyelehke",
-    "definition": "meletakan sesuatu yang bukan milik sendiri",
+    "word": "nyemak",
+    "definition": "menyimak, mengikuti, mencermati",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "nyiduk",
+    "definition": "mengambil air dengan gayung",
+    "labels": [
+      "kata kerja"
     ]
   },
   {
@@ -10838,6 +10956,13 @@
   {
     "word": "nyilahno",
     "definition": "dipinjamkan",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "nyiprat",
+    "definition": "memercik",
     "labels": [
       "tidak diketahui"
     ]
@@ -10864,10 +10989,31 @@
     ]
   },
   {
+    "word": "nyokot",
+    "definition": "menggigit",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "nyolong",
+    "definition": "mencuri",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
     "word": "nyolong",
     "definition": "mencuri (nyolongo) curilah (nyawiji,seperti,langit)",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "nyolongan",
+    "definition": "sering mencuri; suka mencuri; panjang tangan",
+    "labels": [
+      "kata sifat"
     ]
   },
   {
@@ -10885,6 +11031,20 @@
     ]
   },
   {
+    "word": "nyoplok",
+    "definition": "mencabut, mencopot, melepas, menanggalkan",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "nyopot",
+    "definition": "mencabut, menanggalkan, melepas",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
     "word": "nyrawung",
     "definition": "berkumpul",
     "labels": [
@@ -10892,15 +11052,30 @@
     ]
   },
   {
-    "word": "nyuguhi",
-    "definition": "menjamu, menyuguhkan",
+    "word": "nyrita'aken",
+    "definition": "menceritakan; bercerita",
     "labels": [
-      "tidak diketahui"
+      "kata kerja",
+      "krama"
     ]
   },
   {
-    "word": "nyulohi",
-    "definition": "menerangi",
+    "word": "nyritakake",
+    "definition": "bercerita, menceritakan",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "nyucuk",
+    "definition": "mematuk",
+    "labels": [
+      "kata kerja"
+    ]
+  },
+  {
+    "word": "nyuguhi",
+    "definition": "menjamu, menyuguhkan",
     "labels": [
       "tidak diketahui"
     ]
@@ -10913,10 +11088,31 @@
     ]
   },
   {
+    "word": "nyulohi",
+    "definition": "menerangi",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "nyunggi",
     "definition": "menaruh sesuatu di kepala",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "nèk ngono",
+    "definition": "kalau begitu / berarti",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "nétra",
+    "definition": "mata",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -10934,8 +11130,8 @@
     ]
   },
   {
-    "word": "olo",
-    "definition": "buruk",
+    "word": "olah",
+    "definition": "gerak, berbuat",
     "labels": [
       "tidak diketahui"
     ]
@@ -10948,8 +11144,8 @@
     ]
   },
   {
-    "word": "olah",
-    "definition": "gerak, berbuat",
+    "word": "olo",
+    "definition": "buruk",
     "labels": [
       "tidak diketahui"
     ]
@@ -10957,6 +11153,13 @@
   {
     "word": "olèh",
     "definition": "boleh",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "olěh opo",
+    "definition": "dapat apa",
     "labels": [
       "tidak diketahui"
     ]
@@ -10983,15 +11186,15 @@
     ]
   },
   {
-    "word": "onjokolo (k)",
-    "definition": "petang",
+    "word": "ondhé-ondhé",
+    "definition": "sejenis jajan tradisional yang bagian luarnya ditaburi wijen",
     "labels": [
       "tidak diketahui"
     ]
   },
   {
-    "word": "ondhé-ondhé",
-    "definition": "sejenis jajan tradisional yang bagian luarnya ditaburi wijen",
+    "word": "onjokolo (k)",
+    "definition": "petang",
     "labels": [
       "tidak diketahui"
     ]
@@ -11011,22 +11214,15 @@
     ]
   },
   {
-    "word": "oyak",
-    "definition": "kejar / buru",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "olěh opo",
-    "definition": "dapat apa",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "opo olěh",
     "definition": "apa dapat",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "oyak",
+    "definition": "kejar / buru",
     "labels": [
       "tidak diketahui"
     ]
@@ -11053,20 +11249,6 @@
     ]
   },
   {
-    "word": "dipaido",
-    "definition": "dihina, dicerca",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
-    "word": "maido",
-    "definition": "menghina, mencerca",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
     "word": "paidon",
     "definition": "hinaan, cercaan",
     "labels": [
@@ -11089,15 +11271,15 @@
     ]
   },
   {
-    "word": "panjenengan",
-    "definition": "Anda / kamu / engkau (lebih sopan)",
+    "word": "pakan",
+    "definition": "makanan hewan ternak",
     "labels": [
-      "tidak diketahui"
+      "kata benda"
     ]
   },
   {
-    "word": "pakan",
-    "definition": "makanan hewan ternak",
+    "word": "paklik",
+    "definition": "paman",
     "labels": [
       "kata benda"
     ]
@@ -11173,6 +11355,13 @@
     ]
   },
   {
+    "word": "panjenengan",
+    "definition": "Anda / kamu / engkau (lebih sopan)",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "panti",
     "definition": "tempat",
     "labels": [
@@ -11184,6 +11373,27 @@
     "definition": "empat",
     "labels": [
       "kata benda"
+    ]
+  },
+  {
+    "word": "paraga",
+    "definition": "pemeran, tokoh, karakter",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "pari",
+    "definition": "padi",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "paro",
+    "definition": "paruh, separuh diparoh : dibagi",
+    "labels": [
+      "kata sifat"
     ]
   },
   {
@@ -11229,31 +11439,10 @@
     ]
   },
   {
-    "word": "paraga",
-    "definition": "pemeran, tokoh, karakter",
+    "word": "pawon",
+    "definition": "Dapur",
     "labels": [
       "kata benda"
-    ]
-  },
-  {
-    "word": "pari",
-    "definition": "padi",
-    "labels": [
-      "kata benda"
-    ]
-  },
-  {
-    "word": "paro",
-    "definition": "paruh, separuh diparoh : dibagi",
-    "labels": [
-      "kata sifat"
-    ]
-  },
-  {
-    "word": "diparoh",
-    "definition": "dibagi",
-    "labels": [
-      "kata kerja"
     ]
   },
   {
@@ -11289,6 +11478,13 @@
     "definition": "mangga",
     "labels": [
       "kata benda"
+    ]
+  },
+  {
+    "word": "pelo",
+    "definition": "cedal",
+    "labels": [
+      "tidak diketahui"
     ]
   },
   {
@@ -11336,20 +11532,6 @@
   {
     "word": "pethok",
     "definition": "buntal",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "pelo",
-    "definition": "cedal",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "péthét",
-    "definition": "petik",
     "labels": [
       "tidak diketahui"
     ]
@@ -11414,13 +11596,6 @@
   {
     "word": "pisuh",
     "definition": "umpat misuh : mengumpat",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "misuh",
-    "definition": "mengumpat",
     "labels": [
       "tidak diketahui"
     ]
@@ -11503,17 +11678,17 @@
     ]
   },
   {
-    "word": "pring",
-    "definition": "bambu",
-    "labels": [
-      "kata benda"
-    ]
-  },
-  {
     "word": "prigel",
     "definition": "ulet, bisa diandalkan",
     "labels": [
       "kata sifat"
+    ]
+  },
+  {
+    "word": "pring",
+    "definition": "bambu",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -11570,6 +11745,13 @@
     "definition": "cucu; kue putu",
     "labels": [
       "kata benda"
+    ]
+  },
+  {
+    "word": "péthét",
+    "definition": "petik",
+    "labels": [
+      "tidak diketahui"
     ]
   },
   {
@@ -11748,6 +11930,13 @@
     ]
   },
   {
+    "word": "remen",
+    "definition": "seneng",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "remeng-remeng",
     "definition": "samar/remang-remang",
     "labels": [
@@ -11813,6 +12002,13 @@
   {
     "word": "resek",
     "definition": "sampah",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "resik",
+    "definition": "bersih",
     "labels": [
       "tidak diketahui"
     ]
@@ -11986,6 +12182,13 @@
     ]
   },
   {
+    "word": "rukun",
+    "definition": "tentram",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "rumangsa",
     "definition": "merasa dalam hati",
     "labels": [
@@ -12002,13 +12205,6 @@
   {
     "word": "rumat",
     "definition": "pelihara",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "rukun",
-    "definition": "tentram",
     "labels": [
       "tidak diketahui"
     ]
@@ -12063,20 +12259,6 @@
     ]
   },
   {
-    "word": "remen",
-    "definition": "seneng",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "resik",
-    "definition": "bersih",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "rèncèk",
     "definition": "ranting pepohonan untuk bahan bakar",
     "labels": [
@@ -12091,8 +12273,8 @@
     ]
   },
   {
-    "word": "saka",
-    "definition": "Dari",
+    "word": "sak upo mo",
+    "definition": "cuma nasi pak",
     "labels": [
       "tidak diketahui"
     ]
@@ -12105,8 +12287,8 @@
     ]
   },
   {
-    "word": "sak upo mo",
-    "definition": "cuma nasi pak",
+    "word": "saka",
+    "definition": "Dari",
     "labels": [
       "tidak diketahui"
     ]
@@ -12133,15 +12315,22 @@
     ]
   },
   {
-    "word": "sampyuh",
-    "definition": "mati di ke dua belah pihak dalam pertempuran",
+    "word": "sampeyan",
+    "definition": "Anda / kamu / engkau (lebih sopan)",
     "labels": [
       "tidak diketahui"
     ]
   },
   {
-    "word": "sampeyan",
-    "definition": "Anda / kamu / engkau (lebih sopan)",
+    "word": "sampun",
+    "definition": "sudah",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "sampyuh",
+    "definition": "mati di ke dua belah pihak dalam pertempuran",
     "labels": [
       "tidak diketahui"
     ]
@@ -12203,6 +12392,13 @@
     ]
   },
   {
+    "word": "sedhih",
+    "definition": "Sedih",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
     "word": "sedhèrèk",
     "definition": "",
     "labels": [
@@ -12245,6 +12441,13 @@
     ]
   },
   {
+    "word": "sekolah",
+    "definition": "Sekolah",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
     "word": "sela",
     "definition": "longgar",
     "labels": [
@@ -12259,15 +12462,15 @@
     ]
   },
   {
-    "word": "semrawut",
-    "definition": "kacau",
+    "word": "sembogo",
+    "definition": "semboyan / moto / slogan",
     "labels": [
       "tidak diketahui"
     ]
   },
   {
-    "word": "sembogo",
-    "definition": "semboyan / moto / slogan",
+    "word": "semrawut",
+    "definition": "kacau",
     "labels": [
       "tidak diketahui"
     ]
@@ -12350,6 +12553,20 @@
     ]
   },
   {
+    "word": "sesuk",
+    "definition": "Besok",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "sewengi",
+    "definition": "semalam",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "sibén",
     "definition": "membasuh badan dengan menggunakan kain atau handuk basah",
     "labels": [
@@ -12385,6 +12602,13 @@
     ]
   },
   {
+    "word": "siji",
+    "definition": "Satu",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
     "word": "sikil",
     "definition": "kaki",
     "labels": [
@@ -12413,20 +12637,6 @@
     ]
   },
   {
-    "word": "sinubo",
-    "definition": "belajar",
-    "labels": [
-      "krama"
-    ]
-  },
-  {
-    "word": "sinukarto",
-    "definition": "mengajarkan",
-    "labels": [
-      "krama"
-    ]
-  },
-  {
     "word": "sinau",
     "definition": "Belajar",
     "labels": [
@@ -12438,6 +12648,20 @@
     "definition": "yang",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "sinubo",
+    "definition": "belajar",
+    "labels": [
+      "krama"
+    ]
+  },
+  {
+    "word": "sinukarto",
+    "definition": "mengajarkan",
+    "labels": [
+      "krama"
     ]
   },
   {
@@ -12518,10 +12742,38 @@
     ]
   },
   {
+    "word": "sudhó",
+    "definition": "susut / berkurang",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "sugeng",
     "definition": "hidup",
     "labels": [
       "krama"
+    ]
+  },
+  {
+    "word": "sugeng dalu",
+    "definition": "selamat malam",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "sugeng enjing",
+    "definition": "selamat pagi",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "sugeng rawuh",
+    "definition": "selamat tinggal",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -12541,6 +12793,27 @@
   {
     "word": "sumringah",
     "definition": "cerah pada wajah yang gembira",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "sundhél",
+    "definition": "hantu perempuan",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "sunggar",
+    "definition": "menanduk dengan kepala",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "sungu",
+    "definition": "tanduk",
     "labels": [
       "tidak diketahui"
     ]
@@ -12581,34 +12854,6 @@
     ]
   },
   {
-    "word": "sudhó",
-    "definition": "susut / berkurang",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "sundhél",
-    "definition": "hantu perempuan",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "sungu",
-    "definition": "tanduk",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "sunggar",
-    "definition": "menanduk dengan kepala",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "séda",
     "definition": "mati (Jawa halus)",
     "labels": [
@@ -12644,8 +12889,8 @@
     ]
   },
   {
-    "word": "[[tandang]]",
-    "definition": "bekerja",
+    "word": "tandur",
+    "definition": "tanam",
     "labels": [
       "kata kerja"
     ]
@@ -12659,10 +12904,10 @@
     ]
   },
   {
-    "word": "tandur",
-    "definition": "tanam",
+    "word": "tangan",
+    "definition": "Tangan",
     "labels": [
-      "kata kerja"
+      "kata benda"
     ]
   },
   {
@@ -12708,13 +12953,6 @@
     ]
   },
   {
-    "word": "teken",
-    "definition": "tongkat",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "tekak",
     "definition": "cekik",
     "labels": [
@@ -12726,6 +12964,13 @@
     "definition": "sampai",
     "labels": [
       "kata keterangan"
+    ]
+  },
+  {
+    "word": "teken",
+    "definition": "tongkat",
+    "labels": [
+      "tidak diketahui"
     ]
   },
   {
@@ -12743,6 +12988,27 @@
     ]
   },
   {
+    "word": "telek",
+    "definition": "tai ayam",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "telo bosok",
+    "definition": "tape",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "telu",
+    "definition": "Tiga",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
     "word": "teluk",
     "definition": "takluk, menyerah telukan : jajahan",
     "labels": [
@@ -12757,31 +13023,10 @@
     ]
   },
   {
-    "word": "telo bosok",
-    "definition": "tape",
-    "labels": [
-      "kata benda"
-    ]
-  },
-  {
-    "word": "tempe",
-    "definition": "tempe",
-    "labels": [
-      "kata benda"
-    ]
-  },
-  {
     "word": "temah",
     "definition": "manjadi",
     "labels": [
       "kata kerja"
-    ]
-  },
-  {
-    "word": "tembung",
-    "definition": "kata",
-    "labels": [
-      "kata benda"
     ]
   },
   {
@@ -12799,8 +13044,15 @@
     ]
   },
   {
-    "word": "telek",
-    "definition": "tai ayam",
+    "word": "tembung",
+    "definition": "kata",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
+    "word": "tempe",
+    "definition": "tempe",
     "labels": [
       "kata benda"
     ]
@@ -12845,6 +13097,13 @@
     "definition": "tepat, pas, sesuai",
     "labels": [
       "kata sifat"
+    ]
+  },
+  {
+    "word": "tepos",
+    "definition": "",
+    "labels": [
+      "tidak diketahui"
     ]
   },
   {
@@ -12918,17 +13177,17 @@
     ]
   },
   {
-    "word": "tirta",
-    "definition": "Air",
-    "labels": [
-      "kata benda"
-    ]
-  },
-  {
     "word": "tinular",
     "definition": "menyampaikan sesuatu",
     "labels": [
       "kata kerja"
+    ]
+  },
+  {
+    "word": "tirta",
+    "definition": "Air",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -12981,6 +13240,13 @@
     ]
   },
   {
+    "word": "tuku (N)",
+    "definition": "beli",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "tulada",
     "definition": "contoh, teladan",
     "labels": [
@@ -12999,13 +13265,6 @@
     "definition": "beli",
     "labels": [
       "krama"
-    ]
-  },
-  {
-    "word": "tuku (N)",
-    "definition": "beli",
-    "labels": [
-      "tidak diketahui"
     ]
   },
   {
@@ -13072,24 +13331,17 @@
     ]
   },
   {
-    "word": "tutur",
-    "definition": "kata",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "tuturi",
-    "definition": "omongi,bilangin",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "turangga",
     "definition": "jaran",
     "labels": [
       "tidak diketahui"
+    ]
+  },
+  {
+    "word": "turu",
+    "definition": "Tidur",
+    "labels": [
+      "kata benda"
     ]
   },
   {
@@ -13102,6 +13354,20 @@
   {
     "word": "turuk",
     "definition": "kelamin wanita",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "tutur",
+    "definition": "kata",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
+    "word": "tuturi",
+    "definition": "omongi,bilangin",
     "labels": [
       "tidak diketahui"
     ]
@@ -13121,10 +13387,10 @@
     ]
   },
   {
-    "word": "tepos",
-    "definition": "",
+    "word": "ubarampé",
+    "definition": "perlengkapan",
     "labels": [
-      "tidak diketahui"
+      "kata benda"
     ]
   },
   {
@@ -13132,13 +13398,6 @@
     "definition": "kejar, buru",
     "labels": [
       "kata kerja"
-    ]
-  },
-  {
-    "word": "ubarampé",
-    "definition": "perlengkapan",
-    "labels": [
-      "kata benda"
     ]
   },
   {
@@ -13160,6 +13419,13 @@
     "definition": "jenis ikan sungai",
     "labels": [
       "kata benda"
+    ]
+  },
+  {
+    "word": "ucul",
+    "definition": "lepas",
+    "labels": [
+      "tidak diketahui"
     ]
   },
   {
@@ -13198,17 +13464,17 @@
     ]
   },
   {
-    "word": "ucul",
-    "definition": "lepas",
+    "word": "ujaripun",
+    "definition": "katanya",
     "labels": [
       "tidak diketahui"
     ]
   },
   {
-    "word": "ujaripun",
-    "definition": "katanya",
+    "word": "ujug-ujug",
+    "definition": "datang dengan tiba-tiba",
     "labels": [
-      "tidak diketahui"
+      "kata kerja"
     ]
   },
   {
@@ -13219,15 +13485,15 @@
     ]
   },
   {
-    "word": "ulap",
-    "definition": "silau",
+    "word": "ulam",
+    "definition": "ikan",
     "labels": [
       "tidak diketahui"
     ]
   },
   {
-    "word": "ulam",
-    "definition": "ikan",
+    "word": "ulap",
+    "definition": "silau",
     "labels": [
       "tidak diketahui"
     ]
@@ -13332,13 +13598,6 @@
     ]
   },
   {
-    "word": "ngusapi",
-    "definition": "mengusapi",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
     "word": "usik",
     "definition": "ganggu",
     "labels": [
@@ -13353,15 +13612,15 @@
     ]
   },
   {
-    "word": "usus-usus",
-    "definition": "tali kolor",
+    "word": "usus",
+    "definition": "usus",
     "labels": [
       "kata benda"
     ]
   },
   {
-    "word": "usus",
-    "definition": "usus",
+    "word": "usus-usus",
+    "definition": "tali kolor",
     "labels": [
       "kata benda"
     ]
@@ -13457,13 +13716,6 @@
     "definition": "garam",
     "labels": [
       "kata benda"
-    ]
-  },
-  {
-    "word": "ujug-ujug",
-    "definition": "datang dengan tiba-tiba",
-    "labels": [
-      "kata kerja"
     ]
   },
   {
@@ -14221,6 +14473,13 @@
     ]
   },
   {
+    "word": "wedi",
+    "definition": "Takut",
+    "labels": [
+      "kata benda"
+    ]
+  },
+  {
     "word": "wegah",
     "definition": "enggan; malas/kurang semangat",
     "labels": [
@@ -14242,17 +14501,17 @@
     ]
   },
   {
-    "word": "wekasi",
-    "definition": "berpesan/menyampaikan",
-    "labels": [
-      "kata kerja"
-    ]
-  },
-  {
     "word": "wekasan",
     "definition": "akhir",
     "labels": [
       "kata benda"
+    ]
+  },
+  {
+    "word": "wekasi",
+    "definition": "berpesan/menyampaikan",
+    "labels": [
+      "kata kerja"
     ]
   },
   {
@@ -14312,13 +14571,6 @@
     ]
   },
   {
-    "word": "sewengi",
-    "definition": "semalam",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
     "word": "wengku",
     "definition": "memangku, menikahi (pria menikahi wanita)",
     "labels": [
@@ -14337,6 +14589,13 @@
     "definition": "betis",
     "labels": [
       "kata benda"
+    ]
+  },
+  {
+    "word": "werdhi (k)",
+    "definition": "arti",
+    "labels": [
+      "tidak diketahui"
     ]
   },
   {
@@ -14410,6 +14669,13 @@
     ]
   },
   {
+    "word": "wibi",
+    "definition": "ibu",
+    "labels": [
+      "kata keterangan"
+    ]
+  },
+  {
     "word": "widada",
     "definition": "selamat",
     "labels": [
@@ -14435,13 +14701,6 @@
     "definition": "perlu, penting",
     "labels": [
       "kata sifat"
-    ]
-  },
-  {
-    "word": "wibi",
-    "definition": "ibu",
-    "labels": [
-      "kata keterangan"
     ]
   },
   {
@@ -14742,6 +15001,13 @@
     ]
   },
   {
+    "word": "wruhaniró (k)",
+    "definition": "pengetahuanmu",
+    "labels": [
+      "tidak diketahui"
+    ]
+  },
+  {
     "word": "wré",
     "definition": "kera",
     "labels": [
@@ -14850,20 +15116,6 @@
   {
     "word": "wuru",
     "definition": "mabuk",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "wruhaniró (k)",
-    "definition": "pengetahuanmu",
-    "labels": [
-      "tidak diketahui"
-    ]
-  },
-  {
-    "word": "werdhi (k)",
-    "definition": "arti",
     "labels": [
       "tidak diketahui"
     ]

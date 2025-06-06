@@ -20,7 +20,7 @@ class MaterialTheme {
       onSecondaryContainer: Color(0xff6f6248),
       tertiary: Color(0xff7F833A), // primary border (outline finish card)
       onTertiary: Color(0xffffffff),
-      tertiaryContainer: Color(0xffa3a85e),
+      tertiaryContainer: Color(0xffa3a85e), // matsu primary
       onTertiaryContainer: Color(0xff383c00),
       error: Color(0xff66150e),
       onError: Color(0xffffffff),
@@ -51,9 +51,9 @@ class MaterialTheme {
       surfaceBright: Color(0xfffef8f4),
       surfaceContainerLowest: Color(0xffffffff),
       surfaceContainerLow: Color(0xfff8f3ee),
-      surfaceContainer: Color(0xff9B9B9B), // font
-      surfaceContainerHigh: Color(0xffD6D6D6), // card locked
-      surfaceContainerHighest: Color(0xffDEE3E5), //outline card locked
+      surfaceContainer: Color(0xff474747), // font
+      surfaceContainerHigh: Color(0xffA9A9A9), //outline card locked
+      surfaceContainerHighest: Color(0xffDEE3E5), // card locked
     );
   }
 
@@ -136,12 +136,12 @@ class MaterialTheme {
         ),
       ),
       FeedbackColors(
-        correctBackground: const Color(0xFFE6F4EA),
-        correctForeground: const Color(0xFF2E7D32),
-        correctButton: const Color(0xFF4B6B2D),
-        wrongBackground: const Color(0xFFFFE6E6),
-        wrongForeground: const Color(0xFFD32F2F),
-        wrongButton: const Color(0xFFA13A2C),
+        correctBackground: const Color(0xFFD6E3C4),
+        correctForeground: const Color(0xFF3F5932),
+        correctButton: const Color(0xFF5A7D4C),
+        wrongBackground: const Color(0xFFE6C8C1),
+        wrongForeground: const Color(0xFF8C4A3F),
+        wrongButton: const Color(0xFF852C22),
       ),
     ],
   );
